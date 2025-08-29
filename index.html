@@ -26,6 +26,12 @@
     /* Swiper accent color */
     .swiper-button-prev, .swiper-button-next { color: var(--accent); }
     .swiper-pagination-bullet-active { background: var(--accent) !important; }
+    .bg-pattern {
+      background-image: url('images/pattern.png');
+      background-repeat: repeat;
+      background-position: center;
+      background-size: 200px 200px; /* 패턴 크기 조정 */
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -53,20 +59,25 @@
   </header>
 
   <!-- Hero -->
-  <section id="top" class="relative overflow-hidden">
+  <section id="top"
+    class="relative overflow-hidden bg-[url('images/pattern.png')] bg-repeat bg-center">
     <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
       <div>
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4" data-i18n="hero_title">
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4 text-white" data-i18n="hero_title">
           2025 WEBCEPH 미니 인증 코스 — 한·일 얼라이너 마스터 클래스
         </h1>
-        <p class="text-lg text-slate-600 mb-6" data-i18n="hero_sub">
+        <p class="text-lg mb-6 text-gray-200" data-i18n="hero_sub">
           한·일 얼라이너 대표 연자들이 전하는 최신 인사이트와 실전 노하우를 한 자리에서 만나보세요.
         </p>
         <div class="flex flex-wrap items-center gap-3 text-sm">
-          <a href="#register" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl btn-accent font-semibold" data-i18n="cta_register">등록하기</a>
-          <a href="#program" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 hover:border-accent" data-i18n="cta_program">프로그램 보기</a>
+          <a href="#register"
+             class="inline-flex items-center gap-2 px-5 py-3 rounded-xl btn-accent font-semibold">등록하기</a>
+          <a href="#program"
+             class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-gray-200 text-white hover:border-accent">프로그램 보기</a>
         </div>
-        <p class="mt-4 text-xs text-slate-500" data-i18n="hero_qr">QR 코드를 스캔하면 이 페이지로 연결됩니다.</p>
+        <p class="mt-4 text-xs text-gray-300" data-i18n="hero_qr">
+          QR 코드를 스캔하면 이 페이지로 연결됩니다.
+        </p>
       </div>
       <div class="glass p-6 md:p-8 rounded-3xl shadow-xl border border-slate-200">
         <div class="grid sm:grid-cols-2 gap-4 text-sm">
@@ -122,21 +133,33 @@
             <!-- Slide 1 -->
             <div class="swiper-slide flex items-center justify-center bg-slate-100">
               <div class="w-full aspect-square md:aspect-[4/3]">
-                <img src="images/benefit1.jpg" alt="Benefit 1" class="w-full h-full object-cover rounded-lg">
+                <img src="images/benefit1.png" alt="Benefit 1" class="w-full h-full object-cover rounded-lg">
               </div>
             </div>
             <!-- Slide 2 -->
             <div class="swiper-slide flex items-center justify-center bg-slate-100">
               <div class="w-full aspect-square md:aspect-[4/3]">
-                <img src="images/benefit2.jpg" alt="Benefit 2" class="w-full h-full object-cover rounded-lg">
+                <img src="images/benefit2.png" alt="Benefit 2" class="w-full h-full object-cover rounded-lg">
               </div>
             </div>
             <!-- Slide 3 -->
-            <div class="swiper-slide flex items-center justify-center bg-slate-100">
+            <!-- <div class="swiper-slide flex items-center justify-center bg-slate-100">
               <div class="w-full aspect-square md:aspect-[4/3]">
-                <img src="images/benefit3.jpg" alt="Benefit 3" class="w-full h-full object-cover rounded-lg">
+                <img src="images/shuichiro.PNG" alt="Benefit 3" class="w-full h-full object-cover rounded-lg">
               </div>
-            </div>
+            </div> -->
+            <!-- Slide 4 -->
+            <!-- <div class="swiper-slide flex items-center justify-center bg-slate-100">
+              <div class="w-full aspect-square md:aspect-[4/3]">
+                <img src="images/shuichiro.PNG" alt="Benefit 3" class="w-full h-full object-cover rounded-lg">
+              </div>
+            </div> -->
+            <!-- Slide 5 -->
+            <!-- <div class="swiper-slide flex items-center justify-center bg-slate-100">
+              <div class="w-full aspect-square md:aspect-[4/3]">
+                <img src="images/shuichiro.PNG" alt="Benefit 3" class="w-full h-full object-cover rounded-lg">
+              </div>
+            </div> -->
           </div>
           <!-- Navigation -->
           <div class="swiper-pagination"></div>
@@ -229,41 +252,66 @@
 
 
 
-  <!-- Speakers -->
-  <section id="speakers" class="section py-16">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold mb-8" data-i18n="speakers_title">연사</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-          <div class="h-40 bg-slate-200 rounded-xl mb-4"></div>
-          <h3 class="font-semibold">Dr. Hiroyuki Watabe</h3>
-          <p class="text-sm text-slate-600" data-i18n="sp1">아이데기 M 교정치과, 인터내셔널 패컬티</p>
-        </div>
-        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-          <div class="h-40 bg-slate-200 rounded-xl mb-4"></div>
-          <h3 class="font-semibold">Dr. Takao Minamide</h3>
-          <p class="text-sm text-slate-600" data-i18n="sp2">『THE ALIGNER ORTHO』 저자, 후쿠오카 M 교정치과</p>
-        </div>
-        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-          <div class="h-40 bg-slate-200 rounded-xl mb-4"></div>
-          <h3 class="font-semibold">Dr. Shuichiro Okano</h3>
-          <p class="text-sm text-slate-600" data-i18n="sp3">『THE ALIGNER ORTHO』 저자, 인터내셔널 패컬티</p>
-        </div>
+<!-- Speakers -->
+<section id="speakers" class="section py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold mb-8" data-i18n="speakers_title">연사</h2>
+
+    <!-- 모바일 1열 → 태블릿 2열 → PC 5열 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      <!-- 1 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <img src="images/hiroyuki.PNG" alt="Dr. Hiroyuki Watabe"
+             class="w-full h-[450px] object-cover rounded-xl mb-4">
+        <h3 class="font-semibold">Dr. Hiroyuki Watabe</h3>
+        <p class="text-sm text-slate-600" data-i18n="sp1">
+          아이데기 M 교정치과, 인터내셔널 패컬티
+        </p>
       </div>
-      <div class="mt-6 grid md:grid-cols-2 gap-6">
-        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-          <div class="h-40 bg-slate-200 rounded-xl mb-4"></div>
-          <h3 class="font-semibold">Dr. 김예현</h3>
-          <p class="text-sm text-slate-600" data-i18n="sp4">서울치의원 치과교정과, WEBCEPH CEO</p>
-        </div>
-        <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-          <div class="h-40 bg-slate-200 rounded-xl mb-4"></div>
-          <h3 class="font-semibold">Dr. 최형주</h3>
-          <p class="text-sm text-slate-600" data-i18n="sp5">서울바른 치과교정과, 인터내셔널 패컬티</p>
-        </div>
+
+      <!-- 2 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <img src="images/takao.PNG" alt="Dr. Takao Minamide"
+             class="w-full h-[450px] object-cover rounded-xl mb-4">
+        <h3 class="font-semibold">Dr. Takao Minamide</h3>
+        <p class="text-sm text-slate-600" data-i18n="sp2">
+          『THE ALIGNER ORTHO』 저자, 후쿠오카 M 교정치과
+        </p>
+      </div>
+
+      <!-- 3 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <img src="images/shuichiro.PNG" alt="Dr. Shuichiro Okano"
+             class="w-full h-[450px] object-cover rounded-xl mb-4">
+        <h3 class="font-semibold">Dr. Shuichiro Okano</h3>
+        <p class="text-sm text-slate-600" data-i18n="sp3">
+          『THE ALIGNER ORTHO』 저자, 인터내셔널 패컬티
+        </p>
+      </div>
+
+      <!-- 4 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <img src="images/yehyun.PNG" alt="Dr. 김예현"
+             class="w-full h-[450px] object-cover rounded-xl mb-4">
+        <h3 class="font-semibold">Dr. 김예현</h3>
+        <p class="text-sm text-slate-600" data-i18n="sp4">
+          서울클리어치과교정과, WEBCEPH CEO
+        </p>
+      </div>
+
+      <!-- 5 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <img src="images/hyungjoo.PNG" alt="Dr. 최형주"
+             class="w-full h-[450px] object-cover rounded-xl mb-4">
+        <h3 class="font-semibold">Dr. 최형주</h3>
+        <p class="text-sm text-slate-600" data-i18n="sp5">
+          서울바른치과교정과, 인터내셔널 패컬티
+        </p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- Venue -->
   <section id="venue" class="section py-16 bg-white">
