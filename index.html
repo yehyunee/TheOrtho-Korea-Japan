@@ -85,21 +85,144 @@
     </div>
   </section>
 
-  <!-- Program -->
-  <section id="program" class="section py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6" data-i18n="program_title">프로그램</h2>
-      <ul class="space-y-3 text-sm md:text-base">
-        <li><strong>18:30–18:40</strong> <span data-i18n="p1">인사 및 소개</span></li>
-        <li><strong>18:40–19:10</strong> <span data-i18n="p2">Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</span></li>
-        <li><strong>19:10–19:40</strong> <span data-i18n="p3">Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</span></li>
-        <li><strong>19:40–19:50</strong> <span data-i18n="p4">Q&amp;A</span></li>
-        <li><strong>19:50–20:20</strong> <span data-i18n="p5">Dr. 김예현 — WEBCEPH 미니 인증 코스</span></li>
-        <li><strong>20:20–20:50</strong> <span data-i18n="p6">Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</span></li>
-        <li><strong>20:50–21:00</strong> <span data-i18n="p7">Q&amp;A 및 단체 사진 촬영</span></li>
-      </ul>
+
+  <!-- Benefits + Program -->
+<section id="program" class="section py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4">
+
+    <div class="grid md:grid-cols-2 gap-8 items-start mb-12">
+      <!-- 혜택 리스트 -->
+      <div>
+        <h2 class="text-2xl md:text-3xl font-bold mb-6" data-i18n="benefit_title">프로그램</h2>
+        <ul class="list-disc pl-6 space-y-3 text-sm md:text-base text-slate-700">
+          <li data-i18n="b1">최초 오프라인 실황! WEBCEPH 창업자 직강, 원포인트로 완전 마스터 & 공식 수료 써티 발급</li>
+          <li data-i18n="b2">최고 인기 얼라이너 교정서 『THE ALIGNER ORTHO』 저자들의 한국 최초 공식 강연</li>
+          <li data-i18n="b3">인비절라인 NO.1 최형주 원장의 진단 노하우 전격 공개</li>
+        </ul>
+        <div class="mt-6 text-sm text-slate-600">
+          <span data-i18n="contact">문의</span>: 
+          <a href="mailto:admin@assemblecircle.com" class="text-sky-600">admin@assemblecircle.com</a>
+        </div>
+      </div>
+
+      <!-- 이미지 카드 슬라이드 -->
+      <div class="w-full">
+        <div class="swiper w-full max-w-md md:max-w-full mx-auto rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+          <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide flex items-center justify-center bg-slate-100">
+              <div class="w-full aspect-square md:aspect-[4/3]">
+                <img src="images/benefit1.jpg" alt="Benefit 1" class="w-full h-full object-cover rounded-lg">
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="swiper-slide flex items-center justify-center bg-slate-100">
+              <div class="w-full aspect-square md:aspect-[4/3]">
+                <img src="images/benefit2.jpg" alt="Benefit 2" class="w-full h-full object-cover rounded-lg">
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="swiper-slide flex items-center justify-center bg-slate-100">
+              <div class="w-full aspect-square md:aspect-[4/3]">
+                <img src="images/benefit3.jpg" alt="Benefit 3" class="w-full h-full object-cover rounded-lg">
+              </div>
+            </div>
+          </div>
+          <!-- Navigation -->
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+
     </div>
-  </section>
+
+
+    <!-- 모바일: 카드 리스트 -->
+    <div class="space-y-4 md:hidden">
+      <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+        <p class="text-xs text-slate-500">18:30–18:40</p>
+        <p class="font-medium" data-i18n="p1">인사 및 소개</p>
+      </div>
+      <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+        <p class="text-xs text-slate-500">18:40–19:10</p>
+        <p class="font-medium" data-i18n="p2">Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</p>
+      </div>
+      <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+        <p class="text-xs text-slate-500">19:10–19:40</p>
+        <p class="font-medium" data-i18n="p3">Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</p>
+      </div>
+      <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+        <p class="text-xs text-slate-500">19:40–19:50</p>
+        <p class="font-medium" data-i18n="p4">Q&amp;A</p>
+      </div>
+      <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+        <p class="text-xs text-slate-500">19:50–20:20</p>
+        <p class="font-medium" data-i18n="p5">Dr. 김예현 — WEBCEPH 미니 인증 코스</p>
+      </div>
+      <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+        <p class="text-xs text-slate-500">20:20–20:50</p>
+        <p class="font-medium" data-i18n="p6">Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</p>
+      </div>
+      <div class="p-4 border border-slate-200 rounded-xl bg-white shadow-sm">
+        <p class="text-xs text-slate-500">20:50–21:00</p>
+        <p class="font-medium" data-i18n="p7">Q&amp;A 및 단체 사진 촬영</p>
+      </div>
+    </div>
+
+
+    <!-- 프로그램 테이블 (이전 답변 코드 그대로) -->
+    <div class="hidden md:block overflow-x-auto">
+      <table class="min-w-full border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+        <thead class="bg-sky-50">
+          <tr>
+            <th class="px-4 py-3 text-left text-sm font-semibold text-slate-600 w-32">시간</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold text-slate-600">내용</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr>
+            <td class="px-4 py-3 font-medium text-slate-700">18:30–18:40</td>
+            <td class="px-4 py-3" data-i18n="p1">인사 및 소개</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 font-medium text-slate-700">18:40–19:10</td>
+            <td class="px-4 py-3" data-i18n="p2">Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 font-medium text-slate-700">19:10–19:40</td>
+            <td class="px-4 py-3" data-i18n="p3">Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 font-medium text-slate-700">19:40–19:50</td>
+            <td class="px-4 py-3" data-i18n="p4">Q&amp;A</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 font-medium text-slate-700">19:50–20:20</td>
+            <td class="px-4 py-3" data-i18n="p5">Dr. 김예현 — WEBCEPH 미니 인증 코스</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 font-medium text-slate-700">20:20–20:50</td>
+            <td class="px-4 py-3" data-i18n="p6">Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</td>
+          </tr>
+          <tr>
+            <td class="px-4 py-3 font-medium text-slate-700">20:50–21:00</td>
+            <td class="px-4 py-3" data-i18n="p7">Q&amp;A 및 단체 사진 촬영</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 모바일 카드 리스트 (이전 답변 코드 그대로) -->
+    <div class="space-y-4 md:hidden mt-6">
+      <!-- 기존 카드들 넣기 -->
+    </div>
+  </div>
+</section>
+
+
+
+
 
   <!-- Speakers -->
   <section id="speakers" class="section py-16">
@@ -202,6 +325,18 @@
     </div>
   </section>
 
+
+<!-- SwiperJS CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper('.swiper', {
+    loop: true,
+    pagination: { el: '.swiper-pagination', clickable: true },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+  });
+</script>
+
   <!-- Benefits & FAQ -->
   <section id="faq" class="section py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4">
@@ -213,6 +348,31 @@
       </ul>
       <div class="mt-8 text-sm text-slate-600">
         <span data-i18n="contact">문의</span>: <a href="mailto:admin@assemblecircle.com" class="text-sky-600">admin@assemblecircle.com</a>
+      </div>
+    </div>
+  </section>
+
+    <!-- FAQ -->
+  <section id="faq" class="section py-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-bold mb-6">FAQ</h2>
+      <div class="divide-y divide-slate-200 bg-white border border-slate-200 rounded-2xl">
+        <details class="p-5" open>
+          <summary class="cursor-pointer font-semibold">환불 규정은 어떻게 되나요?</summary>
+          <p class="mt-2 text-sm text-slate-600">예시) D-7 100%, D-3 50%, 행사 당일 환불 불가. (결제수단별 수수료 차감 가능)</p>
+        </details>
+        <details class="p-5">
+          <summary class="cursor-pointer font-semibold">영수증 / 세금계산서 발행</summary>
+          <p class="mt-2 text-sm text-slate-600">결제 완료 메일에 카드영수증/현금영수증 링크가 포함됩니다. 사업자 세금계산서가 필요하면 등록 폼 비고란에 기입하세요.</p>
+        </details>
+        <details class="p-5">
+          <summary class="cursor-pointer font-semibold">현장 입장 방법</summary>
+          <p class="mt-2 text-sm text-slate-600">확인 메일의 QR을 스캔하거나, 상단 "QR 티켓"에서 생성한 QR을 제시하면 됩니다. 신분증 지참 권장.</p>
+        </details>
+        <details class="p-5">
+          <summary class="cursor-pointer font-semibold">기타 문의</summary>
+          <p class="mt-2 text-sm text-slate-600">이메일: support@webceph.com / 카카오톡 채널: @webceph</p>
+        </details>
       </div>
     </div>
   </section>
