@@ -12,11 +12,20 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
-    :root { --accent: #0ea5e9; }
+    /* Poster tone — deep royal blue */
+    :root { --accent: #332CF5; }
     body { font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
     .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.7); }
     .section { scroll-margin-top: 96px; }
     .badge { display:inline-block; padding:.25rem .5rem; border-radius:.5rem; background:#e2e8f0; font-size:.75rem; }
+    .btn-accent { background: var(--accent); color:#fff; }
+    .btn-accent:hover { filter: brightness(0.92); }
+    .text-accent { color: var(--accent); }
+    .border-accent { border-color: var(--accent); }
+    .swiper-slide, swiper-slide{ width: 100% !important; }
+    /* Swiper accent color */
+    .swiper-button-prev, .swiper-button-next { color: var(--accent); }
+    .swiper-pagination-bullet-active { background: var(--accent) !important; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -24,20 +33,21 @@
   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-2 font-semibold">
-        <span class="inline-block w-8 h-8 rounded-xl bg-sky-500"></span>
+        <span class="inline-block w-8 h-8 rounded-xl" style="background:var(--accent)"></span>
         <span id="navTitle">2025 WEBCEPH 미니 인증 코스 — 한·일 얼라이너 마스터 클래스</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#program" class="hover:text-sky-600" data-i18n="nav_program">프로그램</a>
-        <a href="#speakers" class="hover:text-sky-600" data-i18n="nav_speakers">연사</a>
-        <a href="#venue" class="hover:text-sky-600" data-i18n="nav_venue">장소</a>
-        <a href="#register" class="hover:text-sky-600 font-semibold text-sky-700" data-i18n="nav_register">등록</a>
-        <a href="#faq" class="hover:text-sky-600" data-i18n="nav_faq">FAQ</a>
+        <a href="#program" class="hover:text-accent" data-i18n="nav_program">프로그램</a>
+        <a href="#speakers" class="hover:text-accent" data-i18n="nav_speakers">연사</a>
+        <a href="#venue" class="hover:text-accent" data-i18n="nav_venue">장소</a>
+        <a href="#register" class="hover:text-accent font-semibold text-accent" data-i18n="nav_register">등록</a>
+        <a href="#faq" class="hover:text-accent" data-i18n="nav_faq">FAQ</a>
       </nav>
       <div class="flex items-center gap-2">
-        <span class="badge">KO</span>
-        <button id="langEN" class="text-xs px-3 py-1.5 rounded-full border border-slate-300 hover:border-sky-500">EN</button>
-        <button id="langJA" class="text-xs px-3 py-1.5 rounded-full border border-slate-300 hover:border-sky-500">日本語</button>
+        <span class="badge" id="langBadge">KO</span>
+        <button id="langKO" class="text-xs px-3 py-1.5 rounded-full border border-slate-300 hover:border-accent">KO</button>
+        <button id="langEN" class="text-xs px-3 py-1.5 rounded-full border border-slate-300 hover:border-accent">EN</button>
+        <button id="langJA" class="text-xs px-3 py-1.5 rounded-full border border-slate-300 hover:border-accent">日本語</button>
       </div>
     </div>
   </header>
@@ -53,8 +63,8 @@
           한·일 얼라이너 대표 연자들이 전하는 최신 인사이트와 실전 노하우를 한 자리에서 만나보세요.
         </p>
         <div class="flex flex-wrap items-center gap-3 text-sm">
-          <a href="#register" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-sky-600 text-white font-semibold hover:bg-sky-700" data-i18n="cta_register">등록하기</a>
-          <a href="#program" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 hover:border-sky-500" data-i18n="cta_program">프로그램 보기</a>
+          <a href="#register" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl btn-accent font-semibold" data-i18n="cta_register">등록하기</a>
+          <a href="#program" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 hover:border-accent" data-i18n="cta_program">프로그램 보기</a>
         </div>
         <p class="mt-4 text-xs text-slate-500" data-i18n="hero_qr">QR 코드를 스캔하면 이 페이지로 연결됩니다.</p>
       </div>
@@ -93,7 +103,7 @@
     <div class="grid md:grid-cols-2 gap-8 items-start mb-12">
       <!-- 혜택 리스트 -->
       <div>
-        <h2 class="text-2xl md:text-3xl font-bold mb-6" data-i18n="benefit_title">프로그램</h2>
+        <h2 class="text-2xl md:text-3xl font-bold mb-6" data-i18n="benefit_title">특별 혜택</h2>
         <ul class="list-disc pl-6 space-y-3 text-sm md:text-base text-slate-700">
           <li data-i18n="b1">최초 오프라인 실황! WEBCEPH 창업자 직강, 원포인트로 완전 마스터 & 공식 수료 써티 발급</li>
           <li data-i18n="b2">최고 인기 얼라이너 교정서 『THE ALIGNER ORTHO』 저자들의 한국 최초 공식 강연</li>
@@ -101,7 +111,7 @@
         </ul>
         <div class="mt-6 text-sm text-slate-600">
           <span data-i18n="contact">문의</span>: 
-          <a href="mailto:admin@assemblecircle.com" class="text-sky-600">admin@assemblecircle.com</a>
+          <a href="mailto:admin@assemblecircle.com" class="text-accent">admin@assemblecircle.com</a>
         </div>
       </div>
 
@@ -171,10 +181,10 @@
     </div>
 
 
-    <!-- 프로그램 테이블 (이전 답변 코드 그대로) -->
-    <div class="hidden md:block overflow-x-auto">
+    <!-- 프로그램 테이블 -->
+    <div class="hidden md:block overflow-x-auto mt-6">
       <table class="min-w-full border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-        <thead class="bg-sky-50">
+        <thead style="background: color-mix(in oklab, white 85%, var(--accent));">
           <tr>
             <th class="px-4 py-3 text-left text-sm font-semibold text-slate-600 w-32">시간</th>
             <th class="px-4 py-3 text-left text-sm font-semibold text-slate-600">내용</th>
@@ -213,13 +223,8 @@
       </table>
     </div>
 
-    <!-- 모바일 카드 리스트 (이전 답변 코드 그대로) -->
-    <div class="space-y-4 md:hidden mt-6">
-      <!-- 기존 카드들 넣기 -->
-    </div>
   </div>
 </section>
-
 
 
 
@@ -267,8 +272,8 @@
       <p class="font-semibold" data-i18n="venue_name">스페이스쉐어 삼성역센터 컨퍼런스홀, 서울</p>
       <p class="text-slate-600" data-i18n="venue_addr">주소: 서울 강남구 영동대로96길 20 지하 1층</p>
       <div class="flex items-center gap-3 mt-3">
-        <a id="icsBtn" href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-sky-500 text-sm" data-i18n="btn_ics">캘린더 저장(.ics)</a>
-        <a id="mapBtn" href="#" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-600 text-white text-sm hover:bg-sky-700" data-i18n="btn_map">지도 열기</a>
+        <a id="icsBtn" href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 hover:border-accent text-sm" data-i18n="btn_ics">캘린더 저장(.ics)</a>
+        <a id="mapBtn" href="#" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg btn-accent text-sm" data-i18n="btn_map">지도 열기</a>
       </div>
     </div>
   </section>
@@ -280,21 +285,21 @@
       <p class="text-slate-600 mb-6 text-sm" data-i18n="reg_desc">등록비: <strong>100,000원</strong> · 등록 방법: webceph.com/seminar/registration 또는 QR 코드 접속</p>
 
       <div class="grid md:grid-cols-3 gap-4">
-        <a id="payStripe" href="https://buy.stripe.com/your_payment_link" target="_blank" class="block p-5 rounded-2xl border border-slate-200 hover:border-sky-500 bg-white">
+        <a id="payStripe" href="https://buy.stripe.com/your_payment_link" target="_blank" class="block p-5 rounded-2xl border border-slate-200 hover:border-accent bg-white">
           <div class="flex items-center gap-3 mb-2">
             <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">💳</div>
             <h3 class="font-semibold" data-i18n="pay1_t">국내 결제 (Stripe)</h3>
           </div>
           <p class="text-sm text-slate-600" data-i18n="pay1_d">한국 카드 · 네이버페이 · 카카오페이 · 삼성페이 · PAYCO 지원</p>
         </a>
-        <a id="payPaypal" href="https://www.paypal.com/ncp/payment/YOUR_ID" target="_blank" class="block p-5 rounded-2xl border border-slate-200 hover:border-sky-500 bg-white">
+        <a id="payPaypal" href="https://www.paypal.com/ncp/payment/YOUR_ID" target="_blank" class="block p-5 rounded-2xl border border-slate-200 hover:border-accent bg-white">
           <div class="flex items-center gap-3 mb-2">
             <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">🌐</div>
             <h3 class="font-semibold" data-i18n="pay2_t">해외 결제 (PayPal)</h3>
           </div>
           <p class="text-sm text-slate-600" data-i18n="pay2_d">해외 카드/계정으로 간편 결제</p>
         </a>
-        <a id="payToss" href="https://tosspayments.your_link" target="_blank" class="block p-5 rounded-2xl border border-slate-200 hover:border-sky-500 bg-white">
+        <a id="payToss" href="https://tosspayments.your_link" target="_blank" class="block p-5 rounded-2xl border border-slate-200 hover:border-accent bg-white">
           <div class="flex items-center gap-3 mb-2">
             <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">🏦</div>
             <h3 class="font-semibold" data-i18n="pay3_t">무통장 / 가상계좌 (토스페이먼츠)</h3>
@@ -307,7 +312,7 @@
         <div class="p-5 rounded-2xl bg-white border border-slate-200">
           <h3 class="font-semibold mb-2" data-i18n="reg_step">1) 결제 완료 → 2) 등록 완료 폼 제출</h3>
           <p class="text-sm text-slate-600" data-i18n="reg_step_d">결제 후 아래 버튼으로 이동하여 이름/이메일/연락처/영수증(주문번호)을 제출하세요. 제출 즉시 확인 메일이 발송됩니다.</p>
-          <a id="formBtn" href="https://forms.gle/YOUR_GOOGLE_FORM" target="_blank" class="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-lg bg-sky-600 text-white text-sm hover:bg-sky-700" data-i18n="reg_form_btn">등록 완료 폼 열기</a>
+          <a id="formBtn" href="https://forms.gle/YOUR_GOOGLE_FORM" target="_blank" class="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-lg btn-accent text-sm" data-i18n="reg_form_btn">등록 완료 폼 열기</a>
           <p class="mt-3 text-xs text-slate-500" data-i18n="reg_tip">* 구글 폼을 선호하지 않으면 Jotform 링크로 교체하세요.</p>
         </div>
         <div class="p-5 rounded-2xl bg-white border border-slate-200">
@@ -316,7 +321,7 @@
           <div class="grid grid-cols-2 gap-2 mt-3">
             <input id="qrEmail" type="email" placeholder="이메일" class="px-3 py-2 rounded-lg border border-slate-300">
             <input id="qrOrder" type="text" placeholder="주문번호" class="px-3 py-2 rounded-lg border border-slate-300">
-            <button id="genQrBtn" class="col-span-2 px-4 py-2 rounded-lg bg-slate-900 text-white text-sm hover:bg-black" data-i18n="qr_btn">QR 생성</button>
+            <button id="genQrBtn" class="col-span-2 px-4 py-2 rounded-lg bg-slate-900 text-white text-sm hover:brightness-90" data-i18n="qr_btn">QR 생성</button>
           </div>
           <div id="qrTicket" class="mt-4 flex items-center justify-center h-44"></div>
           <p class="mt-2 text-xs text-slate-500" data-i18n="qr_note">* QR에는 이메일·주문번호가 해시값으로 포함됩니다.</p>
@@ -332,6 +337,8 @@
 <script>
   const swiper = new Swiper('.swiper', {
     loop: true,
+    slidesPerView: 1,
+    spaceBetween: 16,
     pagination: { el: '.swiper-pagination', clickable: true },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
   });
@@ -347,7 +354,7 @@
         <li data-i18n="b3">인비절라인 NO.1 최형주 원장의 진단 노하우 전격 공개</li>
       </ul>
       <div class="mt-8 text-sm text-slate-600">
-        <span data-i18n="contact">문의</span>: <a href="mailto:admin@assemblecircle.com" class="text-sky-600">admin@assemblecircle.com</a>
+        <span data-i18n="contact">문의</span>: <a href="mailto:admin@assemblecircle.com" class="text-accent">admin@assemblecircle.com</a>
       </div>
     </div>
   </section>
@@ -386,6 +393,39 @@
   <script>
     // i18n dictionaries
     const dict = {
+      ko: {
+        nav_program: '프로그램', nav_speakers: '연사', nav_venue: '장소', nav_register: '등록', nav_faq: 'FAQ',
+        hero_title: '2025 WEBCEPH 미니 인증 코스 — 한·일 얼라이너 마스터 클래스',
+        hero_sub: '한·일 얼라이너 대표 연자들이 전하는 최신 인사이트와 실전 노하우를 한 자리에서 만나보세요.',
+        hero_qr: 'QR 코드를 스캔하면 이 페이지로 연결됩니다.', hero_qr2: 'QR — 이 페이지 링크',
+        label_datetime: '일시', label_venue: '장소', label_host: '주최', label_lang: '언어',
+        hero_venue: '스페이스쉐어 삼성역센터 컨퍼런스홀, 서울', hero_lang: 'Korean · Japanese',
+        cta_register: '등록하기', cta_program: '프로그램 보기',
+        program_title: '프로그램',
+        p1: '인사 및 소개',
+        p2: 'Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략',
+        p3: 'Dr. Shuichiro Okano & Dr. Takao Minamide — Aligner Radio in Korea',
+        p4: 'Q&A', p5: 'Dr. 김예현 — WEBCEPH 미니 인증 코스',
+        p6: 'Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책',
+        p7: 'Q&A 및 단체 사진 촬영',
+        speakers_title: '연사',
+        sp1: '아이데기 M 교정치과, 인터내셔널 패컬티',
+        sp2: '『THE ALIGNER ORTHO』 저자, 후쿠오카 M 교정치과',
+        sp3: '『THE ALIGNER ORTHO』 저자, 인터내셔널 패컬티',
+        sp4: '서울치의원 치과교정과, WEBCEPH CEO',
+        sp5: '서울바른 치과교정과, 인터내셔널 패컬티',
+        venue_title: '장소', venue_name: '스페이스쉐어 삼성역센터 컨퍼런스홀, 서울', venue_addr: '주소: 서울 강남구 영동대로96길 20 지하 1층',
+        btn_ics: '캘린더 저장(.ics)', btn_map: '지도 열기',
+        reg_title: '등록 & 결제', reg_desc: '등록비: 100,000원 · 등록 방법: webceph.com/seminar/registration 또는 QR 코드 접속',
+        pay1_t: '국내 결제 (Stripe)', pay1_d: '한국 카드 · 네이버페이 · 카카오페이 · 삼성페이 · PAYCO 지원',
+        pay2_t: '해외 결제 (PayPal)', pay2_d: '해외 카드/계정으로 간편 결제',
+        pay3_t: '무통장 / 가상계좌 (토스페이먼츠)', pay3_d: '계좌이체 및 가상계좌 자동 매칭',
+        reg_step: '1) 결제 완료 → 2) 등록 완료 폼 제출',
+        reg_step_d: '결제 후 이름/이메일/연락처/영수증(주문번호)을 제출하면 확인 메일이 즉시 발송됩니다.',
+        reg_form_btn: '등록 완료 폼 열기', reg_tip: '* 구글 폼을 선호하지 않으면 Jotform 링크로 교체하세요.',
+        qr_title: 'QR 티켓 미리 발급(선택)', qr_desc: '이메일과 주문번호를 입력하면 입장용 QR을 생성합니다(메일로도 발송).', qr_btn: 'QR 생성', qr_note: '* QR에는 이메일·주문번호의 해시값이 포함됩니다.',
+        benefit_title: '특별 혜택', b1: '최초 오프라인 실황! WEBCEPH 창업자 직강, 원포인트로 완전 마스터 & 공식 수료 써티 발급', b2: '최고 인기 얼라이너 교정서 『THE ALIGNER ORTHO』 저자들의 한국 최초 공식 강연', b3: '인비절라인 NO.1 최형주 원장의 진단 노하우 전격 공개', contact: '문의'
+      },
       en: {
         nav_program: 'Program', nav_speakers: 'Speakers', nav_venue: 'Venue', nav_register: 'Register', nav_faq: 'FAQ',
         hero_title: '2025 WEBCEPH Mini Certification — Korea–Japan Aligner Masterclass',
@@ -464,15 +504,27 @@
       // title update
       if (lang === 'en') document.title = '2025 WEBCEPH Mini Certification | Korea–Japan Aligner Masterclass';
       if (lang === 'ja') document.title = '2025 WEBCEPH ミニ認定コース | 韓日アライナーマスタークラス';
+      if (lang === 'ko') document.title = '2025 WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스';
       // nav title
       document.getElementById('navTitle').textContent = t('hero_title', lang) || '2025 WEBCEPH 미니 인증 코스 — 한·일 얼라이너 마스터 클래스';
-      // language badges
-      document.querySelectorAll('.badge').forEach(b=> b.textContent = lang.toUpperCase() === 'JA' ? 'JP' : (lang.toUpperCase()));
     };
 
-    // Default KO; buttons
-    document.getElementById('langEN').addEventListener('click', ()=> setLang('en'));
-    document.getElementById('langJA').addEventListener('click', ()=> setLang('ja'));
+    // Default language state
+    let currentLang = 'ko';
+    const badge = document.getElementById('langBadge');
+    const applyLang = (lang) => {
+      currentLang = lang;
+      setLang(lang);
+      if (badge) badge.textContent = lang.toUpperCase() === 'JA' ? 'JP' : lang.toUpperCase();
+    };
+
+    // Buttons
+    document.getElementById('langKO').addEventListener('click', ()=> applyLang('ko'));
+    document.getElementById('langEN').addEventListener('click', ()=> applyLang('en'));
+    document.getElementById('langJA').addEventListener('click', ()=> applyLang('ja'));
+
+    // initialize
+    applyLang('ko');
 
     // QR (this page)
     const currentUrl = window.location.href;
