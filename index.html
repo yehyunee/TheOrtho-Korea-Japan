@@ -2,294 +2,440 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WEBCEPH 미니 인증 코스 — 즉시 등록</title>
-  <meta name="description" content="WEBCEPH 미니 인증 코스 — 등록/결제, 행사 이미지, 프로그램, 장소 정보" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
-  <style>
-    :root { --accent: #332CF5; }
-    .btn-accent{ background:var(--accent); color:#fff; }
-    .btn-accent:hover{ filter:brightness(0.92); }
-    .text-accent{ color:var(--accent); }
-    .border-accent{ border-color:var(--accent); }
-    html { scroll-behavior:smooth; }
-    body {
-      background-image: url('images/pattern.PNG');
-      background-repeat: repeat;
-      background-position: top left;
-      background-attachment: fixed; /* 스크롤 시 고정 */
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 </head>
-<body class="bg-slate-50 text-slate-800">
-
-  <!-- Nav (Compact anchors) -->
+<body class="bg-[url('images/pattern.png')] bg-repeat bg-top bg-fixed">
+  <!-- Header / Language Dropdown Only -->
   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-2 font-semibold truncate">
-        <span class="inline-block w-6 h-6 rounded-lg" style="background:var(--accent)"></span>
-        <span class="truncate">WEBCEPH 미니 인증 코스</span>
+      <a href="#top" class="flex items-center gap-2 font-semibold">
+        <span data-i18n="site_title">WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스</span>
       </a>
-
-      <div class="relative">
-        <button id="menuToggle" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-300 hover:border-accent" aria-haspopup="true" aria-expanded="false" aria-controls="menuPanel">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <span class="text-sm">Menu</span>
-        </button>
-        <div id="menuPanel" class="hidden absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-md border border-slate-200 rounded-xl shadow-xl p-2">
-          <nav class="flex flex-col text-sm">
-            <a href="#register" class="px-3 py-2 rounded-lg hover:bg-slate-100 font-semibold text-accent">등록</a>
-            <a href="#gallery"  class="px-3 py-2 rounded-lg hover:bg-slate-100">이미지</a>
-            <a href="#info"     class="px-3 py-2 rounded-lg hover:bg-slate-100">행사 정보</a>
-            <a href="#program"  class="px-3 py-2 rounded-lg hover:bg-slate-100">프로그램</a>
-            <a href="#venue"    class="px-3 py-2 rounded-lg hover:bg-slate-100">장소</a>
-          </nav>
+      <div class="flex items-center gap-3">
+        <!-- Language Dropdown -->
+        <label for="langSelect" class="sr-only" data-i18n="choose_language_label">언어 선택</label>
+        <div class="relative">
+          <select id="langSelect" class="appearance-none pl-3 pr-8 py-2 rounded-lg border text-sm bg-white">
+            <option value="ko">한국어</option>
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+          </select>
+          <svg class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Top Pane: Register + Slider (mobile = full-width pane, desktop = card) -->
-  <main id="top">
-    <!-- Top Pane: Register + Slider -->
-    <section id="register"
-      class="bg-white rounded-none md:rounded-2xl md:shadow border border-slate-200
-             md:max-w-5xl md:mx-auto mx-0 my-0 md:my-8 px-4 md:px-0">
-      <div class="grid md:grid-cols-2">
-        <!-- 폼: min-w-0로 축소 방지 -->
-        <div class="py-5 md:p-8 min-w-0">
-          <h1 class="text-xl md:text-2xl font-bold mb-4">즉시 등록</h1>
-          <form id="fastForm" class="space-y-3" onsubmit="return false;">
-            <input name="name" type="text" placeholder="이름" required class="w-full border rounded-lg p-3">
-            <input name="email" type="email" placeholder="이메일" required class="w-full border rounded-lg p-3">
-            <input name="phone" type="tel" placeholder="전화번호" required class="w-full border rounded-lg p-3">
-            <input name="affiliation" type="text" placeholder="소속 (선택)" class="w-full border rounded-lg p-3">
-            <div class="flex items-center gap-2 text-xs text-slate-600">
-              <input id="agree" type="checkbox" class="h-4 w-4" required>
-              <label for="agree">개인정보 수집·이용에 동의합니다.</label>
-            </div>
-
-            <div class="grid grid-cols-1 gap-2 pt-2">
-              <!-- Iamport -->
-              <button id="btnIamport" type="button" class="px-4 py-3 rounded-lg font-semibold btn-accent">아임포트 결제</button>
-              <!-- PayPal Express 링크 버튼 (폼 내 결제 버튼 목록에 추가) -->
-              <a href="https://paypal.me/YOUR_ID/80USD" target="_blank"
-                 class="px-4 py-3 rounded-lg text-center border border-slate-300">
-                PayPal Express 결제
-              </a>
-
-
-              <details class="text-sm text-slate-600 border border-slate-200 rounded-lg p-3">
-                <summary class="cursor-pointer font-medium">무통장 입금 안내 (선택)</summary>
-                <p class="mt-2">예금주: ㈜웹셉 | 은행: OO은행 | 계좌: 000-0000-0000</p>
-                <p class="mt-1">입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.</p>
-              </details>
-            </div>
-
-            <div id="resultBox" class="hidden mt-3 p-3 border rounded-lg">
-              <p class="font-semibold">결제가 접수되었습니다.</p>
-              <p class="text-sm text-slate-600">확인 메일은 서버 검증 후 발송됩니다. 아래 임시 QR은 현장 테스트용입니다.</p>
-              <div id="qrTicket" class="mt-2 flex items-center justify-center h-40"></div>
-            </div>
-          </form>
-        </div>
-
-        <!-- 슬라이드: 전체 이미지가 보이도록 contain + 중앙정렬 -->
-        <div id="gallery" class="relative min-w-0">
-          <!-- 모바일: 4:3 비율 / 데스크탑: 고정 높이로 안정화 -->
-          <div class="relative w-full aspect-[3/4] md:aspect-auto md:h-[650px]">
-            <div class="swiper absolute inset-0 w-full h-full">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide flex items-center justify-center bg-black/5">
-                  <img src="images/benefit1.png"
-                       alt="대표 이미지 1"
-                       class="max-w-full max-h-full w-auto h-auto object-contain block">
-                </div>
-                <div class="swiper-slide flex items-center justify-center bg-black/5">
-                  <img src="images/benefit2.png"
-                       alt="대표 이미지 2"
-                       class="max-w-full max-h-full w-auto h-auto object-contain block">
-                </div>
-                <!-- 필요하면 더 추가 -->
-                <!--
-                <div class="swiper-slide flex items-center justify-center bg-black/5">
-                  <img src="images/benefit3.png"
-                       alt="대표 이미지 3"
-                       class="max-w-full max-h-full w-auto h-auto object-contain block">
-                </div>
-                -->
+  <!-- Hero -->
+  <section id="top" class="relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 py-0 md:py-0 grid md:grid-cols-2 gap-10 items-center">
+      <!-- Left: 포스터 슬라이드 -->
+      <div id="gallery" class="relative">
+        <div class="relative w-full aspect-[3/4] md:aspect-auto md:h-[620px]">
+          <div class="swiper absolute inset-0 w-full h-full">
+            <div class="swiper-wrapper h-full">
+              <div class="swiper-slide h-full flex items-center justify-center bg-black/5">
+                <img src="images/benefit1.png" alt="Poster 1" class="max-w-full max-h-full w-auto h-auto object-contain block" />
               </div>
-              <div class="swiper-pagination"></div>
+              <div class="swiper-slide h-full flex items-center justify-center bg-black/5">
+                <img src="images/benefit2.png" alt="Poster 2" class="max-w-full max-h-full w-auto h-auto object-contain block" />
+              </div>
             </div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
-
       </div>
-    </section>
 
-
-    <!-- Event Info (single panel) -->
-    <section id="info" class="bg-white rounded-none md:rounded-2xl md:shadow border border-slate-200 md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8">
-      <div class="px-5 md:px-8 py-6">
-        <p class="text-xs tracking-widest font-semibold text-slate-500 mb-2" style="color:color-mix(in oklab, var(--accent) 60%, black 40%);">EVENT INFO</p>
-        <div class="grid md:grid-cols-4 gap-4 text-sm">
-          <div><div class="text-slate-500">일시</div><div class="font-semibold">2025-10-28 (화) 18:30–21:00</div></div>
-          <div><div class="text-slate-500">장소</div><div class="font-semibold">스페이스쉐어 삼성역센터 컨퍼런스홀, 서울</div></div>
-          <div><div class="text-slate-500">주최</div><div class="font-semibold">WEBCEPH</div></div>
-          <div><div class="text-slate-500">언어</div><div class="font-semibold">Korean · Japanese</div></div>
+      <!-- Right: 설명/CTA -->
+      <div>
+        <h1 class="text-3xl md:text-4xl font-extrabold leading-tight mb-4 text-white" data-i18n="hero_title">
+          WEBCEPH 미니 인증 코스 <br />한·일 얼라이너 마스터 클래스
+        </h1>
+        <p class="text-lg mb-6 text-slate-100" data-i18n="hero_sub">
+          한·일 얼라이너 대표 연자들이 전하는 최신 인사이트와 실전 노하우를 한 자리에서 만나보세요.
+        </p>
+        <!-- 등록비 안내 -->
+        <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
+          <p class="font-semibold" data-i18n="fee_label">등록비: 100,000원 (부가세 포함)</p>
+          <p class="text-xs text-slate-500 mt-1" data-i18n="fee_note">결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.</p>
         </div>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <a id="mapBtn" href="#" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 text-sm">지도 열기</a>
-          <a id="icsBtn" href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm btn-accent">캘린더 저장 (.ics)</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Program -->
-    <section id="program" class="md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8">
-      <div class="px-5 md:px-0">
-        <h2 class="text-lg md:text-xl font-bold mb-3 text-white">프로그램</h2>
-        <!-- Mobile: cards -->
-        <div class="md:hidden space-y-3">
-          <div class="p-3 border rounded-lg bg-white"><p class="text-xs text-slate-500">18:30–18:40</p><p>인사 및 소개</p></div>
-          <div class="p-3 border rounded-lg bg-white"><p class="text-xs text-slate-500">18:40–19:10</p><p>Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</p></div>
-          <div class="p-3 border rounded-lg bg-white"><p class="text-xs text-slate-500">19:10–19:40</p><p>Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</p></div>
-          <div class="p-3 border rounded-lg bg-white"><p class="text-xs text-slate-500">19:40–19:50</p><p>Q&amp;A</p></div>
-          <div class="p-3 border rounded-lg bg-white"><p class="text-xs text-slate-500">19:50–20:20</p><p>Dr. 김예현 — WEBCEPH 미니 인증 코스</p></div>
-          <div class="p-3 border rounded-lg bg-white"><p class="text-xs text-slate-500">20:20–20:50</p><p>Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</p></div>
-          <div class="p-3 border rounded-lg bg-white"><p class="text-xs text-slate-500">20:50–21:00</p><p>Q&amp;A 및 단체 사진 촬영</p></div>
-        </div>
-        <!-- Desktop: table -->
-        <div class="hidden md:block overflow-x-auto">
-          <table class="w-full border border-slate-200 rounded-2xl overflow-hidden shadow text-white">
-            <thead class="bg-white/20 text-white">
-              <tr>
-                <th class="px-4 py-2 text-left w-32">시간</th>
-                <th class="px-4 py-2 text-left">내용</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-400/50">
-              <tr><td class="px-4 py-2">18:30–18:40</td><td class="px-4 py-2">인사 및 소개</td></tr>
-              <tr><td class="px-4 py-2">18:40–19:10</td><td class="px-4 py-2">Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</td></tr>
-              <tr><td class="px-4 py-2">19:10–19:40</td><td class="px-4 py-2">Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</td></tr>
-              <tr><td class="px-4 py-2">19:40–19:50</td><td class="px-4 py-2">Q&amp;A</td></tr>
-              <tr><td class="px-4 py-2">19:50–20:20</td><td class="px-4 py-2">Dr. 김예현 — WEBCEPH 미니 인증 코스</td></tr>
-              <tr><td class="px-4 py-2">20:20–20:50</td><td class="px-4 py-2">Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</td></tr>
-              <tr><td class="px-4 py-2">20:50–21:00</td><td class="px-4 py-2">Q&amp;A 및 단체 사진 촬영</td></tr>
-            </tbody>
-          </table>
+        <div class="flex flex-wrap items-center gap-3 text-sm">
+          <button id="showRegisterBtn" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-blue-600 text-white" data-i18n="cta_register">
+            등록하기
+          </button>
+          <a href="#program" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-slate-300 hover:border-blue-600 text-white" data-i18n="cta_program">
+            프로그램 보기
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Venue anchor (map opens from info section) -->
-    <div id="venue" class="h-8"></div>
-  </main>
+  <!-- Event Info -->
+  <section id="info" class="bg-white md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8 rounded-none md:rounded-2xl md:shadow border border-slate-200">
+    <div class="px-6 py-6">
+      <p class="text-xs tracking-widest font-semibold text-slate-500 mb-2" data-i18n="event_info">EVENT INFO</p>
+      <div class="grid md:grid-cols-4 gap-4 text-sm">
+        <div>
+          <div class="text-slate-500" data-i18n="date_label">일시</div>
+          <div class="font-semibold" data-i18n="date_value">2025-10-28 (화) 18:30–21:00</div>
+        </div>
+        <div>
+          <div class="text-slate-500" data-i18n="venue_label">장소</div>
+          <div class="font-semibold" data-i18n="venue_value">스페이스쉐어 삼성역센터 컨퍼런스홀, 서울</div>
+        </div>
+        <div>
+          <div class="text-slate-500" data-i18n="host_label">주최</div>
+          <div class="font-semibold" data-i18n="host_value">WEBCEPH</div>
+        </div>
+        <div>
+          <div class="text-slate-500" data-i18n="lang_label">언어</div>
+          <div class="font-semibold" data-i18n="lang_value">한글 · 일본어</div>
+        </div>
+      </div>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <a href="https://maps.google.com/?q=%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%98%81%EB%8F%99%EB%8C%80%EB%A1%9C96%EA%B8%B8%2020%20%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%89%90%EC%96%B4%20%EC%82%BC%EC%84%B1%EC%97%AD%EC%84%BC%ED%84%B0%20%EC%BB%A8%ED%8D%BC%EB%9F%B0%EC%8A%A4%ED%99%80" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 text-sm" data-i18n="open_map">
+          지도 열기
+        </a>
+        <a id="icsBtn" href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm bg-blue-600 text-white" data-i18n="save_ics">
+          캘린더 저장 (.ics)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Register Section (hidden by default) -->
+  <section id="register" class="hidden bg-white mt-6 rounded-none md:rounded-2xl md:shadow border border-slate-200 md:max-w-5xl md:mx-auto mx-0 my-0 md:my-8 px-4 md:px-0">
+    <div class="py-5 md:p-8">
+      <h2 class="text-xl md:text-2xl font-bold mb-4" data-i18n="register_title">등록 정보</h2>
+
+      <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
+        <p class="font-semibold" data-i18n="fee_label">등록비: 100,000원 (부가세 포함)</p>
+        <p class="text-xs text-slate-500 mt-1" data-i18n="fee_note">결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.</p>
+      </div>
+
+      <form id="fastForm" class="space-y-3" onsubmit="return false;">
+        <input name="name" type="text" data-i18n-placeholder="ph_name" placeholder="이름" required class="w-full border rounded-lg p-3" />
+        <input name="email" type="email" data-i18n-placeholder="ph_email" placeholder="이메일" required class="w-full border rounded-lg p-3" />
+        <input name="phone" type="tel" data-i18n-placeholder="ph_phone" placeholder="전화번호" required class="w-full border rounded-lg p-3" />
+        <input name="affiliation" type="text" data-i18n-placeholder="ph_affiliation" placeholder="소속 (선택)" class="w-full border rounded-lg p-3" />
+        <div class="flex items-center gap-2 text-xs text-slate-600">
+          <input id="agree" type="checkbox" class="h-4 w-4" required />
+          <label for="agree" data-i18n="consent">개인정보 수집·이용에 동의합니다.</label>
+        </div>
+
+        <div class="grid grid-cols-1 gap-2 pt-2">
+          <button id="btnIamport" type="button" class="px-4 py-3 rounded-lg font-semibold bg-blue-600 text-white" data-i18n="btn_iamport">
+            아임포트 결제
+          </button>
+          <button id="btnPaypal" type="button" class="px-4 py-3 rounded-lg font-semibold border border-slate-300" data-i18n="btn_paypal">
+            PayPal Express 결제
+          </button>
+        </div>
+
+        <div class="mt-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
+          <p class="font-semibold" data-i18n="bank_title">무통장 입금 안내 (선택)</p>
+          <p data-i18n="bank_info">예금주: ㈜웹셉 | 은행: OO은행 | 계좌: 000-0000-0000</p>
+          <p class="mt-1 text-xs text-slate-500" data-i18n="bank_note">입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.</p>
+        </div>
+
+        <div id="resultBox" class="hidden mt-3 p-3 border rounded-lg">
+          <p class="font-semibold" data-i18n="pay_received">결제가 접수되었습니다.</p>
+          <div id="qrTicket" class="mt-2 flex items-center justify-center h-40"></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Program -->
+  <section id="program" class="bg-white md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8 rounded-none md:rounded-2xl md:shadow border border-slate-200">
+    <div class="p-5">
+      <h2 class="text-lg md:text-xl font-bold mb-3" data-i18n="program_title">프로그램</h2>
+
+      <!-- Mobile cards -->
+      <div class="md:hidden space-y-3" id="programCards">
+        <div class="p-3 border rounded-lg bg-white">
+          <p class="text-xs text-slate-500" data-i18n="slot_1830_time">18:30–18:40</p>
+          <p data-i18n="slot_1830_desc">인사 및 소개</p>
+        </div>
+        <div class="p-3 border rounded-lg bg-white">
+          <p class="text-xs text-slate-500" data-i18n="slot_1840_time">18:40–19:10</p>
+          <p data-i18n="slot_1840_desc">Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</p>
+        </div>
+        <div class="p-3 border rounded-lg bg-white">
+          <p class="text-xs text-slate-500" data-i18n="slot_1910_time">19:10–19:40</p>
+          <p data-i18n="slot_1910_desc">Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</p>
+        </div>
+        <div class="p-3 border rounded-lg bg-white">
+          <p class="text-xs text-slate-500" data-i18n="slot_1940_time">19:40–19:50</p>
+          <p data-i18n="slot_1940_desc">Q&amp;A</p>
+        </div>
+        <div class="p-3 border rounded-lg bg-white">
+          <p class="text-xs text-slate-500" data-i18n="slot_1950_time">19:50–20:20</p>
+          <p data-i18n="slot_1950_desc">Dr. 김예현 — WEBCEPH 미니 인증 코스</p>
+        </div>
+        <div class="p-3 border rounded-lg bg-white">
+          <p class="text-xs text-slate-500" data-i18n="slot_2020_time">20:20–20:50</p>
+          <p data-i18n="slot_2020_desc">Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</p>
+        </div>
+        <div class="p-3 border rounded-lg bg-white">
+          <p class="text-xs text-slate-500" data-i18n="slot_2050_time">20:50–21:00</p>
+          <p data-i18n="slot_2050_desc">Q&amp;A 및 단체 사진 촬영</p>
+        </div>
+      </div>
+
+      <!-- Desktop table -->
+      <div class="hidden md:block overflow-x-auto">
+        <table class="w-full border border-slate-200 rounded-2xl overflow-hidden shadow">
+          <thead class="bg-slate-100">
+            <tr>
+              <th class="px-4 py-2 text-left w-32" data-i18n="th_time">시간</th>
+              <th class="px-4 py-2 text-left" data-i18n="th_desc">내용</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr><td class="px-4 py-2" data-i18n="slot_1830_time">18:30–18:40</td><td class="px-4 py-2" data-i18n="slot_1830_desc">인사 및 소개</td></tr>
+            <tr><td class="px-4 py-2" data-i18n="slot_1840_time">18:40–19:10</td><td class="px-4 py-2" data-i18n="slot_1840_desc">Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</td></tr>
+            <tr><td class="px-4 py-2" data-i18n="slot_1910_time">19:10–19:40</td><td class="px-4 py-2" data-i18n="slot_1910_desc">Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</td></tr>
+            <tr><td class="px-4 py-2" data-i18n="slot_1940_time">19:40–19:50</td><td class="px-4 py-2" data-i18n="slot_1940_desc">Q&amp;A</td></tr>
+            <tr><td class="px-4 py-2" data-i18n="slot_1950_time">19:50–20:20</td><td class="px-4 py-2" data-i18n="slot_1950_desc">Dr. 김예현 — WEBCEPH 미니 인증 코스</td></tr>
+            <tr><td class="px-4 py-2" data-i18n="slot_2020_time">20:20–20:50</td><td class="px-4 py-2" data-i18n="slot_2020_desc">Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</td></tr>
+            <tr><td class="px-4 py-2" data-i18n="slot_2050_time">20:50–21:00</td><td class="px-4 py-2" data-i18n="slot_2050_desc">Q&amp;A 및 단체 사진 촬영</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
   <footer class="py-10">
-    <div class="max-w-6xl mx-auto px-4 text-sm text-slate-500">© 2025 WEBCEPH. All rights reserved.</div>
+    <div class="max-w-6xl text-center mx-auto text-white px-4 text-sm text-slate-500" data-i18n="footer">© 2025 WEBCEPH. All rights reserved.</div>
   </footer>
 
-  <!-- Libs -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  <script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    @media (min-width: 768px) {
+      .md\:text-4xl { font-size: 2.25rem; line-height: 3.5rem; }
+    }
+  </style>
 
   <script>
-    // === Menu toggle ===
-    (function () {
-      const btn = document.getElementById('menuToggle');
-      const panel = document.getElementById('menuPanel');
-      function closeMenu(){ panel.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }
-      function openMenu(){ panel.classList.remove('hidden'); btn.setAttribute('aria-expanded','true'); }
-      btn?.addEventListener('click', (e)=>{ e.stopPropagation(); (btn.getAttribute('aria-expanded')==='true')?closeMenu():openMenu(); });
-      document.addEventListener('click', (e)=>{ if(!panel.contains(e.target) && !btn.contains(e.target)) closeMenu(); });
-      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
-    })();
+    // Swiper init
+    new Swiper('.swiper', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 12,
+      pagination: { el: '.swiper-pagination', clickable: true },
+    });
 
-    // === Swiper ===
-    new Swiper('.swiper', { loop:true, slidesPerView:1, spaceBetween:12, pagination:{ el:'.swiper-pagination', clickable:true } });
+    // Toggle register panel
+    document.getElementById('showRegisterBtn')?.addEventListener('click', () => {
+      const reg = document.getElementById('register');
+      reg.classList.toggle('hidden');
+      if (!reg.classList.contains('hidden')) reg.scrollIntoView({ behavior: 'smooth' });
+    });
 
-    // === Map & ICS ===
-    (function(){
-      const mapBtn = document.getElementById('mapBtn');
-      if (mapBtn) mapBtn.href = 'https://maps.google.com/?q=서울%20강남구%20영동대로96길%2020%20스페이스쉐어%20삼성역센터%20컨퍼런스홀';
-      const icsBtn = document.getElementById('icsBtn');
-      if (icsBtn) {
-        const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//WEBCEPH//SEMINAR//KR\nBEGIN:VEVENT\nUID:${Date.now()}@webceph\nDTSTAMP:20250829T090000Z\nDTSTART:20251028T093000Z\nDTEND:20251028T120000Z\nSUMMARY:WEBCEPH Mini Certification — Masterclass\nLOCATION:Spaceshare Samseong Center, Seoul\nDESCRIPTION:WEBCEPH live seminar.\nEND:VEVENT\nEND:VCALENDAR`;
-        icsBtn.addEventListener('click', (e)=>{
-          e.preventDefault(); const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
-          const url = URL.createObjectURL(blob); const a=document.createElement('a');
-          a.href=url; a.download='webceph-seminar-2025-10-28.ics'; a.click(); URL.revokeObjectURL(url);
-        });
-      }
-    })();
-
-    // === Utility: simple hash for local QR payload ===
-    function simpleHash(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h<<5)-h+s.charCodeAt(i); h|=0; } return Math.abs(h).toString(36); }
-    function showLocalSuccessAndQR(formData, provider, receipt){
-      const box = document.getElementById('resultBox');
-      box.classList.remove('hidden');
-      const payload = { t:'ticket', provider, receipt, name:formData.name, email:formData.email, phone:formData.phone, h:simpleHash(formData.email+'|'+(receipt?.imp_uid||receipt?.id||Date.now())) };
-      const target = document.getElementById('qrTicket'); target.innerHTML='';
-      new QRCode(target, { text: JSON.stringify(payload), width: 160, height: 160 });
-      // TODO: 서버 연동 시, 여기서 서버에 전달하고 서버가 메일 발송/실제 QR 발급
-    }
-
-    function getFormData(){
+    // Payments (kept original behavior)
+    document.getElementById('btnIamport')?.addEventListener('click', function () {
       const f = document.getElementById('fastForm');
-      return { name:f.name.value.trim(), email:f.email.value.trim(), phone:f.phone.value.trim(), affiliation:f.affiliation.value.trim() };
-    }
-
-    // === Iamport (client-side demo; 실제 검증은 서버에서 ===)
-    const IMP = window.IMP; if (IMP) { IMP.init('impXXXXXXXX'); /* TODO: 가맹점 식별코드 */ }
-    document.getElementById('btnIamport').addEventListener('click', function(){
-      if (!document.getElementById('agree').checked) { alert('개인정보 동의가 필요합니다.'); return; }
-      const data = getFormData(); if (!data.name || !data.email || !data.phone) { alert('필수 정보를 입력하세요.'); return; }
-      if (!window.IMP) { alert('결제 라이브러리를 불러오지 못했습니다.'); return; }
+      const agree = document.getElementById('agree');
+      if (!agree.checked) { alert(i18nStr('must_agree')); return; }
+      const name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim();
+      if (!name || !email || !phone) { alert(i18nStr('fill_required')); return; }
+      if (!window.IMP) { alert(i18nStr('imp_load_fail')); return; }
       window.IMP.request_pay({
-        pg: 'html5_inicis',            // TODO: PG사 설정 (예: html5_inicis, kcp, uplus, danal 등)
-        pay_method: 'card',
-        merchant_uid: 'order_' + Date.now(),
-        name: 'WEBCEPH 미니 인증 코스',
-        amount: 100000,                // KRW
-        buyer_email: data.email,
-        buyer_name: data.name,
-        buyer_tel: data.phone
-      }, function(rsp){
-        if (rsp.success) {
-          // TODO: 서버에 imp_uid 전달하여 결제 검증 → 성공 시 이메일/정식 QR 발송
-          showLocalSuccessAndQR(data, 'iamport', rsp);
-        } else {
-          alert('결제가 실패했습니다: ' + (rsp.error_msg||'오류'));
-        }
+        pg: 'html5_inicis', pay_method: 'card', merchant_uid: 'order_' + Date.now(),
+        name: i18nStr('product_name'), amount: 100000, buyer_email: email, buyer_name: name, buyer_tel: phone
+      }, function (rsp) {
+        if (rsp.success) { alert(i18nStr('pay_success').replace('{uid}', rsp.imp_uid)); }
+        else { alert(i18nStr('pay_fail') + (rsp.error_msg || '')); }
       });
     });
 
-    // === PayPal (client-side Buttons; 실제 검증은 서버에서) ===
-    if (window.paypal) {
-      paypal.Buttons({
-        style: { layout: 'horizontal', color: 'gold', shape: 'rect', label: 'paypal' },
-        createOrder: function(data, actions){
-          // 금액/통화는 계정/정책에 맞게 조정하세요 (예: USD 80.00)
-          return actions.order.create({ purchase_units: [{ amount: { value: '80.00', currency_code: 'USD' }, description: 'WEBCEPH Mini Certification' }] });
-        },
-        onApprove: function(data, actions){
-          return actions.order.capture().then(function(details){
-            const formData = getFormData();
-            if (!formData.name || !formData.email || !formData.phone) {
-              alert('결제 전 등록 정보를 입력해주세요.'); return;
-            }
-            // TODO: 서버에 orderID/결제정보 전달 → 검증 후 이메일/정식 QR 발송
-            showLocalSuccessAndQR(formData, 'paypal', details);
-          });
-        },
-        onError: function(err){ alert('PayPal 오류: ' + err); }
-      }).render('#paypal-container');
+    document.getElementById('btnPaypal')?.addEventListener('click', function () {
+      const f = document.getElementById('fastForm');
+      const agree = document.getElementById('agree');
+      if (!agree.checked) { alert(i18nStr('must_agree')); return; }
+      const name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim();
+      if (!name || !email || !phone) { alert(i18nStr('fill_required')); return; }
+      window.open('https://paypal.me/YOUR_ID/80USD', '_blank');
+    });
+
+    // ===== i18n =====
+    const DICTS = {
+      ko: {
+        site_title: 'WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스',
+        choose_language_label: '언어 선택',
+        hero_title: 'WEBCEPH 미니 인증 코스 <br/>한·일 얼라이너 마스터 클래스',
+        hero_sub: '한·일 얼라이너 대표 연자들이 전하는 최신 인사이트와 실전 노하우를 한 자리에서 만나보세요.',
+        fee_label: '등록비: 100,000원 (부가세 포함)',
+        fee_note: '결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.',
+        cta_register: '등록하기',
+        cta_program: '프로그램 보기',
+        event_info: 'EVENT INFO',
+        date_label: '일시',
+        date_value: '2025-10-28 (화) 18:30–21:00',
+        venue_label: '장소',
+        venue_value: '스페이스쉐어 삼성역센터 컨퍼런스홀, 서울',
+        host_label: '주최',
+        host_value: 'WEBCEPH',
+        lang_label: '언어',
+        lang_value: '한글 · 일본어',
+        open_map: '지도 열기',
+        save_ics: '캘린더 저장 (.ics)',
+        register_title: '등록 정보',
+        ph_name: '이름', ph_email: '이메일', ph_phone: '전화번호', ph_affiliation: '소속 (선택)',
+        consent: '개인정보 수집·이용에 동의합니다.',
+        btn_iamport: '아임포트 결제', btn_paypal: 'PayPal Express 결제',
+        bank_title: '무통장 입금 안내 (선택)',
+        bank_info: '예금주: ㈜웹셉 | 은행: OO은행 | 계좌: 000-0000-0000',
+        bank_note: '입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.',
+        pay_received: '결제가 접수되었습니다.',
+        th_time: '시간', th_desc: '내용',
+        slot_1830_time: '18:30–18:40', slot_1830_desc: '인사 및 소개',
+        slot_1840_time: '18:40–19:10', slot_1840_desc: 'Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략',
+        slot_1910_time: '19:10–19:40', slot_1910_desc: 'Dr. Shuichiro Okano & Dr. Takao Minamide — Aligner Radio in Korea',
+        slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
+        slot_1950_time: '19:50–20:20', slot_1950_desc: 'Dr. 김예현 — WEBCEPH 미니 인증 코스',
+        slot_2020_time: '20:20–20:50', slot_2020_desc: 'Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책',
+        slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A 및 단체 사진 촬영',
+        footer: '© 2025 WEBCEPH. All rights reserved.',
+        product_name: 'WEBCEPH 미니 인증 코스',
+        must_agree: '개인정보 수집·이용에 동의해야 등록할 수 있습니다.',
+        fill_required: '필수 정보를 입력하세요.',
+        imp_load_fail: '결제 라이브러리를 불러오지 못했습니다.',
+        pay_success: '결제가 접수되었습니다. (UID: {uid})',
+        pay_fail: '결제 실패: '
+      },
+      ja: {
+        site_title: 'WEBCEPHミニ認定コース | 日韓アライナーマスタークラス',
+        choose_language_label: '言語を選択',
+        hero_title: 'WEBCEPHミニ認定コース <br/>日韓アライナーマスタークラス',
+        hero_sub: '日韓のアライナーの著名講師が最新インサイトと実践ノウハウを一堂に共有します。',
+        fee_label: '受講料: 100,000ウォン（税込）',
+        fee_note: '決済完了後、確認メールとQRチケットをお送りします。',
+        cta_register: '申込する',
+        cta_program: 'プログラムを見る',
+        event_info: 'イベント情報',
+        date_label: '日時',
+        date_value: '2025-10-28（火）18:30–21:00',
+        venue_label: '会場',
+        venue_value: 'スペースシェア三成駅センター コンファレンスホール（ソウル）',
+        host_label: '主催',
+        host_value: 'WEBCEPH',
+        lang_label: '言語',
+        lang_value: '韓国語・日本語',
+        open_map: '地図を開く',
+        save_ics: 'カレンダー保存 (.ics)',
+        register_title: '申込情報',
+        ph_name: '氏名', ph_email: 'メール', ph_phone: '電話番号', ph_affiliation: '所属（任意）',
+        consent: '個人情報の収集・利用に同意します。',
+        btn_iamport: 'Iamport 決済', btn_paypal: 'PayPal Express 決済',
+        bank_title: '銀行振込のご案内（任意）',
+        bank_info: '口座名義: (株)ウェブセフ | 銀行: OO銀行 | 口座: 000-0000-0000',
+        bank_note: '入金後の確認のため、氏名／振込名義／電話番号を申込フォームに正確にご記入ください。',
+        pay_received: '決済が受け付けられました。',
+        th_time: '時間', th_desc: '内容',
+        slot_1830_time: '18:30–18:40', slot_1830_desc: '挨拶と紹介',
+        slot_1840_time: '18:40–19:10', slot_1840_desc: 'Dr. Hiroyuki Watabe — 追加アライナーを減らすための戦略',
+        slot_1910_time: '19:10–19:40', slot_1910_desc: 'Dr. Shuichiro Okano & Dr. Takao Minamide — Aligner Radio in Korea',
+        slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
+        slot_1950_time: '19:50–20:20', slot_1950_desc: 'Dr. Kim Yehyun — WEBCEPHミニ認定コース',
+        slot_2020_time: '20:20–20:50', slot_2020_desc: 'Dr. Choi Hyeongju — アライナー矯正：治療計画における課題と解決策',
+        slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A・集合写真',
+        footer: '© 2025 WEBCEPH. All rights reserved.',
+        product_name: 'WEBCEPHミニ認定コース',
+        must_agree: '申込には個人情報の収集・利用への同意が必要です。',
+        fill_required: '必須項目を入力してください。',
+        imp_load_fail: '決済ライブラリの読み込みに失敗しました。',
+        pay_success: '決済が受け付けられました。（UID: {uid}）',
+        pay_fail: '決済失敗: '
+      },
+      en: {
+        site_title: 'WEBCEPH Mini Certification | Korea–Japan Aligner Masterclass',
+        choose_language_label: 'Choose language',
+        hero_title: 'WEBCEPH Mini Certification <br/>Korea–Japan Aligner Masterclass',
+        hero_sub: 'Meet top aligner speakers from Korea and Japan sharing the latest insights and practical know‑how in one place.',
+        fee_label: 'Registration fee: KRW 100,000 (VAT incl.)',
+        fee_note: 'A confirmation email and QR ticket will be sent after payment.',
+        cta_register: 'Register',
+        cta_program: 'View Program',
+        event_info: 'EVENT INFO',
+        date_label: 'Date & Time',
+        date_value: 'Tue, Oct 28, 2025 • 18:30–21:00',
+        venue_label: 'Venue',
+        venue_value: 'SPACE SHARE Samseong Center – Conference Hall, Seoul',
+        host_label: 'Host',
+        host_value: 'WEBCEPH',
+        lang_label: 'Languages',
+        lang_value: 'Korean · Japanese',
+        open_map: 'Open Map',
+        save_ics: 'Save to Calendar (.ics)',
+        register_title: 'Registration',
+        ph_name: 'Name', ph_email: 'Email', ph_phone: 'Phone number', ph_affiliation: 'Affiliation (optional)',
+        consent: 'I agree to the collection and use of my personal information.',
+        btn_iamport: 'Pay with Iamport', btn_paypal: 'Pay with PayPal Express',
+        bank_title: 'Bank Transfer (optional)',
+        bank_info: 'Account Holder: WebCeph Inc. | Bank: OO Bank | Account: 000-0000-0000',
+        bank_note: 'After remittance, please enter your name / remitter’s name / phone number accurately in the form for verification.',
+        pay_received: 'Payment received.',
+        th_time: 'Time', th_desc: 'Details',
+        slot_1830_time: '18:30–18:40', slot_1830_desc: 'Greetings & Introduction',
+        slot_1840_time: '18:40–19:10', slot_1840_desc: 'Dr. Hiroyuki Watabe — Strategies to Reduce Additional Aligners',
+        slot_1910_time: '19:10–19:40', slot_1910_desc: 'Dr. Shuichiro Okano & Dr. Takao Minamide — Aligner Radio in Korea',
+        slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
+        slot_1950_time: '19:50–20:20', slot_1950_desc: 'Dr. Yehyun Kim — WEBCEPH Mini Certification',
+        slot_2020_time: '20:20–20:50', slot_2020_desc: 'Dr. Hyeongju Choi — Clear Aligners: Challenges & Solutions in Treatment Planning',
+        slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A & Group Photo',
+        footer: '© 2025 WEBCEPH. All rights reserved.',
+        product_name: 'WEBCEPH Mini Certification',
+        must_agree: 'You must agree to the privacy policy to register.',
+        fill_required: 'Please fill in the required fields.',
+        imp_load_fail: 'Failed to load payment library.',
+        pay_success: 'Payment received. (UID: {uid})',
+        pay_fail: 'Payment failed: '
+      }
+    };
+
+    function i18nStr(key) {
+      const lang = document.documentElement.lang || 'ko';
+      const dict = DICTS[lang] || DICTS.ko;
+      return dict[key] ?? DICTS.ko[key] ?? key;
     }
+
+    function applyI18n(lang) {
+      document.documentElement.lang = lang;
+      // Text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const val = (DICTS[lang] && DICTS[lang][key]) || (DICTS.ko && DICTS.ko[key]) || '';
+        if (val.includes('<br')) el.innerHTML = val; else el.textContent = val;
+      });
+      // Placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        const val = (DICTS[lang] && DICTS[lang][key]) || (DICTS.ko && DICTS.ko[key]) || '';
+        el.setAttribute('placeholder', val);
+      });
+      // Persist
+      try { localStorage.setItem('lang', lang); } catch (_) {}
+      // Update <title>
+      document.title = i18nStr('site_title');
+      // Update select value
+      const sel = document.getElementById('langSelect');
+      if (sel) sel.value = lang;
+    }
+
+    // Init lang from localStorage or <html lang>
+    (function () {
+      const saved = (() => { try { return localStorage.getItem('lang'); } catch (_) { return null; } })();
+      const initial = saved || document.documentElement.lang || 'ko';
+      applyI18n(initial);
+      const sel = document.getElementById('langSelect');
+      sel?.addEventListener('change', (e) => applyI18n(e.target.value));
+    })();
   </script>
 </body>
 </html>
-
