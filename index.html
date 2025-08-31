@@ -60,8 +60,9 @@
         </p>
         <!-- 등록비 안내 -->
         <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
-          <p class="font-semibold" data-i18n="fee_label">등록비: 100,000원 (부가세 포함)</p>
-          <p class="text-xs text-slate-500 mt-1" data-i18n="fee_note">결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.</p>
+          <p class="font-semibold" data-i18n="fee_label_general">일반: 100,000원</p>
+          <p class="font-semibold mt-1" data-i18n="fee_label_resident">전공의/군의관/공보의: 70,000원</p>
+          <p class="text-xs text-slate-500 mt-2" data-i18n="fee_note">결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.</p>
         </div>
         <div class="flex flex-wrap items-center gap-3 text-sm">
           <button id="showRegisterBtn" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-blue-600 text-white" data-i18n="cta_register">
@@ -71,6 +72,7 @@
             프로그램 보기
           </a>
         </div>
+
       </div>
     </div>
   </section>
@@ -109,48 +111,62 @@
     </div>
   </section>
 
-  <!-- Register Section (hidden by default) -->
-  <section id="register" class="hidden bg-white mt-6 rounded-none md:rounded-2xl md:shadow border border-slate-200 md:max-w-5xl md:mx-auto mx-0 my-0 md:my-8 px-4 md:px-0">
-    <div class="py-5 md:p-8">
-      <h2 class="text-xl md:text-2xl font-bold mb-4" data-i18n="register_title">등록 정보</h2>
+<!-- Register Section (hidden by default) -->
+<section id="register" class="hidden bg-white mt-6 rounded-none md:rounded-2xl md:shadow border border-slate-200 md:max-w-5xl md:mx-auto mx-0 my-0 md:my-8 px-4 md:px-0">
+  <div class="py-5 md:p-8">
+    <h2 class="text-xl md:text-2xl font-bold mb-4" data-i18n="register_title">등록 정보</h2>
 
-      <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
-        <p class="font-semibold" data-i18n="fee_label">등록비: 100,000원 (부가세 포함)</p>
-        <p class="text-xs text-slate-500 mt-1" data-i18n="fee_note">결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.</p>
+    <!-- 등록비 안내 -->
+    <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
+      <p class="font-semibold" data-i18n="fee_label_general">일반: 100,000원</p>
+      <p class="font-semibold mt-1" data-i18n="fee_label_resident">전공의/군의관/공보의: 70,000원</p>
+      <p class="text-xs text-slate-500 mt-2" data-i18n="fee_note">결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.</p>
+    </div>
+
+    <form id="fastForm" class="space-y-3" onsubmit="return false;">
+
+
+      <input name="name" type="text" data-i18n-placeholder="ph_name" placeholder="이름" required class="w-full border rounded-lg p-3" />
+      <input name="email" type="email" data-i18n-placeholder="ph_email" placeholder="이메일" required class="w-full border rounded-lg p-3" />
+      <input name="phone" type="tel" data-i18n-placeholder="ph_phone" placeholder="전화번호" required class="w-full border rounded-lg p-3" />
+
+      <!-- 수강 구분 선택 -->
+      <select id="feeTier" name="feeTier" class="w-full border rounded-lg p-3" required>
+        <option value="general" data-i18n="opt_general">일반의(전문의)</option>
+        <option value="resident" data-i18n="opt_resident">전공의/군의관/공보의</option>
+      </select>
+
+
+      <input name="affiliation" type="text" data-i18n-placeholder="ph_affiliation" placeholder="소속 (선택)" class="w-full border rounded-lg p-3" />
+      <div class="flex items-center gap-2 text-xs text-slate-600">
+        <input id="agree" type="checkbox" class="h-4 w-4" required />
+        <label for="agree" data-i18n="consent">개인정보 수집·이용에 동의합니다.</label>
       </div>
 
-      <form id="fastForm" class="space-y-3" onsubmit="return false;">
-        <input name="name" type="text" data-i18n-placeholder="ph_name" placeholder="이름" required class="w-full border rounded-lg p-3" />
-        <input name="email" type="email" data-i18n-placeholder="ph_email" placeholder="이메일" required class="w-full border rounded-lg p-3" />
-        <input name="phone" type="tel" data-i18n-placeholder="ph_phone" placeholder="전화번호" required class="w-full border rounded-lg p-3" />
-        <input name="affiliation" type="text" data-i18n-placeholder="ph_affiliation" placeholder="소속 (선택)" class="w-full border rounded-lg p-3" />
-        <div class="flex items-center gap-2 text-xs text-slate-600">
-          <input id="agree" type="checkbox" class="h-4 w-4" required />
-          <label for="agree" data-i18n="consent">개인정보 수집·이용에 동의합니다.</label>
-        </div>
+      <div class="grid grid-cols-1 gap-2 pt-2">
+        <button id="btnIamport" type="button" class="px-4 py-3 rounded-lg font-semibold bg-blue-600 text-white" data-i18n="btn_iamport">
+          아임포트 결제
+        </button>
+        <button id="btnPaypal" type="button" class="px-4 py-3 rounded-lg font-semibold border border-slate-300" data-i18n="btn_paypal">
+          PayPal Express 결제
+        </button>
+      </div>
 
-        <div class="grid grid-cols-1 gap-2 pt-2">
-          <button id="btnIamport" type="button" class="px-4 py-3 rounded-lg font-semibold bg-blue-600 text-white" data-i18n="btn_iamport">
-            아임포트 결제
-          </button>
-          <button id="btnPaypal" type="button" class="px-4 py-3 rounded-lg font-semibold border border-slate-300" data-i18n="btn_paypal">
-            PayPal Express 결제
-          </button>
-        </div>
+      <div class="mt-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
+        <p class="font-semibold" data-i18n="bank_title">무통장 입금 안내 (선택)</p>
+        <p data-i18n="bank_info">예금주: ㈜어셈블써클 | 은행: 기업은행 | 계좌: 518-066566-01-040</p>
+        <p class="mt-1 text-xs text-slate-500" data-i18n="bank_note">입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.<br>입금 시 입금자명에 성명(면허번호)으로 기재해주시기 바랍니다.</p>
+      </div>
 
-        <div class="mt-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
-          <p class="font-semibold" data-i18n="bank_title">무통장 입금 안내 (선택)</p>
-          <p data-i18n="bank_info">예금주: ㈜웹셉 | 은행: OO은행 | 계좌: 000-0000-0000</p>
-          <p class="mt-1 text-xs text-slate-500" data-i18n="bank_note">입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.</p>
-        </div>
+      <div id="resultBox" class="hidden mt-3 p-3 border rounded-lg">
+        <p class="font-semibold" data-i18n="pay_received">결제가 접수되었습니다.</p>
+        <div id="qrTicket" class="mt-2 flex items-center justify-center h-40"></div>
+      </div>
+    </form>
+  </div>
+</section>
 
-        <div id="resultBox" class="hidden mt-3 p-3 border rounded-lg">
-          <p class="font-semibold" data-i18n="pay_received">결제가 접수되었습니다.</p>
-          <div id="qrTicket" class="mt-2 flex items-center justify-center h-40"></div>
-        </div>
-      </form>
-    </div>
-  </section>
+
 <!-- Program -->
 <section id="program" class="bg-white md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8 rounded-none md:rounded-2xl md:shadow border border-slate-200">
   <div class="p-5">
@@ -325,9 +341,9 @@
   </div>
 </section>
 
+  <p class="mt-3 pt-5 text-center text-white"><span data-i18n="contact">문의</span>: <a href="mailto:admin@assemblecircle.com">admin@assemblecircle.com</a></p>
 
-
-  <footer class="py-10">
+  <footer class="pt-5 pb-10">
     <div class="max-w-6xl text-center mx-auto text-white px-4 text-sm text-slate-500" data-i18n="footer">© 2025 WEBCEPH. All rights reserved.</div>
   </footer>
 
@@ -353,31 +369,116 @@
       if (!reg.classList.contains('hidden')) reg.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // Payments (kept original behavior)
-    document.getElementById('btnIamport')?.addEventListener('click', function () {
-      const f = document.getElementById('fastForm');
-      const agree = document.getElementById('agree');
-      if (!agree.checked) { alert(i18nStr('must_agree')); return; }
-      const name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim();
-      if (!name || !email || !phone) { alert(i18nStr('fill_required')); return; }
-      if (!window.IMP) { alert(i18nStr('imp_load_fail')); return; }
-      window.IMP.request_pay({
-        pg: 'html5_inicis', pay_method: 'card', merchant_uid: 'order_' + Date.now(),
-        name: i18nStr('product_name'), amount: 100000, buyer_email: email, buyer_name: name, buyer_tel: phone
-      }, function (rsp) {
-        if (rsp.success) { alert(i18nStr('pay_success').replace('{uid}', rsp.imp_uid)); }
-        else { alert(i18nStr('pay_fail') + (rsp.error_msg || '')); }
-      });
-    });
+  // 선택 구분별 금액 (KRW)
+  const PRICES = {
+    general: 100000,   // 일반
+    resident: 70000    // 전공의/군의관/공보의
+  };
 
-    document.getElementById('btnPaypal')?.addEventListener('click', function () {
-      const f = document.getElementById('fastForm');
-      const agree = document.getElementById('agree');
-      if (!agree.checked) { alert(i18nStr('must_agree')); return; }
-      const name = f.name.value.trim(), email = f.email.value.trim(), phone = f.phone.value.trim();
-      if (!name || !email || !phone) { alert(i18nStr('fill_required')); return; }
-      window.open('https://paypal.me/YOUR_ID/80USD', '_blank');
-    });
+  // (선택) 결제명/설명 통일
+  const PAY_META = {
+    name: "세미나 등록비", // 아임포트 결제명
+    description: "Seminar Registration Fee" // 페이팔 등 영문 표기 설명
+  };
+
+  function getFormValues() {
+    const form = document.getElementById('fastForm');
+    return {
+      tier: (document.getElementById('feeTier').value || 'general'),
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      affiliation: form.affiliation.value.trim(),
+      agree: document.getElementById('agree').checked
+    };
+  }
+
+  function getAmountKRW(tier) {
+    return PRICES[tier] ?? PRICES.general;
+  }
+
+  // 아임포트 결제 호출 예시 (실서비스에서는 PG/가맹점 코드/옵션 조정 필요)
+  async function payWithIamport() {
+    const v = getFormValues();
+    if (!v.agree) {
+      alert("개인정보 수집·이용에 동의해 주세요.");
+      return;
+    }
+    const amount = getAmountKRW(v.tier);
+
+    // IMP SDK 연결되어 있다고 가정 (window.IMP)
+    if (!window.IMP) {
+      console.warn("IMP SDK not found. Please include iamport payment script.");
+      alert("결제 모듈 초기화에 실패했습니다.");
+      return;
+    }
+
+    // TODO: 본인의 가맹점 식별코드로 교체
+    const IMP = window.IMP;
+    IMP.init("imp_YOUR_MERCHANT_CODE");
+
+    IMP.request_pay(
+      {
+        pg: "kcp",               // 예시 PG
+        pay_method: "card",      // 결제수단
+        merchant_uid: "order_" + new Date().getTime(),
+        name: PAY_META.name,
+        amount: amount,
+        buyer_email: v.email,
+        buyer_name: v.name,
+        buyer_tel: v.phone,
+        custom_data: { tier: v.tier, affiliation: v.affiliation }
+      },
+      function (rsp) {
+        if (rsp.success) {
+          // TODO: 서버 검증 로직 호출 (권장)
+          document.getElementById("resultBox").classList.remove("hidden");
+          // QR 생성 등 후처리…
+        } else {
+          alert("결제에 실패했습니다. " + (rsp.error_msg || ""));
+        }
+      }
+    );
+  }
+
+  // PayPal 결제 예시
+  // 실제로는 PayPal JS SDK 혹은 서버측 /create-order API를 통해 주문을 생성하세요.
+  // 여기서는 금액/구분을 포함해 서버로 전달하는 스텁만 예시로 제공합니다.
+  async function payWithPaypal() {
+    const v = getFormValues();
+    if (!v.agree) {
+      alert("개인정보 수집·이용에 동의해 주세요.");
+      return;
+    }
+    const amount = getAmountKRW(v.tier);
+
+    try {
+      // 서버에 KRW 금액/메타 전달 → 서버에서 PayPal Order 생성
+      // const res = await fetch("/api/paypal/create-order", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     currency: "KRW",
+      //     amount,
+      //     description: PAY_META.description,
+      //     buyer: { name: v.name, email: v.email, phone: v.phone, affiliation: v.affiliation },
+      //     tier: v.tier
+      //   })
+      // });
+      // const data = await res.json();
+      // if (data.approvalUrl) window.location.href = data.approvalUrl;
+
+      // 데모: 실제 연동 전 확인용
+      alert(`PayPal 결제 시도\n구분: ${v.tier}\n금액: ${amount.toLocaleString()} KRW`);
+    } catch (e) {
+      console.error(e);
+      alert("PayPal 결제 생성 중 오류가 발생했습니다.");
+    }
+  }
+
+  // 버튼 이벤트 바인딩
+  document.getElementById("btnIamport").addEventListener("click", payWithIamport);
+  document.getElementById("btnPaypal").addEventListener("click", payWithPaypal);
 
     // ===== i18n =====
 const DICTS = {
@@ -406,8 +507,8 @@ const DICTS = {
     consent: '개인정보 수집·이용에 동의합니다.',
     btn_iamport: '아임포트 결제', btn_paypal: 'PayPal Express 결제',
     bank_title: '무통장 입금 안내 (선택)',
-    bank_info: '예금주: ㈜웹셉 | 은행: OO은행 | 계좌: 000-0000-0000',
-    bank_note: '입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.',
+    bank_info: '예금주: ㈜어셈블써클 | 은행: 기업은행 | 계좌: 518-066566-01-040',
+    bank_note: '입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.<br>입금 시 입금자명에 성명(면허번호)으로 기재해주시기 바랍니다.',
     pay_received: '결제가 접수되었습니다.',
     th_time: '시간', th_desc: '내용',
     slot_1830_time: '18:30–18:40', slot_1830_desc: '인사 및 소개',
@@ -445,7 +546,15 @@ const DICTS = {
 
     sp5_name: 'Dr. 최형주',
     sp5_bio1: '인비절라인 패컬티',
-    sp5_bio2: '서울바른 치과교정과'
+    sp5_bio2: '서울바른 치과교정과',
+    contact: '문의',
+
+    fee_label_general: "일반: 100,000원",
+    fee_label_resident: "전공의/군의관/공보의: 70,000원",
+    fee_note: "결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.",
+
+    opt_general: "일반의(전문의)",
+    opt_resident: "전공의/군의관/공보의"
   },
   ja: {
     site_title: 'WEBCEPHミニ認定コース | 日韓アライナーマスタークラス',
@@ -472,7 +581,7 @@ const DICTS = {
     consent: '個人情報の収集・利用に同意します。',
     btn_iamport: 'Iamport 決済', btn_paypal: 'PayPal Express 決済',
     bank_title: '銀行振込のご案内（任意）',
-    bank_info: '口座名義: (株)ウェブセフ | 銀行: OO銀行 | 口座: 000-0000-0000',
+    bank_info: '口座名義: ㈜어셈블써클 | 銀行: IBK(Industrial Bank of Korea) | 口座: 518-066566-01-040',
     bank_note: '入金後の確認のため、氏名／振込名義／電話番号を申込フォームに正確にご記入ください。',
     pay_received: '決済が受け付けられました。',
     th_time: '時間', th_desc: '内容',
@@ -490,6 +599,7 @@ const DICTS = {
     imp_load_fail: '決済ライブラリの読み込みに失敗しました。',
     pay_success: '決済が受け付けられました。（UID: {uid}）',
     pay_fail: '決済失敗: ',
+
 
     program_title: '日程表',
 
@@ -512,7 +622,16 @@ const DICTS = {
 
     sp5_name: 'Dr. Hyungjoo Choi',
     sp5_bio1: 'インビザライン ファカルティ',
-    sp5_bio2: 'ソウルバルン矯正歯科'
+    sp5_bio2: 'ソウルバルン矯正歯科',
+    contact: 'Contact',
+
+    fee_label_general: "一般：100,000ウォン",
+    fee_label_resident: "研修医／軍医／公務員医師：70,000ウォン",
+    fee_note: "お支払い完了後、確認メールとQRチケットが送信されます。",
+
+    opt_general: "一般",
+    opt_resident: "研修医／軍医／公務員医師"
+
   },
   en: {
     site_title: 'WEBCEPH Mini Certification | Korea–Japan Aligner Masterclass',
@@ -539,7 +658,7 @@ const DICTS = {
     consent: 'I agree to the collection and use of my personal information.',
     btn_iamport: 'Pay with Iamport', btn_paypal: 'Pay with PayPal Express',
     bank_title: 'Bank Transfer (optional)',
-    bank_info: 'Account Holder: WebCeph Inc. | Bank: OO Bank | Account: 000-0000-0000',
+    bank_info: 'Account Holder: ㈜어셈블써클 | Bank: IBK(Industrial Bank of Korea) | Account: 518-066566-01-040',
     bank_note: 'After remittance, please enter your name / remitter’s name / phone number accurately in the form for verification.',
     pay_received: 'Payment received.',
     th_time: 'Time', th_desc: 'Details',
@@ -580,7 +699,15 @@ const DICTS = {
 
     sp5_name: 'Dr. Hyungjoo Choi',
     sp5_bio1: 'Invisalign Faculty',
-    sp5_bio2: 'Seoul Barun Orthodontic Clinic'
+    sp5_bio2: 'Seoul Barun Orthodontic Clinic',
+    contact: 'Contact',
+
+    fee_label_general: "General: 100,000 KRW",
+    fee_label_resident: "Resident / Military / Public Health Doctor: 70,000 KRW",
+    fee_note: "After payment is completed, a confirmation email and QR ticket will be sent.",
+
+    opt_general: "General",
+    opt_resident: "Resident / Military / Public Health Doctor"
   }
 };
 
