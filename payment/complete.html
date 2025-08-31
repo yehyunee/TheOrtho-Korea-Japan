@@ -2,192 +2,141 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
+  <title>등록 완료 | WEBCEPH</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>결제 완료 | WEBCEPH</title>
   <meta name="robots" content="noindex" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="/favicon.ico" />
-  <style>
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-  </style>
+  <style>.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}</style>
 </head>
 <body class="min-h-screen bg-slate-50">
-  <header class="sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-slate-200">
-    <div class="mx-auto max-w-3xl px-4 py-3 flex items-center justify-between">
-      <a href="/" class="font-bold">WEBCEPH</a>
-      <span class="text-sm text-slate-500">Payment Complete</span>
-    </div>
-  </header>
+  <main class="mx-auto max-w-xl px-4 py-10">
+    <section id="card" class="rounded-2xl border bg-white shadow-sm p-6">
+      <div id="loading">
+        <div class="flex items-center gap-3">
+          <div class="h-2.5 w-2.5 rounded-full bg-amber-500 animate-pulse"></div>
+          <h1 class="text-xl font-bold">결제 결과 확인 중…</h1>
+        </div>
+        <p class="mt-2 text-sm text-slate-600">잠시만 기다려 주세요.</p>
+      </div>
 
-  <main class="mx-auto max-w-3xl px-4 py-8">
-    <section id="card" class="rounded-2xl border bg-white shadow-sm">
-      <div class="p-5 md:p-7">
-        <h1 class="text-xl md:text-2xl font-bold">결제 결과 확인 중…</h1>
-        <p class="mt-2 text-sm text-slate-600">잠시만 기다려 주세요. 결제 정보와 서버 검증 결과를 확인하고 있습니다.</p>
+      <div id="success" class="hidden">
+        <div class="flex items-center gap-3">
+          <div class="h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center text-white">✓</div>
+          <h1 class="text-xl font-bold">등록이 완료되었습니다</h1>
+        </div>
+        <p class="mt-2 text-sm text-slate-600">이메일로 확인 안내를 전송했습니다.</p>
 
-        <div id="statusBox" class="mt-5 rounded-xl border p-4 bg-slate-50">
-          <div class="flex items-center gap-2">
-            <div id="statusDot" class="h-2.5 w-2.5 rounded-full bg-amber-500"></div>
-            <div id="statusText" class="text-sm font-medium text-slate-700">검증 대기</div>
+        <div class="mt-5 grid grid-cols-1 gap-3 text-sm">
+          <div class="rounded-xl border p-4 bg-slate-50">
+            <div class="text-slate-500">등록번호</div>
+            <div id="regId" class="font-medium break-all"></div>
           </div>
-          <div id="subStatusText" class="mt-1 text-xs text-slate-500">결제 식별자와 주문번호를 수집 중…</div>
-        </div>
-
-        <!-- 원시 파라미터 표시(디버그용) -->
-        <details class="mt-5">
-          <summary class="cursor-pointer text-sm text-slate-600 hover:text-slate-800">상세 파라미터 보기</summary>
-          <pre id="rawParams" class="mono text-xs mt-2 p-3 rounded-lg border bg-white overflow-auto"></pre>
-        </details>
-
-        <!-- 서버 검증 결과 -->
-        <div id="verifyBox" class="hidden mt-5 rounded-xl border p-4">
-          <h2 class="text-base md:text-lg font-semibold">서버 검증 결과</h2>
-          <div id="verifyGrid" class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-            <!-- 채워짐 -->
+          <div class="rounded-xl border p-4 bg-slate-50">
+            <div class="text-slate-500">신청자</div>
+            <div id="attendee" class="font-medium break-all"></div>
           </div>
-          <pre id="verifyRaw" class="mono text-xs mt-3 p-3 rounded-lg border bg-slate-50 overflow-auto"></pre>
+          <div class="rounded-xl border p-4 bg-slate-50">
+            <div class="text-slate-500">신청 구분</div>
+            <div id="tier" class="font-medium"></div>
+          </div>
+          <div class="rounded-xl border p-4 bg-slate-50">
+            <div class="text-slate-500">결제 금액</div>
+            <div id="amount" class="font-medium"></div>
+          </div>
         </div>
 
-        <div class="mt-6 flex flex-col md:flex-row gap-3">
-          <a id="goHome" href="/" class="inline-flex items-center justify-center px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-50">홈으로</a>
-          <button id="retryBtn" class="hidden inline-flex items-center justify-center px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">다시 시도</button>
+        <div class="mt-6 flex flex-col gap-3">
+          <!-- 확인서(또는 영수증) 보기 -->
+          <a id="receiptLink" href="#" target="_blank"
+             class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+            등록 확인서 보기
+          </a>
+          <!-- 세미나 안내/FAQ로 이동 -->
+          <a href="/info"
+             class="inline-flex items-center justify-center px-4 py-2 rounded-lg border hover:bg-slate-50">
+            세미나 안내 보러가기
+          </a>
         </div>
 
-        <p class="mt-6 text-xs text-slate-500">
-          안내: 결제 확정은 <b>서버 검증</b>으로 상태/금액/주문번호가 일치할 때 완료됩니다. 문제가 반복되면 고객센터(<a class="underline" href="mailto:admin@assemblecircle.com">admin@assemblecircle.com</a>)로 문의해 주세요.
-        </p>
+        <!-- 자동 이동(선택): 5초 후 안내 페이지로 -->
+        <p class="mt-4 text-xs text-slate-500">5초 후 세미나 안내 페이지로 이동합니다…</p>
+      </div>
+
+      <div id="error" class="hidden">
+        <div class="flex items-center gap-3">
+          <div class="h-6 w-6 rounded-full bg-red-500 flex items-center justify-center text-white">!</div>
+          <h1 class="text-xl font-bold">검증에 실패했습니다</h1>
+        </div>
+        <p id="errMsg" class="mt-2 text-sm text-slate-600">네트워크 또는 서버 오류가 발생했습니다.</p>
+        <div class="mt-6 flex gap-3">
+          <button id="retry" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-black">다시 시도</button>
+          <a href="/" class="px-4 py-2 rounded-lg border hover:bg-slate-50">홈으로</a>
+        </div>
       </div>
     </section>
   </main>
 
   <script>
-    // ====== 유틸 ======
-    const $ = (sel) => document.querySelector(sel);
-    const setStatus = (text, color = "bg-amber-500", sub = "") => {
-      $("#statusDot").className = "h-2.5 w-2.5 rounded-full " + color;
-      $("#statusText").textContent = text;
-      if (sub) $("#subStatusText").textContent = sub;
-    };
+    // === 환경별 엔드포인트 설정 ===
+    const VERIFY_ENDPOINT = "https://api.webceph.com/api/payments/verify"; // 여러분의 실제 검증 API 경로
+    const RECEIPT_BASE =  "https://api.webceph.com/api/registrations";     // 확인서(또는 영수증) 링크 베이스 (예: /api/registrations/{id}/receipt)
 
-    function parseAllParams() {
-      const url = new URL(location.href);
-      const q = new URLSearchParams(url.search);
-      const h = new URLSearchParams(url.hash.startsWith("#") ? url.hash.slice(1) : "");
+    const $ = (s) => document.querySelector(s);
+    const params = new URLSearchParams(location.search);
+    const paymentId = params.get("paymentId");
 
-      const grab = (p) => (q.get(p) ?? h.get(p) ?? null);
+    const fmtAmount = (n, cur) => new Intl.NumberFormat("ko-KR").format(n) + (cur ? " " + cur : "");
 
-      // PortOne v2 / Iamport v1 양쪽을 최대한 포괄해서 수집
-      // (실제 리디렉션 파라미터는 PG/플로우에 따라 다를 수 있음)
-      const params = {
-        // 공통/가능성
-        paymentId: grab("paymentId") || grab("merchant_uid") || grab("merchantUid") || null,
-        imp_uid: grab("imp_uid") || null,
-        merchant_uid: grab("merchant_uid") || grab("merchantUid") || null,
-        txId: grab("txId") || grab("pg_tid") || null,
-        status: grab("status") || null,
-        success: grab("imp_success") ?? grab("success") ?? null,
-        code: grab("code") || null,
-        message: grab("message") || grab("error_msg") || null,
-
-        // 그 외 원본 보존
-        _query: Object.fromEntries(q.entries()),
-        _hash: Object.fromEntries(h.entries()),
-      };
-
-      return params;
-    }
-
-    function renderRawParams(p) {
-      $("#rawParams").textContent = JSON.stringify(p, null, 2);
-    }
-
-    function kv(label, value) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div class="text-slate-500">${label}</div>
-        <div class="font-medium break-all">${value ?? ""}</div>
-      `;
-      return div;
-    }
-
-    function renderVerifyBox(data) {
-      $("#verifyBox").classList.remove("hidden");
-      const g = $("#verifyGrid");
-      g.innerHTML = "";
-      const fields = [
-        ["검증 여부", String(!!data.verified)],
-        ["서버 상태", data.status ?? ""],
-        ["주문번호(merchant_uid)", data.merchant_uid ?? data.merchantUid ?? ""],
-        ["결제식별자(imp_uid/paymentId)", data.imp_uid ?? data.paymentId ?? ""],
-        ["결제 금액", data.amount != null ? String(data.amount) : ""],
-      ];
-      fields.forEach(([k, v]) => g.appendChild(kv(k, v)));
-      $("#verifyRaw").textContent = JSON.stringify(data, null, 2);
-    }
-
-    async function verifyOnServer(payload) {
-      // TODO: 실제 WebCeph API 엔드포인트로 교체
-      const VERIFY_ENDPOINT = "https://18a8684077d9.ngrok-free.app/payments/verify";
-
-      const res = await fetch(VERIFY_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // 서버에서는 반드시 액세스 토큰 발급 → payments/{imp_uid} 혹은 해당 API로 상태/금액 검증
-        body: JSON.stringify({
-          imp_uid: payload.imp_uid,                 // v1 계열
-          merchant_uid: payload.merchant_uid,
-          paymentId: payload.paymentId,            // v2 계열 대비
-          txId: payload.txId,
-          status_hint: payload.status,
-          success_hint: payload.success
-        })
-      });
-
-      if (!res.ok) {
-        const text = await res.text().catch(()=> "");
-        throw new Error("VERIFY_HTTP_" + res.status + " " + text);
-      }
-      return await res.json();
-    }
-
-    async function main() {
-      // 1) 파라미터 수집 및 표시
-      const params = parseAllParams();
-      renderRawParams(params);
-
-      if (!params.imp_uid && !params.paymentId && !params.merchant_uid) {
-        setStatus("필수 파라미터 없음", "bg-red-500", "결제 식별자(imp_uid 또는 paymentId)가 전달되지 않았습니다.");
-        $("#retryBtn").classList.remove("hidden");
-        return;
-      }
-
-      // 2) 서버 검증
+    async function verify() {
+      if (!paymentId) return showError("결제 식별자(paymentId)가 없습니다.");
       try {
-        setStatus("서버 검증 중…", "bg-amber-500", "결제 상태와 금액, 주문번호를 확인하는 중입니다.");
-        const data = await verifyOnServer(params);
-        const ok = !!data.verified;
+        const res = await fetch(VERIFY_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ paymentId })
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
 
-        if (ok) {
-          setStatus("결제가 완료되었습니다", "bg-emerald-500", "감사합니다. 결제가 정상 처리되었습니다.");
+        if (data.verified) {
+          // 성공 UI
+          $("#loading").classList.add("hidden");
+          $("#success").classList.remove("hidden");
+
+          // 요약 표시
+          $("#regId").textContent = data.registration_id || "(발급됨)";
+          const name = data?.attendee?.name || "";
+          const email = data?.attendee?.email || "";
+          $("#attendee").textContent = [name, email].filter(Boolean).join(" · ");
+          $("#tier").textContent = data.tier === "resident" ? "전공의" : "일반";
+          $("#amount").textContent = fmtAmount(data.amount, data.currency);
+
+          // 확인서(영수증) 링크
+          const regId = data.registration_id;
+          if (regId) {
+            $("#receiptLink").href = `${RECEIPT_BASE}/${encodeURIComponent(regId)}/receipt`;
+          } else {
+            $("#receiptLink").classList.add("hidden");
+          }
+
+          // 5초 후 안내 페이지로 이동 (원치 않으면 주석 처리)
+          setTimeout(() => { location.href = "/info"; }, 5000);
         } else {
-          setStatus("검증 실패", "bg-red-500", "서버 검증 단계에서 일치하지 않는 항목이 있습니다.");
+          showError(data.reason || "결제 검증에 실패했습니다.");
         }
-        renderVerifyBox(data);
       } catch (e) {
-        console.error(e);
-        setStatus("검증 요청 실패", "bg-red-500", "네트워크 또는 서버 오류가 발생했습니다.");
-        $("#verifyBox").classList.remove("hidden");
-        $("#verifyRaw").textContent = String(e.stack || e.message || e);
-        $("#retryBtn").classList.remove("hidden");
+        showError("네트워크 또는 서버 오류가 발생했습니다.");
       }
     }
 
-    $("#retryBtn").addEventListener("click", () => {
-      location.reload();
-    });
+    function showError(msg) {
+      $("#loading").classList.add("hidden");
+      $("#error").classList.remove("hidden");
+      $("#errMsg").textContent = msg || "오류가 발생했습니다.";
+    }
 
-    main();
+    $("#retry").addEventListener("click", () => location.reload());
+    verify();
   </script>
 </body>
 </html>
-
