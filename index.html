@@ -150,66 +150,181 @@
       </form>
     </div>
   </section>
+<!-- Program -->
+<section id="program" class="bg-white md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8 rounded-none md:rounded-2xl md:shadow border border-slate-200">
+  <div class="p-5">
+    <h2 class="text-lg md:text-xl font-bold mb-3" data-i18n="program_title">프로그램</h2>
 
-  <!-- Program -->
-  <section id="program" class="bg-white md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8 rounded-none md:rounded-2xl md:shadow border border-slate-200">
-    <div class="p-5">
-      <h2 class="text-lg md:text-xl font-bold mb-3" data-i18n="program_title">프로그램</h2>
+    <!-- Mobile cards -->
+    <div class="md:hidden space-y-3" id="programCards">
+      <!-- 18:30 -->
+      <div class="p-3 border rounded-lg bg-white">
+        <p class="text-xs text-slate-500" data-i18n="slot_1830_time">18:30–18:40</p>
+        <p class="text-base md:text-lg font-bold" data-i18n="slot_1830_desc">인사 및 소개</p>
+      </div>
 
-      <!-- Mobile cards -->
-      <div class="md:hidden space-y-3" id="programCards">
-        <div class="p-3 border rounded-lg bg-white">
-          <p class="text-xs text-slate-500" data-i18n="slot_1830_time">18:30–18:40</p>
-          <p data-i18n="slot_1830_desc">인사 및 소개</p>
-        </div>
-        <div class="p-3 border rounded-lg bg-white">
-          <p class="text-xs text-slate-500" data-i18n="slot_1840_time">18:40–19:10</p>
-          <p data-i18n="slot_1840_desc">Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</p>
-        </div>
-        <div class="p-3 border rounded-lg bg-white">
-          <p class="text-xs text-slate-500" data-i18n="slot_1910_time">19:10–19:40</p>
-          <p data-i18n="slot_1910_desc">Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</p>
-        </div>
-        <div class="p-3 border rounded-lg bg-white">
-          <p class="text-xs text-slate-500" data-i18n="slot_1940_time">19:40–19:50</p>
-          <p data-i18n="slot_1940_desc">Q&amp;A</p>
-        </div>
-        <div class="p-3 border rounded-lg bg-white">
-          <p class="text-xs text-slate-500" data-i18n="slot_1950_time">19:50–20:20</p>
-          <p data-i18n="slot_1950_desc">Dr. 김예현 — WEBCEPH 미니 인증 코스</p>
-        </div>
-        <div class="p-3 border rounded-lg bg-white">
-          <p class="text-xs text-slate-500" data-i18n="slot_2020_time">20:20–20:50</p>
-          <p data-i18n="slot_2020_desc">Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</p>
-        </div>
-        <div class="p-3 border rounded-lg bg-white">
-          <p class="text-xs text-slate-500" data-i18n="slot_2050_time">20:50–21:00</p>
-          <p data-i18n="slot_2050_desc">Q&amp;A 및 단체 사진 촬영</p>
+      <!-- 18:40 Hiroyuki -->
+      <div class="p-3 border rounded-lg bg-white">
+        <p class="text-xs text-slate-500" data-i18n="slot_1840_time">18:40–19:10</p>
+        <p class="mb-2 text-base md:text-lg font-bold" data-i18n="slot_1840_desc">투명교정 시 추가 얼라이너를 줄이기 위한 전략</p>
+        <div class="flex items-center gap-3">
+          <img src="images/hiroyuki.PNG" alt="Dr. Hiroyuki Watabe" class="w-20 h-20 rounded-full object-cover">
+          <div>
+            <p class="text-sm font-semibold" data-i18n="sp1_name">Dr. Hiroyuki Watabe</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp1_bio1">인비절라인 APAC 어워드 수상자</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp1_bio2">인비절라인 패컬티</p>
+          </div>
         </div>
       </div>
 
-      <!-- Desktop table -->
-      <div class="hidden md:block overflow-x-auto">
-        <table class="w-full border border-slate-200 rounded-2xl overflow-hidden shadow">
-          <thead class="bg-slate-100">
-            <tr>
-              <th class="px-4 py-2 text-left w-32" data-i18n="th_time">시간</th>
-              <th class="px-4 py-2 text-left" data-i18n="th_desc">내용</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-200">
-            <tr><td class="px-4 py-2" data-i18n="slot_1830_time">18:30–18:40</td><td class="px-4 py-2" data-i18n="slot_1830_desc">인사 및 소개</td></tr>
-            <tr><td class="px-4 py-2" data-i18n="slot_1840_time">18:40–19:10</td><td class="px-4 py-2" data-i18n="slot_1840_desc">Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략</td></tr>
-            <tr><td class="px-4 py-2" data-i18n="slot_1910_time">19:10–19:40</td><td class="px-4 py-2" data-i18n="slot_1910_desc">Dr. Shuichiro Okano &amp; Dr. Takao Minamide — Aligner Radio in Korea</td></tr>
-            <tr><td class="px-4 py-2" data-i18n="slot_1940_time">19:40–19:50</td><td class="px-4 py-2" data-i18n="slot_1940_desc">Q&amp;A</td></tr>
-            <tr><td class="px-4 py-2" data-i18n="slot_1950_time">19:50–20:20</td><td class="px-4 py-2" data-i18n="slot_1950_desc">Dr. 김예현 — WEBCEPH 미니 인증 코스</td></tr>
-            <tr><td class="px-4 py-2" data-i18n="slot_2020_time">20:20–20:50</td><td class="px-4 py-2" data-i18n="slot_2020_desc">Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책</td></tr>
-            <tr><td class="px-4 py-2" data-i18n="slot_2050_time">20:50–21:00</td><td class="px-4 py-2" data-i18n="slot_2050_desc">Q&amp;A 및 단체 사진 촬영</td></tr>
-          </tbody>
-        </table>
+      <!-- 19:10 Shuichiro & Takao -->
+      <div class="p-3 border rounded-lg bg-white">
+        <p class="text-xs text-slate-500" data-i18n="slot_1910_time">19:10–19:40</p>
+        <p class="mb-2 text-base md:text-lg font-bold" data-i18n="slot_1910_desc">Aligner Radio in Korea</p>
+        <!-- Takao -->
+        <div class="flex items-center gap-3 mb-3">
+          <img src="images/takao.PNG" alt="Dr. Takao Minamidate" class="w-20 h-20 rounded-full object-cover">
+          <div>
+            <p class="text-sm font-semibold" data-i18n="sp2_name">Dr. Takao Minamidate</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp2_bio1">ALIGNER ORTHO 저자</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp2_bio2">후쿠오카 MA 교정치과</p>
+          </div>
+        </div>
+        <!-- Shuichiro -->
+        <div class="flex items-center gap-3">
+          <img src="images/shuichiro.PNG" alt="Dr. Shuichiro Okano" class="w-20 h-20 rounded-full object-cover">
+          <div>
+            <p class="text-sm font-semibold" data-i18n="sp3_name">Dr. Shuichiro Okano</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp3_bio1">ALIGNER ORTHO 저자</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp3_bio2">인비절라인 패컬티</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 19:40 Q&A -->
+      <div class="p-3 border rounded-lg bg-white">
+        <p class="text-xs text-slate-500" data-i18n="slot_1940_time">19:40–19:50</p>
+        <p class="text-base md:text-lg font-bold" data-i18n="slot_1940_desc">Q&amp;A</p>
+      </div>
+
+      <!-- 19:50 Yehyun -->
+      <div class="p-3 border rounded-lg bg-white">
+        <p class="text-xs text-slate-500" data-i18n="slot_1950_time">19:50–20:20</p>
+        <p class="mb-2 text-base md:text-lg font-bold" data-i18n="slot_1950_desc">WEBCEPH 미니 인증 코스</p>
+        <div class="flex items-center gap-3">
+          <img src="images/yehyun.PNG" alt="Dr. Yehyun Kim" class="w-20 h-20 rounded-full object-cover">
+          <div>
+            <p class="text-sm font-semibold" data-i18n="sp4_name">Dr. 김예현</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp4_bio1">WEBCEPH 창업자 CEO</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp4_bio2">서울클리어 치과교정과</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20:20 Choi -->
+      <div class="p-3 border rounded-lg bg-white">
+        <p class="text-xs text-slate-500" data-i18n="slot_2020_time">20:20–20:50</p>
+        <p class="mb-2 text-base md:text-lg font-bold" data-i18n="slot_2020_desc">투명 교정: 치료계획에서의 난관과 해결책</p>
+        <div class="flex items-center gap-3">
+          <img src="images/hyungjoo.PNG" alt="Dr. Hyungjoo Choi" class="w-20 h-20 rounded-full object-cover">
+          <div>
+            <p class="text-sm font-semibold" data-i18n="sp5_name">Dr. 최형주</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp5_bio1">인비절라인 패컬티</p>
+            <p class="text-[11px] text-slate-500" data-i18n="sp5_bio2">서울바른 치과교정과</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20:50 Closing -->
+      <div class="p-3 border rounded-lg bg-white">
+        <p class="text-xs text-slate-500" data-i18n="slot_2050_time">20:50–21:00</p>
+        <p class="text-base md:text-lg font-bold" data-i18n="slot_2050_desc">Q&amp;A 및 단체 사진 촬영</p>
       </div>
     </div>
-  </section>
+
+    <!-- Desktop table -->
+    <div class="hidden md:block overflow-x-auto">
+      <table class="w-full border border-slate-200 rounded-2xl overflow-hidden shadow align-middle">
+        <thead class="bg-slate-100">
+          <tr>
+            <th class="px-4 py-2 text-left w-32" data-i18n="th_time">시간</th>
+            <th class="px-4 py-2 text-left" data-i18n="th_desc">연제</th>
+            <th class="px-4 py-2 text-center w-80">연자</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200">
+          <tr>
+            <td class="px-4 py-2" data-i18n="slot_1830_time">18:30–18:40</td>
+            <td class="px-4 py-2 align-middle text-base md:text-lg font-bold" data-i18n="slot_1830_desc">인사 및 소개</td>
+            <td class="px-4 py-2 text-center"></td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2" data-i18n="slot_1840_time">18:40–19:10</td>
+            <td class="px-4 py-2 align-middle text-base md:text-lg font-bold" data-i18n="slot_1840_desc">투명교정 시 추가 얼라이너를 줄이기 위한 전략</td>
+            <td class="px-4 py-2 text-center">
+              <img src="images/hiroyuki.png" alt="Dr. Hiroyuki Watabe" class="w-20 h-20 mx-auto mb-2 rounded-full object-cover">
+              <div class="text-sm font-semibold" data-i18n="sp1_name">Dr. Hiroyuki Watabe</div>
+              <div class="text-xs text-slate-500" data-i18n="sp1_bio1">인비절라인 APAC 어워드 수상자</div>
+              <div class="text-xs text-slate-500" data-i18n="sp1_bio2">인비절라인 패컬티</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2" data-i18n="slot_1910_time">19:10–19:40</td>
+            <td class="px-4 py-2 align-middle text-base md:text-lg font-bold" data-i18n="slot_1910_desc">Aligner Radio in Korea</td>
+            <td class="px-4 py-2 text-center">
+              <div class="flex justify-center gap-6">
+                <div>
+                  <img src="images/takao.png" alt="Dr. Takao Minamidate" class="w-20 h-20 mx-auto mb-2 rounded-full object-cover">
+                  <div class="text-sm font-semibold" data-i18n="sp2_name">Dr. Takao Minamidate</div>
+                  <div class="text-xs text-slate-500" data-i18n="sp2_bio1">ALIGNER ORTHO 저자</div>
+                  <div class="text-xs text-slate-500" data-i18n="sp2_bio2">후쿠오카 MA 교정치과</div>
+                </div>
+                <div>
+                  <img src="images/shuichiro.PNG" alt="Dr. Shuichiro Okano" class="w-20 h-20 mx-auto mb-2 rounded-full object-cover">
+                  <div class="text-sm font-semibold" data-i18n="sp3_name">Dr. Shuichiro Okano</div>
+                  <div class="text-xs text-slate-500" data-i18n="sp3_bio1">ALIGNER ORTHO 저자</div>
+                  <div class="text-xs text-slate-500" data-i18n="sp3_bio2">인비절라인 패컬티</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2" data-i18n="slot_1940_time">19:40–19:50</td>
+            <td class="px-4 py-2 align-middle text-base md:text-lg font-bold" data-i18n="slot_1940_desc">Q&amp;A</td>
+            <td class="px-4 py-2 text-center"></td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2" data-i18n="slot_1950_time">19:50–20:20</td>
+            <td class="px-4 py-2 align-middle text-base md:text-lg font-bold" data-i18n="slot_1950_desc">WEBCEPH 미니 인증 코스</td>
+            <td class="px-4 py-2 text-center">
+              <img src="images/yehyun.PNG" alt="Dr. Yehyun Kim" class="w-20 h-20 mx-auto mb-2 rounded-full object-cover">
+              <div class="text-sm font-semibold" data-i18n="sp4_name">Dr. 김예현</div>
+              <div class="text-xs text-slate-500" data-i18n="sp4_bio1">WEBCEPH 창업자 CEO</div>
+              <div class="text-xs text-slate-500" data-i18n="sp4_bio2">서울클리어 치과교정과</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2" data-i18n="slot_2020_time">20:20–20:50</td>
+            <td class="px-4 py-2 align-middle text-base md:text-lg font-bold" data-i18n="slot_2020_desc">투명 교정: 치료계획에서의 난관과 해결책</td>
+            <td class="px-4 py-2 text-center">
+              <img src="images/hyungjoo.PNG" alt="Dr. Hyungjoo Choi" class="w-20 h-20 mx-auto mb-2 rounded-full object-cover">
+              <div class="text-sm font-semibold" data-i18n="sp5_name">Dr. 최형주</div>
+              <div class="text-xs text-slate-500" data-i18n="sp5_bio1">인비절라인 패컬티</div>
+              <div class="text-xs text-slate-500" data-i18n="sp5_bio2">서울바른 치과교정과</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="px-4 py-2" data-i18n="slot_2050_time">20:50–21:00</td>
+            <td class="px-4 py-2 align-middle text-base md:text-lg font-bold" data-i18n="slot_2050_desc">Q&amp;A 및 단체 사진 촬영</td>
+            <td class="px-4 py-2 text-center"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
 
   <footer class="py-10">
     <div class="max-w-6xl text-center mx-auto text-white px-4 text-sm text-slate-500" data-i18n="footer">© 2025 WEBCEPH. All rights reserved.</div>
@@ -264,140 +379,204 @@
     });
 
     // ===== i18n =====
-    const DICTS = {
-      ko: {
-        site_title: 'WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스',
-        choose_language_label: '언어 선택',
-        hero_title: 'WEBCEPH 미니 인증 코스 <br/>한·일 얼라이너 마스터 클래스',
-        hero_sub: '한·일 얼라이너 대표 연자들이 전하는 최신 인사이트와 실전 노하우를 한 자리에서 만나보세요.',
-        fee_label: '등록비: 100,000원 (부가세 포함)',
-        fee_note: '결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.',
-        cta_register: '등록하기',
-        cta_program: '프로그램 보기',
-        event_info: 'EVENT INFO',
-        date_label: '일시',
-        date_value: '2025-10-28 (화) 18:30–21:00',
-        venue_label: '장소',
-        venue_value: '스페이스쉐어 삼성역센터 컨퍼런스홀, 서울',
-        host_label: '주최',
-        host_value: 'WEBCEPH',
-        lang_label: '언어',
-        lang_value: '한글 · 일본어',
-        open_map: '지도 열기',
-        save_ics: '캘린더 저장 (.ics)',
-        register_title: '등록 정보',
-        ph_name: '이름', ph_email: '이메일', ph_phone: '전화번호', ph_affiliation: '소속 (선택)',
-        consent: '개인정보 수집·이용에 동의합니다.',
-        btn_iamport: '아임포트 결제', btn_paypal: 'PayPal Express 결제',
-        bank_title: '무통장 입금 안내 (선택)',
-        bank_info: '예금주: ㈜웹셉 | 은행: OO은행 | 계좌: 000-0000-0000',
-        bank_note: '입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.',
-        pay_received: '결제가 접수되었습니다.',
-        th_time: '시간', th_desc: '내용',
-        slot_1830_time: '18:30–18:40', slot_1830_desc: '인사 및 소개',
-        slot_1840_time: '18:40–19:10', slot_1840_desc: 'Dr. Hiroyuki Watabe — 투명교정 시 추가 얼라이너를 줄이기 위한 전략',
-        slot_1910_time: '19:10–19:40', slot_1910_desc: 'Dr. Shuichiro Okano & Dr. Takao Minamide — Aligner Radio in Korea',
-        slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
-        slot_1950_time: '19:50–20:20', slot_1950_desc: 'Dr. 김예현 — WEBCEPH 미니 인증 코스',
-        slot_2020_time: '20:20–20:50', slot_2020_desc: 'Dr. 최형주 — 투명 교정: 치료계획에서의 난관과 해결책',
-        slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A 및 단체 사진 촬영',
-        footer: '© 2025 WEBCEPH. All rights reserved.',
-        product_name: 'WEBCEPH 미니 인증 코스',
-        must_agree: '개인정보 수집·이용에 동의해야 등록할 수 있습니다.',
-        fill_required: '필수 정보를 입력하세요.',
-        imp_load_fail: '결제 라이브러리를 불러오지 못했습니다.',
-        pay_success: '결제가 접수되었습니다. (UID: {uid})',
-        pay_fail: '결제 실패: '
-      },
-      ja: {
-        site_title: 'WEBCEPHミニ認定コース | 日韓アライナーマスタークラス',
-        choose_language_label: '言語を選択',
-        hero_title: 'WEBCEPHミニ認定コース <br/>日韓アライナーマスタークラス',
-        hero_sub: '日韓のアライナーの著名講師が最新インサイトと実践ノウハウを一堂に共有します。',
-        fee_label: '受講料: 100,000ウォン（税込）',
-        fee_note: '決済完了後、確認メールとQRチケットをお送りします。',
-        cta_register: '申込する',
-        cta_program: 'プログラムを見る',
-        event_info: 'イベント情報',
-        date_label: '日時',
-        date_value: '2025-10-28（火）18:30–21:00',
-        venue_label: '会場',
-        venue_value: 'スペースシェア三成駅センター コンファレンスホール（ソウル）',
-        host_label: '主催',
-        host_value: 'WEBCEPH',
-        lang_label: '言語',
-        lang_value: '韓国語・日本語',
-        open_map: '地図を開く',
-        save_ics: 'カレンダー保存 (.ics)',
-        register_title: '申込情報',
-        ph_name: '氏名', ph_email: 'メール', ph_phone: '電話番号', ph_affiliation: '所属（任意）',
-        consent: '個人情報の収集・利用に同意します。',
-        btn_iamport: 'Iamport 決済', btn_paypal: 'PayPal Express 決済',
-        bank_title: '銀行振込のご案内（任意）',
-        bank_info: '口座名義: (株)ウェブセフ | 銀行: OO銀行 | 口座: 000-0000-0000',
-        bank_note: '入金後の確認のため、氏名／振込名義／電話番号を申込フォームに正確にご記入ください。',
-        pay_received: '決済が受け付けられました。',
-        th_time: '時間', th_desc: '内容',
-        slot_1830_time: '18:30–18:40', slot_1830_desc: '挨拶と紹介',
-        slot_1840_time: '18:40–19:10', slot_1840_desc: 'Dr. Hiroyuki Watabe — 追加アライナーを減らすための戦略',
-        slot_1910_time: '19:10–19:40', slot_1910_desc: 'Dr. Shuichiro Okano & Dr. Takao Minamide — Aligner Radio in Korea',
-        slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
-        slot_1950_time: '19:50–20:20', slot_1950_desc: 'Dr. Kim Yehyun — WEBCEPHミニ認定コース',
-        slot_2020_time: '20:20–20:50', slot_2020_desc: 'Dr. Choi Hyeongju — アライナー矯正：治療計画における課題と解決策',
-        slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A・集合写真',
-        footer: '© 2025 WEBCEPH. All rights reserved.',
-        product_name: 'WEBCEPHミニ認定コース',
-        must_agree: '申込には個人情報の収集・利用への同意が必要です。',
-        fill_required: '必須項目を入力してください。',
-        imp_load_fail: '決済ライブラリの読み込みに失敗しました。',
-        pay_success: '決済が受け付けられました。（UID: {uid}）',
-        pay_fail: '決済失敗: '
-      },
-      en: {
-        site_title: 'WEBCEPH Mini Certification | Korea–Japan Aligner Masterclass',
-        choose_language_label: 'Choose language',
-        hero_title: 'WEBCEPH Mini Certification <br/>Korea–Japan Aligner Masterclass',
-        hero_sub: 'Meet top aligner speakers from Korea and Japan sharing the latest insights and practical know‑how in one place.',
-        fee_label: 'Registration fee: KRW 100,000 (VAT incl.)',
-        fee_note: 'A confirmation email and QR ticket will be sent after payment.',
-        cta_register: 'Register',
-        cta_program: 'View Program',
-        event_info: 'EVENT INFO',
-        date_label: 'Date & Time',
-        date_value: 'Tue, Oct 28, 2025 • 18:30–21:00',
-        venue_label: 'Venue',
-        venue_value: 'SPACE SHARE Samseong Center – Conference Hall, Seoul',
-        host_label: 'Host',
-        host_value: 'WEBCEPH',
-        lang_label: 'Languages',
-        lang_value: 'Korean · Japanese',
-        open_map: 'Open Map',
-        save_ics: 'Save to Calendar (.ics)',
-        register_title: 'Registration',
-        ph_name: 'Name', ph_email: 'Email', ph_phone: 'Phone number', ph_affiliation: 'Affiliation (optional)',
-        consent: 'I agree to the collection and use of my personal information.',
-        btn_iamport: 'Pay with Iamport', btn_paypal: 'Pay with PayPal Express',
-        bank_title: 'Bank Transfer (optional)',
-        bank_info: 'Account Holder: WebCeph Inc. | Bank: OO Bank | Account: 000-0000-0000',
-        bank_note: 'After remittance, please enter your name / remitter’s name / phone number accurately in the form for verification.',
-        pay_received: 'Payment received.',
-        th_time: 'Time', th_desc: 'Details',
-        slot_1830_time: '18:30–18:40', slot_1830_desc: 'Greetings & Introduction',
-        slot_1840_time: '18:40–19:10', slot_1840_desc: 'Dr. Hiroyuki Watabe — Strategies to Reduce Additional Aligners',
-        slot_1910_time: '19:10–19:40', slot_1910_desc: 'Dr. Shuichiro Okano & Dr. Takao Minamide — Aligner Radio in Korea',
-        slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
-        slot_1950_time: '19:50–20:20', slot_1950_desc: 'Dr. Yehyun Kim — WEBCEPH Mini Certification',
-        slot_2020_time: '20:20–20:50', slot_2020_desc: 'Dr. Hyeongju Choi — Clear Aligners: Challenges & Solutions in Treatment Planning',
-        slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A & Group Photo',
-        footer: '© 2025 WEBCEPH. All rights reserved.',
-        product_name: 'WEBCEPH Mini Certification',
-        must_agree: 'You must agree to the privacy policy to register.',
-        fill_required: 'Please fill in the required fields.',
-        imp_load_fail: 'Failed to load payment library.',
-        pay_success: 'Payment received. (UID: {uid})',
-        pay_fail: 'Payment failed: '
-      }
-    };
+const DICTS = {
+  ko: {
+    site_title: 'WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스',
+    choose_language_label: '언어 선택',
+    hero_title: 'WEBCEPH 미니 인증 코스 <br/>한·일 얼라이너 마스터 클래스',
+    hero_sub: '한·일 얼라이너 대표 연자들이 전하는 최신 인사이트와 실전 노하우를 한 자리에서 만나보세요.',
+    fee_label: '등록비: 100,000원 (부가세 포함)',
+    fee_note: '결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.',
+    cta_register: '등록하기',
+    cta_program: '프로그램 보기',
+    event_info: 'EVENT INFO',
+    date_label: '일시',
+    date_value: '2025-10-28 (화) 18:30–21:00',
+    venue_label: '장소',
+    venue_value: '스페이스쉐어 삼성역센터 컨퍼런스홀, 서울',
+    host_label: '주최',
+    host_value: 'WEBCEPH',
+    lang_label: '언어',
+    lang_value: '한글 · 일본어',
+    open_map: '지도 열기',
+    save_ics: '캘린더 저장 (.ics)',
+    register_title: '등록 정보',
+    ph_name: '이름', ph_email: '이메일', ph_phone: '전화번호', ph_affiliation: '소속 (선택)',
+    consent: '개인정보 수집·이용에 동의합니다.',
+    btn_iamport: '아임포트 결제', btn_paypal: 'PayPal Express 결제',
+    bank_title: '무통장 입금 안내 (선택)',
+    bank_info: '예금주: ㈜웹셉 | 은행: OO은행 | 계좌: 000-0000-0000',
+    bank_note: '입금 후 등록 확인을 위해 이름/입금자명/전화번호를 등록폼에 정확히 입력해주세요.',
+    pay_received: '결제가 접수되었습니다.',
+    th_time: '시간', th_desc: '내용',
+    slot_1830_time: '18:30–18:40', slot_1830_desc: '인사 및 소개',
+    slot_1840_time: '18:40–19:10', slot_1840_desc: '투명교정 시 추가 얼라이너를 줄이기 위한 전략',
+    slot_1910_time: '19:10–19:40', slot_1910_desc: 'Aligner Radio in Korea',
+    slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
+    slot_1950_time: '19:50–20:20', slot_1950_desc: 'WEBCEPH 미니 인증 코스',
+    slot_2020_time: '20:20–20:50', slot_2020_desc: '투명 교정: 치료계획에서의 난관과 해결책',
+    slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A 및 단체 사진 촬영',
+    footer: '© 2025 WEBCEPH. All rights reserved.',
+    product_name: 'WEBCEPH 미니 인증 코스',
+    must_agree: '개인정보 수집·이용에 동의해야 등록할 수 있습니다.',
+    fill_required: '필수 정보를 입력하세요.',
+    imp_load_fail: '결제 라이브러리를 불러오지 못했습니다.',
+    pay_success: '결제가 접수되었습니다. (UID: {uid})',
+    pay_fail: '결제 실패: ',
+
+    /* === Speakers (names & bios) === */
+    sp1_name: 'Dr. Hiroyuki Watabe',
+    sp1_bio1: '인비절라인 APAC 어워드 수상자',
+    sp1_bio2: '인비절라인 패컬티',
+
+    sp2_name: 'Dr. Takao Minamidate',
+    sp2_bio1: 'ALIGNER ORTHO 저자',
+    sp2_bio2: '후쿠오카 MA 교정치과',
+
+    sp3_name: 'Dr. Shuichiro Okano',
+    sp3_bio1: 'ALIGNER ORTHO 저자',
+    sp3_bio2: '인비절라인 패컬티',
+
+    sp4_name: 'Dr. 김예현',
+    sp4_bio1: 'WEBCEPH 창업자 CEO',
+    sp4_bio2: '서울클리어 치과교정과',
+
+    sp5_name: 'Dr. 최형주',
+    sp5_bio1: '인비절라인 패컬티',
+    sp5_bio2: '서울바른 치과교정과'
+  },
+  ja: {
+    site_title: 'WEBCEPHミニ認定コース | 日韓アライナーマスタークラス',
+    choose_language_label: '言語を選択',
+    hero_title: 'WEBCEPHミニ認定コース <br/>日韓アライナーマスタークラス',
+    hero_sub: '日韓のアライナーの著名講師が最新インサイトと実践ノウハウを一堂に共有します。',
+    fee_label: '受講料: 100,000ウォン（税込）',
+    fee_note: '決済完了後、確認メールとQRチケットをお送りします。',
+    cta_register: '申込する',
+    cta_program: 'プログラムを見る',
+    event_info: 'イベント情報',
+    date_label: '日時',
+    date_value: '2025-10-28（火）18:30–21:00',
+    venue_label: '会場',
+    venue_value: 'スペースシェア三成駅センター コンファレンスホール（ソウル）',
+    host_label: '主催',
+    host_value: 'WEBCEPH',
+    lang_label: '言語',
+    lang_value: '韓国語・日本語',
+    open_map: '地図を開く',
+    save_ics: 'カレンダー保存 (.ics)',
+    register_title: '申込情報',
+    ph_name: '氏名', ph_email: 'メール', ph_phone: '電話番号', ph_affiliation: '所属（任意）',
+    consent: '個人情報の収集・利用に同意します。',
+    btn_iamport: 'Iamport 決済', btn_paypal: 'PayPal Express 決済',
+    bank_title: '銀行振込のご案内（任意）',
+    bank_info: '口座名義: (株)ウェブセフ | 銀行: OO銀行 | 口座: 000-0000-0000',
+    bank_note: '入金後の確認のため、氏名／振込名義／電話番号を申込フォームに正確にご記入ください。',
+    pay_received: '決済が受け付けられました。',
+    th_time: '時間', th_desc: '内容',
+    slot_1830_time: '18:30–18:40', slot_1830_desc: '挨拶と紹介',
+    slot_1840_time: '18:40–19:10', slot_1840_desc: '追加アライナーを減らすための戦略',
+    slot_1910_time: '19:10–19:40', slot_1910_desc: 'Aligner Radio in Korea',
+    slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
+    slot_1950_time: '19:50–20:20', slot_1950_desc: 'WEBCEPHミニ認定コース',
+    slot_2020_time: '20:20–20:50', slot_2020_desc: '透明矯正：治療計画における課題と解決策',
+    slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A・集合写真',
+    footer: '© 2025 WEBCEPH. All rights reserved.',
+    product_name: 'WEBCEPHミニ認定コース',
+    must_agree: '申込には個人情報の収集・利用への同意が必要です。',
+    fill_required: '必須項目を入力してください。',
+    imp_load_fail: '決済ライブラリの読み込みに失敗しました。',
+    pay_success: '決済が受け付けられました。（UID: {uid}）',
+    pay_fail: '決済失敗: ',
+
+    /* === Speakers === */
+    sp1_name: 'Dr. Hiroyuki Watabe',
+    sp1_bio1: 'インビザラインAPACアワード受賞者',
+    sp1_bio2: 'インビザライン ファカルティ',
+
+    sp2_name: 'Dr. Takao Minamidate',
+    sp2_bio1: '『ALIGNER ORTHO』著者',
+    sp2_bio2: '福岡MA矯正歯科',
+
+    sp3_name: 'Dr. Shuichiro Okano',
+    sp3_bio1: '『ALIGNER ORTHO』著者',
+    sp3_bio2: 'インビザライン ファカルティ',
+
+    sp4_name: 'Dr. Yehyun Kim',
+    sp4_bio1: 'WEBCEPH創業者・CEO',
+    sp4_bio2: 'ソウルクリア矯正歯科',
+
+    sp5_name: 'Dr. Hyungjoo Choi',
+    sp5_bio1: 'インビザライン ファカルティ',
+    sp5_bio2: 'ソウルバルン矯正歯科'
+  },
+  en: {
+    site_title: 'WEBCEPH Mini Certification | Korea–Japan Aligner Masterclass',
+    choose_language_label: 'Choose language',
+    hero_title: 'WEBCEPH Mini Certification <br/>Korea–Japan Aligner Masterclass',
+    hero_sub: 'Meet top aligner speakers from Korea and Japan sharing the latest insights and practical know-how in one place.',
+    fee_label: 'Registration fee: KRW 100,000 (VAT incl.)',
+    fee_note: 'A confirmation email and QR ticket will be sent after payment.',
+    cta_register: 'Register',
+    cta_program: 'View Program',
+    event_info: 'EVENT INFO',
+    date_label: 'Date & Time',
+    date_value: 'Tue, Oct 28, 2025 • 18:30–21:00',
+    venue_label: 'Venue',
+    venue_value: 'SPACE SHARE Samseong Center – Conference Hall, Seoul',
+    host_label: 'Host',
+    host_value: 'WEBCEPH',
+    lang_label: 'Languages',
+    lang_value: 'Korean · Japanese',
+    open_map: 'Open Map',
+    save_ics: 'Save to Calendar (.ics)',
+    register_title: 'Registration',
+    ph_name: 'Name', ph_email: 'Email', ph_phone: 'Phone number', ph_affiliation: 'Affiliation (optional)',
+    consent: 'I agree to the collection and use of my personal information.',
+    btn_iamport: 'Pay with Iamport', btn_paypal: 'Pay with PayPal Express',
+    bank_title: 'Bank Transfer (optional)',
+    bank_info: 'Account Holder: WebCeph Inc. | Bank: OO Bank | Account: 000-0000-0000',
+    bank_note: 'After remittance, please enter your name / remitter’s name / phone number accurately in the form for verification.',
+    pay_received: 'Payment received.',
+    th_time: 'Time', th_desc: 'Details',
+    slot_1830_time: '18:30–18:40', slot_1830_desc: 'Opening & Introduction',
+    slot_1840_time: '18:40–19:10', slot_1840_desc: 'Strategies to Reduce Additional Aligners',
+    slot_1910_time: '19:10–19:40', slot_1910_desc: 'Aligner Radio in Korea',
+    slot_1940_time: '19:40–19:50', slot_1940_desc: 'Q&A',
+    slot_1950_time: '19:50–20:20', slot_1950_desc: 'WEBCEPH Mini Certification',
+    slot_2020_time: '20:20–20:50', slot_2020_desc: 'Clear Aligners: Challenges & Solutions in Treatment Planning',
+    slot_2050_time: '20:50–21:00', slot_2050_desc: 'Q&A & Group Photo',
+    footer: '© 2025 WEBCEPH. All rights reserved.',
+    product_name: 'WEBCEPH Mini Certification',
+    must_agree: 'You must agree to the privacy policy to register.',
+    fill_required: 'Please fill in the required fields.',
+    imp_load_fail: 'Failed to load payment library.',
+    pay_success: 'Payment received. (UID: {uid})',
+    pay_fail: 'Payment failed: ',
+
+    /* === Speakers === */
+    sp1_name: 'Dr. Hiroyuki Watabe',
+    sp1_bio1: 'Invisalign APAC Award Winner',
+    sp1_bio2: 'Invisalign Faculty',
+
+    sp2_name: 'Dr. Takao Minamidate',
+    sp2_bio1: 'Author of ALIGNER ORTHO',
+    sp2_bio2: 'Fukuoka MA Orthodontic Clinic',
+
+    sp3_name: 'Dr. Shuichiro Okano',
+    sp3_bio1: 'Author of ALIGNER ORTHO',
+    sp3_bio2: 'Invisalign Faculty',
+
+    sp4_name: 'Dr. Yehyun Kim',
+    sp4_bio1: 'Founder & CEO, WEBCEPH',
+    sp4_bio2: 'Seoul Clear Orthodontic Clinic',
+
+    sp5_name: 'Dr. Hyungjoo Choi',
+    sp5_bio1: 'Invisalign Faculty',
+    sp5_bio2: 'Seoul Barun Orthodontic Clinic'
+  }
+};
+
 
     function i18nStr(key) {
       const lang = document.documentElement.lang || 'ko';
@@ -439,4 +618,3 @@
   </script>
 </body>
 </html>
-
