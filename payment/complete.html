@@ -59,7 +59,7 @@
         </div>
 
         <!-- 자동 이동(선택): 5초 후 안내 페이지로 -->
-        <p class="mt-4 text-xs text-slate-500">5초 후 세미나 안내 페이지로 이동합니다…</p>
+        <!-- <p class="mt-4 text-xs text-slate-500">5초 후 세미나 안내 페이지로 이동합니다…</p> -->
       </div>
 
       <div id="error" class="hidden">
@@ -120,7 +120,7 @@
           }
 
           // 5초 후 안내 페이지로 이동 (원치 않으면 주석 처리)
-          setTimeout(() => { location.href = "/"; }, 5000);
+          // setTimeout(() => { location.href = "/"; }, 5000);
         } else {
           showError(data.reason || "결제 검증에 실패했습니다.");
         }
