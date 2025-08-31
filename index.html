@@ -83,7 +83,7 @@
   <!-- Event Info -->
   <section id="info" class="bg-white md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8 rounded-none md:rounded-2xl md:shadow border border-slate-200">
     <div class="px-6 py-6">
-      <p class="text-xs tracking-widest font-semibold text-slate-500 mb-2" data-i18n="event_info">행사 정보</p>
+      <!-- <p class="text-xs tracking-widest font-semibold text-slate-500 mb-2" data-i18n="event_info">행사 정보</p> -->
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <div>
           <div class="text-slate-500" data-i18n="date_label">일시</div>
@@ -93,9 +93,7 @@
           <div class="text-slate-500" data-i18n="venue_label">장소</div>
           <div class="font-semibold" data-i18n="venue_value">스페이스쉐어 삼성역센터 갤럭시홀</div>
           <div class="font-semibold" data-i18n="venue_address">서울 강남구 영동대로96길 20 지하1층</div>
-        </div>
-        <div>
-          <div class=" flex flex-wrap gap-2">
+          <div class="mt-3 flex flex-wrap gap-2">
             <a href="https://maps.google.com/?q=%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EC%98%81%EB%8F%99%EB%8C%80%EB%A1%9C96%EA%B8%B8%2020%20%EC%8A%A4%ED%8E%98%EC%9D%B4%EC%8A%A4%EC%89%90%EC%96%B4%20%EC%82%BC%EC%84%B1%EC%97%AD%EC%84%BC%ED%84%B0%20%EC%BB%A8%ED%8D%BC%EB%9F%B0%EC%8A%A4%ED%99%80" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 text-sm" data-i18n="open_map">
               지도 열기
             </a>
@@ -104,14 +102,16 @@
             </a> -->
           </div>
         </div>
+        
        <!--  <div>
           <div class="text-slate-500" data-i18n="host_label">주최</div>
           <div class="font-semibold" data-i18n="host_value">WEBCEPH</div>
         </div> -->
-<!--         <div>
-          <div class="text-slate-500" data-i18n="lang_label">언어</div>
+        <div>
+          <div class="text-slate-500" data-i18n="lang_label">강의 언어</div>
           <div class="font-semibold" data-i18n="lang_value">한글 · 일본어</div>
-        </div> -->
+          <div class="font-semibold" data-i18n="lang_value2">일본어 강좌는 한글로 순차통역이 제공될 예정입니다.</div>
+        </div>
       </div>
 
     </div>
@@ -123,11 +123,11 @@
     <h2 class="text-xl md:text-2xl font-bold mb-4" data-i18n="register_title">등록 정보</h2>
 
     <!-- 등록비 안내 -->
-    <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
+    <!-- <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
       <p class="font-semibold" data-i18n="fee_label_general">일반: 100,000원</p>
       <p class="font-semibold mt-1" data-i18n="fee_label_resident">전공의/군의관/공보의: 70,000원</p>
       <p class="text-xs text-slate-500 mt-2" data-i18n="fee_note">결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.</p>
-    </div>
+    </div> -->
 
     <form id="fastForm" class="space-y-3" onsubmit="return false;">
 
@@ -153,9 +153,9 @@
         <button id="btnIamport" type="button" class="px-4 py-3 rounded-lg font-semibold bg-blue-600 text-white" data-i18n="btn_iamport">
           신용카드 결제
         </button>
-        <button id="btnPaypal" type="button" class="px-4 py-3 rounded-lg font-semibold border border-slate-300" data-i18n="btn_paypal">
+        <!-- <button id="btnPaypal" type="button" class="px-4 py-3 rounded-lg font-semibold border border-slate-300" data-i18n="btn_paypal">
           페이팔 결제
-        </button>
+        </button> -->
       </div>
 
       <div class="mt-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
@@ -445,10 +445,10 @@
           return;
         }
         const amount = getAmountKRW(v.tier);
-        const orderName = (i18nStr('product_name') || "WEBCEPH 미니 인증 코스")
+        const orderName = ("WEBCEPH 미니 인증 코스")
                         + " - " + (v.tier === 'general'
-                          ? (i18nStr('opt_general') || '일반')
-                          : (i18nStr('opt_resident') || '전공의/군의관/공보의'));
+                          ? ('일반')
+                          : ('전공의'));
 
         setBusy('btnIamport', true);
         try {
@@ -459,13 +459,14 @@
             .map((w) => w.toString(16).padStart(8, '0')).join('');
 
           const payment = await PortOne.requestPayment({
-            storeId: "store-REPLACE_ME",            // TODO: 실제 storeId로 교체
-            channelKey: "channel-key-REPLACE_ME",   // TODO: 실제 channelKey로 교체
+            storeId: "store-8301c517-b238-4765-9b21-10f0cee1d025",            // TODO: 실제 storeId로 교체
+            channelKey: "channel-key-b2a1da27-11c7-4836-ba00-cb6967531eed",   // TODO: 실제 channelKey로 교체
             paymentId,
             orderName,
             totalAmount: amount,
             currency: "KRW",
             payMethod: "CARD",
+            redirectUrl: "https://seminar.assemblecircle.com//payment/complete",
             customData: {
               tier: v.tier,
               buyer: { name: v.name, email: v.email, phone: v.phone, affiliation: v.affiliation }
@@ -543,11 +544,12 @@ const DICTS = {
     date_label: '일시',
     date_value: '2025-10-28 (화) 18:30–21:00',
     venue_label: '장소',
-    venue_value: '스페이스쉐어 삼성역센터 컨퍼런스홀, 서울',
+    venue_value: '스페이스쉐어 삼성역센터 갤럭시홀',
     host_label: '주최',
     host_value: 'WEBCEPH',
-    lang_label: '언어',
+    lang_label: '강의 언어',
     lang_value: '한글 · 일본어',
+    lang_value2: '일본어 강좌는 한글로 순차통역이 제공될 예정입니다.',
     open_map: '지도 열기',
     save_ics: '캘린더 저장 (.ics)',
     register_title: '등록 정보',
@@ -629,6 +631,7 @@ const DICTS = {
     host_value: 'WEBCEPH',
     lang_label: '言語',
     lang_value: '韓国語・日本語',
+    lang_value2: '日本語講座は韓国語への逐次通訳が提供される予定です。',
     open_map: '地図を開く',
     save_ics: 'カレンダー保存 (.ics)',
     register_title: '申込情報',
@@ -713,6 +716,7 @@ const DICTS = {
     host_value: 'WEBCEPH',
     lang_label: 'Languages',
     lang_value: 'Korean · Japanese',
+    lang_value2: 'The Japanese lecture will be provided with consecutive interpretation into Korean.',
     open_map: 'Open Map',
     save_ics: 'Save to Calendar (.ics)',
     register_title: 'Registration',
