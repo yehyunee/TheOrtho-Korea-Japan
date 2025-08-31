@@ -47,12 +47,12 @@
 
         <div class="mt-6 flex flex-col gap-3">
           <!-- 확인서(또는 영수증) 보기 -->
-          <a id="receiptLink" href="#" target="_blank"
+          <!-- <a id="receiptLink" href="#" target="_blank"
              class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
             등록 확인서 보기
-          </a>
+          </a> -->
           <!-- 세미나 안내/FAQ로 이동 -->
-          <a href="/info"
+          <a href="/"
              class="inline-flex items-center justify-center px-4 py-2 rounded-lg border hover:bg-slate-50">
             세미나 안내 보러가기
           </a>
@@ -78,7 +78,7 @@
 
   <script>
     // === 환경별 엔드포인트 설정 ===
-    const VERIFY_ENDPOINT = "https://18a8684077d9.ngrok-free.app/payments/verify"; // 여러분의 실제 검증 API 경로
+    const VERIFY_ENDPOINT = "https://18a8684077d9.ngrok-free.app/ko/payments/verify"; // 여러분의 실제 검증 API 경로
     const RECEIPT_BASE =  "https://api.webceph.com/api/registrations";     // 확인서(또는 영수증) 링크 베이스 (예: /api/registrations/{id}/receipt)
 
     const $ = (s) => document.querySelector(s);
@@ -120,7 +120,7 @@
           }
 
           // 5초 후 안내 페이지로 이동 (원치 않으면 주석 처리)
-          setTimeout(() => { location.href = "/info"; }, 5000);
+          setTimeout(() => { location.href = "/"; }, 5000);
         } else {
           showError(data.reason || "결제 검증에 실패했습니다.");
         }
@@ -140,4 +140,3 @@
   </script>
 </body>
 </html>
-
