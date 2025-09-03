@@ -95,7 +95,7 @@
         <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
           <p class="font-semibold" data-i18n="fee_label_general">일반: 100,000원</p>
           <p class="font-semibold mt-1" data-i18n="fee_label_resident">전공의/군의관/공보의: 70,000원</p>
-          <p class="text-xs text-slate-500 mt-2" data-i18n="fee_note">결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.</p>
+          <p class="text-xs text-slate-500 mt-2" data-i18n="fee_note">결제 완료 후 등록번호가 포함된 확인 메일이 발송됩니다.</p>
         </div>
         <div class="flex flex-wrap items-center gap-3 text-sm">
           <button id="showRegisterBtn" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-blue-600 text-white" data-i18n="cta_register">
@@ -567,7 +567,7 @@ const DICTS = {
     hero_title: 'WEBCEPH 미니 인증 코스 <br/>한·일 얼라이너 마스터 클래스',
     hero_sub: '한·일 얼라이너 대표 연자들이 전하는 최신 인사이트와 실전 노하우를 한 자리에서 만나보세요.',
     fee_label: '등록비: 100,000원 (부가세 포함)',
-    fee_note: '결제 완료 후 확인 메일 및 QR 티켓이 발송됩니다.',
+    fee_note: '결제 완료 후 등록번호가 포함된 확인 메일이 발송됩니다.',
     cta_register: '등록하기',
     cta_program: '프로그램 보기',
     event_info: '행사 정보',
@@ -649,7 +649,7 @@ const DICTS = {
     hero_title: 'WEBCEPHミニ認定コース <br/>日韓アライナーマスタークラス',
     hero_sub: '日韓のアライナーの著名講師が最新インサイトと実践ノウハウを一堂に共有します。',
     fee_label: '受講料: 100,000ウォン（税込）',
-    fee_note: '決済完了後、確認メールとQRチケットをお送りします。',
+    fee_note: '決済完了後、登録番号が記載された確認メールが送信されます。',
     cta_register: '申込する',
     cta_program: 'プログラムを見る',
     event_info: 'イベント情報',
@@ -738,7 +738,7 @@ const DICTS = {
     hero_title: 'WEBCEPH Mini Certification <br/>Korea–Japan Aligner Masterclass',
     hero_sub: 'Meet top aligner speakers from Korea and Japan sharing the latest insights and practical know-how in one place.',
     fee_label: 'Registration fee: KRW 100,000 (VAT incl.)',
-    fee_note: 'A confirmation email and QR ticket will be sent after payment.',
+    fee_note: 'After the payment is completed, a confirmation email containing the registration number will be sent.',
     cta_register: 'Register',
     cta_program: 'View Program',
     event_info: 'EVENT INFO',
@@ -877,6 +877,7 @@ function updatePosters(lang) {
   </script>
 </body>
 </html>
+
 
 
 
