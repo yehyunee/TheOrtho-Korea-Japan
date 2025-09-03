@@ -813,7 +813,7 @@ function updatePosters(lang) {
   // 갤러리 내 슬라이드 이미지를 순서대로 1~4로 교체
   const imgs = document.querySelectorAll('#gallery .swiper-slide img');
   imgs.forEach((img, idx) => {
-    img.setAttribute('src', `images/poster_${code}_${idx + 1}.jpg`);
+    img.setAttribute('src', `images/poster_${code}_${idx + 1}__.jpg`);
   });
 }
 
@@ -862,6 +862,7 @@ function updatePosters(lang) {
   </script>
 </body>
 </html>
+
 
 
 
