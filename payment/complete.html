@@ -77,70 +77,100 @@
   </main>
 
 <script>
-  const VERIFY_ENDPOINT = "https://api.webceph.com/payments/verify";
-  const RECEIPT_BASE  = "https://api.webceph.com/api/registrations";
+  // ===== API Endpoints =====
+  const PORTONE_VERIFY   = "https://api.webceph.com/payments/verify";             // { paymentId }
+  const PAYPAL_COMPLETE  = "https://api.webceph.com/payments/paypal/complete";    // { order_id }
+  const RECEIPT_BASE     = "https://api.webceph.com/api/registrations";
 
+  // ===== Helpers =====
   const $ = (s) => document.querySelector(s);
-  const params = new URLSearchParams(location.search);
-  const paymentId = params.get("paymentId");
-  const fmtAmount = (n, cur) => new Intl.NumberFormat("ko-KR").format(n) + (cur ? " " + cur : "");
+  const params   = new URLSearchParams(location.search);
+  const method   = (params.get("method") || "").toLowerCase(); // 'portone' | 'paypal' | ''
+  const paymentId= params.get("paymentId");                    // PortOne 식별자
+  const orderId  = params.get("order_id") || params.get("orderId"); // PayPal 식별자(둘 다 허용)
 
-  async function verify() {
-    if (!paymentId) return showError("결제 식별자(paymentId)가 없습니다.");
-    try {
-      const res = await fetch(VERIFY_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ paymentId })
-      });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const data = await res.json();
+  function fmtAmount(n, cur) {
+    // 통화별 보기 좋은 로케일 자동 선택
+    const c = (cur || "").toUpperCase();
+    const locale = c === "USD" ? "en-US" : (c === "JPY" ? "ja-JP" : "ko-KR");
+    const num = (typeof n === "string") ? Number(n) : n;
+    try { return new Intl.NumberFormat(locale).format(num) + (cur ? " " + c : ""); }
+    catch { return (n ?? "") + (cur ? " " + c : ""); }
+  }
 
-      if (data.verified) {
-        // 패널 토글: 성공만 보이기
-        $("#loading").classList.add("hidden");
-        $("#error").classList.add("hidden");
-        $("#success").classList.remove("hidden");
+  function showSuccess(data) {
+    $("#loading").classList.add("hidden");
+    $("#error").classList.add("hidden");
+    $("#success").classList.remove("hidden");
 
-        // 요약 표시
-        $("#regId").textContent = data.registration_id || "(발급됨)";
-        const name = data?.attendee?.name || "";
-        const email = data?.attendee?.email || "";
-        $("#attendee").textContent = [name, email].filter(Boolean).join(" · ");
-        $("#tier").textContent = data.tier === "resident" ? "전공의" : "일반";
-        $("#amount").textContent = fmtAmount(data.amount, data.currency);
+    $("#regId").textContent = data.registration_id || "(발급됨)";
+    const name  = data?.attendee?.name  || "";
+    const email = data?.attendee?.email || "";
+    $("#attendee").textContent = [name, email].filter(Boolean).join(" · ");
 
-        // ── 여기 변경 포인트: receiptLink가 있을 때만 접근 ──
-        const regId = data.registration_id;
-        const receiptEl = $("#receiptLink"); // 주석 처리되어 있으면 null
-        if (receiptEl) {
-          if (regId) {
-            receiptEl.href = `${RECEIPT_BASE}/${encodeURIComponent(regId)}/receipt`;
-            receiptEl.classList.remove("hidden");
-          } else {
-            receiptEl.classList.add("hidden");
-          }
-        }
+    // tier 표기 (국문)
+    $("#tier").textContent = (data.tier === "resident") ? "전공의" : "일반";
 
-        // 필요 시 자동 이동
-        // setTimeout(() => { location.href = "/"; }, 5000);
+    // 금액
+    $("#amount").textContent = fmtAmount(data.amount, data.currency);
+
+    // (선택) 등록 확인서 링크가 있을 때만 노출
+    const regId = data.registration_id;
+    const receiptEl = $("#receiptLink");
+    if (receiptEl) {
+      if (regId) {
+        receiptEl.href = `${RECEIPT_BASE}/${encodeURIComponent(regId)}/receipt`;
+        receiptEl.classList.remove("hidden");
       } else {
-        showError(data.reason || "결제 검증에 실패했습니다.");
+        receiptEl.classList.add("hidden");
       }
-    } catch (e) {
-      showError("네트워크 또는 서버 오류가 발생했습니다.");
     }
   }
 
   function showError(msg) {
-    // 패널 토글: 오류만 보이기
     $("#loading").classList.add("hidden");
-    $("#success").classList.add("hidden"); // ← 성공 숨김 추가
+    $("#success").classList.add("hidden");
     $("#error").classList.remove("hidden");
     $("#errMsg").textContent = msg || "오류가 발생했습니다.";
   }
 
-  $("#retry").addEventListener("click", () => location.reload());
+  async function verify() {
+    // 어떤 결제인지 판별: 명시된 method 우선, 없으면 파라미터 존재 여부로 추론
+    let url = "";
+    let body = null;
+
+    if (method === "paypal" || (!method && orderId)) {
+      if (!orderId) return showError("결제 식별자(order_id)가 없습니다.");
+      url  = PAYPAL_COMPLETE;
+      body = { order_id: orderId };
+    } else if (method === "portone" || (!method && paymentId)) {
+      if (!paymentId) return showError("결제 식별자(paymentId)가 없습니다.");
+      url  = PORTONE_VERIFY;
+      body = { paymentId };
+    } else {
+      return showError("결제 식별자가 없습니다.");
+    }
+
+    try {
+      const res  = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.verified) {
+        showSuccess(data);
+      } else {
+        const reason = data?.reason || ("HTTP " + res.status);
+        showError("결제 검증에 실패했습니다. (" + reason + ")");
+      }
+    } catch (err) {
+      showError("네트워크 또는 서버 오류가 발생했습니다.");
+    }
+  }
+
+  $("#retry")?.addEventListener("click", () => location.reload());
   verify();
 </script>
 </body>
