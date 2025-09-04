@@ -32,8 +32,12 @@
             <div id="regId" class="font-medium break-all"></div>
           </div>
           <div class="rounded-xl border p-4 bg-slate-50">
-            <div class="text-slate-500">신청자</div>
-            <div id="attendee" class="font-medium break-all"></div>
+            <div class="text-slate-500">신청자 이름</div>
+            <div id="attendeeName" class="font-medium break-all"></div>
+          </div>
+          <div class="rounded-xl border p-4 bg-slate-50">
+            <div class="text-slate-500">신청자 이메일</div>
+            <div id="attendeeEmail" class="font-medium break-all"></div>
           </div>
           <div class="rounded-xl border p-4 bg-slate-50">
             <div class="text-slate-500">신청 구분</div>
@@ -104,9 +108,13 @@
     $("#success").classList.remove("hidden");
 
     $("#regId").textContent = data.registration_id || "(발급됨)";
-    const name  = data?.attendee?.name  || "";
-    const email = data?.attendee?.email || "";
-    $("#attendee").textContent = [name, email].filter(Boolean).join(" · ");
+    const nameFromAPI   = data?.attendee?.name || params.get("name")  || "";
+    const emailFromAPI  = data?.attendee?.email || params.get("email") || "";
+    // (선택) PayPal 계정 이메일도 내려오면 보조로 표시하고 싶을 때:
+    const paypalEmail   = data?.attendee?.paypal_email || "";
+
+    $("#attendeeName").textContent  = nameFromAPI;
+    $("#attendeeEmail").textContent = emailFromAPI || paypalEmail; // 입력 이메일 우선, 없으면 PayPal 이메일
 
     // tier 표기 (국문)
     $("#tier").textContent = (data.tier === "resident") ? "전공의" : "일반";
@@ -140,10 +148,14 @@
     let body = null;
 
     if (method === "paypal" || (!method && orderId)) {
-      if (!orderId) return showError("결제 식별자(order_id)가 없습니다.");
-      url  = PAYPAL_COMPLETE;
-      body = { order_id: orderId };
-    } else if (method === "portone" || (!method && paymentId)) {
+        if (!orderId) return showError("결제 식별자(order_id)가 없습니다.");
+        // URL 쿼리에서 사용자가 입력한 값 읽기
+        const buyerName  = params.get("name")  || "";
+        const buyerEmail = params.get("email") || "";
+        url  = PAYPAL_COMPLETE;
+        // ✅ buyer 정보 함께 전송 → 서버가 PayPal 정보와 병합하여 메일 발송/응답
+        body = { order_id: orderId, buyer: { name: buyerName, email: buyerEmail } };
+      } else if (method === "portone" || (!method && paymentId)) {
       if (!paymentId) return showError("결제 식별자(paymentId)가 없습니다.");
       url  = PORTONE_VERIFY;
       body = { paymentId };
