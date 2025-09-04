@@ -1,190 +1,323 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>등록 완료 | WEBCEPH</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}</style>
+  <meta name="color-scheme" content="light only" />
 </head>
-<body class="min-h-screen bg-slate-50">
-  <main class="mx-auto max-w-xl px-4 py-10">
-    <section id="card" class="rounded-2xl border bg-white shadow-sm p-6">
-      <div id="loading">
+<body class="bg-slate-100">
+  <main class="min-h-screen flex items-center justify-center px-4 py-10">
+    <!-- 캡처 대상 카드 -->
+    <section id="card" class="w-full max-w-xl rounded-2xl bg-white shadow-lg border border-slate-200 p-5 md:p-8">
+      <!-- 로딩 상태 -->
+      <div id="loading" class="">
         <div class="flex items-center gap-3">
           <div class="h-2.5 w-2.5 rounded-full bg-amber-500 animate-pulse"></div>
-          <h1 class="text-xl font-bold">결제 결과 확인 중…</h1>
+          <h1 class="text-xl font-bold" data-i18n="loading_title">결제 결과 확인 중…</h1>
         </div>
-        <p class="mt-2 text-sm text-slate-600">잠시만 기다려 주세요.</p>
+        <p class="mt-2 text-sm text-slate-600" data-i18n="loading_desc">잠시만 기다려 주세요.</p>
       </div>
 
+      <!-- 성공 상태 -->
       <div id="success" class="hidden">
         <div class="flex items-center gap-3">
           <div class="h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center text-white">✓</div>
-          <h1 class="text-xl font-bold">등록이 완료되었습니다</h1>
+          <h1 class="text-xl font-bold" data-i18n="success_title">등록이 완료되었습니다</h1>
         </div>
-        <p class="mt-2 text-sm text-slate-600">이메일로 확인 안내를 전송했습니다.</p>
 
+        <!-- 이메일 발송 강조 콜아웃 -->
+        <div id="emailCallout" class="mt-4 rounded-xl border-2 border-emerald-300/70 bg-emerald-50 p-4">
+          <p class="text-lg md:text-xl font-extrabold text-emerald-900" data-i18n="email_sent_title">확인 메일을 보냈습니다</p>
+          <p class="text-sm md:text-base text-emerald-800" data-i18n="email_sent_desc">보이지 않으면 스팸함을 확인해 주세요.</p>
+        </div>
+
+        <!-- 상세 -->
         <div class="mt-5 grid grid-cols-1 gap-3 text-sm">
           <div class="rounded-xl border p-4 bg-slate-50">
-            <div class="text-slate-500">등록번호</div>
+            <div class="text-slate-500" data-i18n="reg_no_label">등록번호</div>
             <div id="regId" class="font-medium break-all"></div>
           </div>
           <div class="rounded-xl border p-4 bg-slate-50">
-            <div class="text-slate-500">신청자 이름</div>
+            <div class="text-slate-500" data-i18n="name_label">신청자 이름</div>
             <div id="attendeeName" class="font-medium break-all"></div>
           </div>
           <div class="rounded-xl border p-4 bg-slate-50">
-            <div class="text-slate-500">신청자 이메일</div>
+            <div class="text-slate-500" data-i18n="email_label">신청자 이메일</div>
             <div id="attendeeEmail" class="font-medium break-all"></div>
           </div>
-          <div class="rounded-xl border p-4 bg-slate-50">
-            <div class="text-slate-500">신청 구분</div>
+
+          <!-- 티어(있을 때만 노출) -->
+          <div id="tierWrap" class="rounded-xl border p-4 bg-slate-50 hidden">
+            <div class="text-slate-500" data-i18n="tier_label">신청 구분</div>
             <div id="tier" class="font-medium"></div>
           </div>
+
           <div class="rounded-xl border p-4 bg-slate-50">
-            <div class="text-slate-500">결제 금액</div>
+            <div class="text-slate-500" data-i18n="amount_label">결제 금액</div>
             <div id="amount" class="font-medium"></div>
           </div>
         </div>
 
         <div class="mt-6 flex flex-col gap-3">
-          <!-- 확인서(또는 영수증) 보기 -->
-          <!-- <a id="receiptLink" href="#" target="_blank"
-             class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">
-            등록 확인서 보기
-          </a> -->
-          <!-- 세미나 안내/FAQ로 이동 -->
-          <a href="/"
-             class="inline-flex items-center justify-center px-4 py-2 rounded-lg border hover:bg-slate-50">
-            세미나 안내 보러가기
-          </a>
+          <a href="/" class="inline-flex items-center justify-center px-4 py-2 rounded-lg border hover:bg-slate-50" data-i18n="cta_info">세미나 안내 보러가기</a>
         </div>
 
-        <!-- 자동 이동(선택): 5초 후 안내 페이지로 -->
-        <!-- <p class="mt-4 text-xs text-slate-500">5초 후 세미나 안내 페이지로 이동합니다…</p> -->
+        <!-- 모바일 공유/저장 -->
+        <div class="mt-4 grid grid-cols-1 gap-2 md:hidden">
+          <button id="btnShare" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-black" data-i18n="share_btn">공유하기</button>
+          <button id="btnSaveImage" class="px-4 py-2 rounded-lg border hover:bg-slate-50" data-i18n="save_img_btn">이미지로 저장</button>
+        </div>
       </div>
 
+      <!-- 에러 상태 -->
       <div id="error" class="hidden">
         <div class="flex items-center gap-3">
           <div class="h-6 w-6 rounded-full bg-red-500 flex items-center justify-center text-white">!</div>
-          <h1 class="text-xl font-bold">검증에 실패했습니다</h1>
+          <h1 class="text-xl font-bold" data-i18n="error_title">검증에 실패했습니다</h1>
         </div>
-        <p id="errMsg" class="mt-2 text-sm text-slate-600">네트워크 또는 서버 오류가 발생했습니다.</p>
+        <p id="errMsg" class="mt-2 text-sm text-slate-600" data-i18n="error_desc_default">네트워크 또는 서버 오류가 발생했습니다.</p>
         <div class="mt-6 flex gap-3">
-          <button id="retry" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-black">다시 시도</button>
-          <a href="/" class="px-4 py-2 rounded-lg border hover:bg-slate-50">홈으로</a>
+          <button id="retry" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-black" data-i18n="retry_btn">다시 시도</button>
+          <a href="/" class="px-4 py-2 rounded-lg border hover:bg-slate-50" data-i18n="home_btn">홈으로</a>
         </div>
       </div>
     </section>
   </main>
 
-<script>
-  // ===== API Endpoints =====
-  const PORTONE_VERIFY   = "https://api.webceph.com/payments/verify";             // { paymentId }
-  const PAYPAL_COMPLETE  = "https://api.webceph.com/payments/paypal/complete";    // { order_id }
-  const RECEIPT_BASE     = "https://api.webceph.com/api/registrations";
+  <!-- html2canvas (스크린샷) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 
-  // ===== Helpers =====
-  const $ = (s) => document.querySelector(s);
-  const params   = new URLSearchParams(location.search);
-  const method   = (params.get("method") || "").toLowerCase(); // 'portone' | 'paypal' | ''
-  const paymentId= params.get("paymentId");                    // PortOne 식별자
-  const orderId  = params.get("order_id") || params.get("orderId"); // PayPal 식별자(둘 다 허용)
+  <script>
+    // ====== 간단 유틸 ======
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const params = new URLSearchParams(location.search);
+    const langParam = (params.get("lang") || "").slice(0,2).toLowerCase();
 
-  function fmtAmount(n, cur) {
-    // 통화별 보기 좋은 로케일 자동 선택
-    const c = (cur || "").toUpperCase();
-    const locale = c === "USD" ? "en-US" : (c === "JPY" ? "ja-JP" : "ko-KR");
-    const num = (typeof n === "string") ? Number(n) : n;
-    try { return new Intl.NumberFormat(locale).format(num) + (cur ? " " + c : ""); }
-    catch { return (n ?? "") + (cur ? " " + c : ""); }
-  }
+    // ====== i18n 사전 ======
+    let LANG = ["ko","ja","en"].includes(langParam)
+      ? langParam
+      : (navigator.language?.toLowerCase().startsWith("ja") ? "ja"
+        : (navigator.language?.toLowerCase().startsWith("en") ? "en" : "ko"));
 
-  function showSuccess(data) {
-    $("#loading").classList.add("hidden");
-    $("#error").classList.add("hidden");
-    $("#success").classList.remove("hidden");
-
-    $("#regId").textContent = data.registration_id || "(발급됨)";
-    const nameFromAPI   = data?.attendee?.name || params.get("name")  || "";
-    const emailFromAPI  = data?.attendee?.email || params.get("email") || "";
-    // (선택) PayPal 계정 이메일도 내려오면 보조로 표시하고 싶을 때:
-    const paypalEmail   = data?.attendee?.paypal_email || "";
-
-    $("#attendeeName").textContent  = nameFromAPI;
-    $("#attendeeEmail").textContent = emailFromAPI || paypalEmail; // 입력 이메일 우선, 없으면 PayPal 이메일
-
-    // tier 표기 (국문)
-    $("#tier").textContent = (data.tier === "resident") ? "전공의" : "일반";
-
-    // 금액
-    $("#amount").textContent = fmtAmount(data.amount, data.currency);
-
-    // (선택) 등록 확인서 링크가 있을 때만 노출
-    const regId = data.registration_id;
-    const receiptEl = $("#receiptLink");
-    if (receiptEl) {
-      if (regId) {
-        receiptEl.href = `${RECEIPT_BASE}/${encodeURIComponent(regId)}/receipt`;
-        receiptEl.classList.remove("hidden");
-      } else {
-        receiptEl.classList.add("hidden");
+    const DICTS = {
+      ko: {
+        page_title: "등록 완료 | WEBCEPH",
+        loading_title: "결제 결과 확인 중…",
+        loading_desc: "잠시만 기다려 주세요.",
+        success_title: "등록이 완료되었습니다",
+        email_sent_title: "확인 메일을 보냈습니다",
+        email_sent_desc: "보이지 않으면 스팸함을 확인해 주세요.",
+        reg_no_label: "등록번호",
+        name_label: "신청자 이름",
+        email_label: "신청자 이메일",
+        tier_label: "신청 구분",
+        amount_label: "결제 금액",
+        tier_general: "일반",
+        tier_resident: "전공의",
+        cta_info: "세미나 안내 보러가기",
+        error_title: "검증에 실패했습니다",
+        error_desc_default: "네트워크 또는 서버 오류가 발생했습니다.",
+        retry_btn: "다시 시도",
+        home_btn: "홈으로",
+        share_btn: "공유하기",
+        save_img_btn: "이미지로 저장",
+        share_not_supported: "이 기기에서는 공유를 지원하지 않습니다.",
+        share_image_text: "WEBCEPH 등록 확인 이미지"
+      },
+      ja: {
+        page_title: "登録完了 | WEBCEPH",
+        loading_title: "決済結果を確認しています…",
+        loading_desc: "しばらくお待ちください。",
+        success_title: "登録が完了しました",
+        email_sent_title: "確認メールを送信しました",
+        email_sent_desc: "見当たらない場合は迷惑メールをご確認ください。",
+        reg_no_label: "登録番号",
+        name_label: "申込者氏名",
+        email_label: "申込者メール",
+        tier_label: "申込区分",
+        amount_label: "お支払い金額",
+        tier_general: "一般",
+        tier_resident: "研修医",
+        cta_info: "セミナー案内へ",
+        error_title: "検証に失敗しました",
+        error_desc_default: "ネットワークまたはサーバーのエラーが発生しました。",
+        retry_btn: "再試行",
+        home_btn: "ホームへ",
+        share_btn: "共有する",
+        save_img_btn: "画像として保存",
+        share_not_supported: "この端末では共有がサポートされていません。",
+        share_image_text: "WEBCEPH 登録確認イメージ"
+      },
+      en: {
+        page_title: "Registration Complete | WEBCEPH",
+        loading_title: "Verifying your payment…",
+        loading_desc: "Please hold on a moment.",
+        success_title: "Your registration is complete",
+        email_sent_title: "A confirmation email has been sent",
+        email_sent_desc: "If you don’t see it, please check your spam folder.",
+        reg_no_label: "Registration ID",
+        name_label: "Attendee Name",
+        email_label: "Attendee Email",
+        tier_label: "Category",
+        amount_label: "Amount Paid",
+        tier_general: "General",
+        tier_resident: "Resident",
+        cta_info: "View Event Info",
+        error_title: "Verification failed",
+        error_desc_default: "A network or server error occurred.",
+        retry_btn: "Retry",
+        home_btn: "Home",
+        share_btn: "Share",
+        save_img_btn: "Save as Image",
+        share_not_supported: "Sharing is not supported on this device.",
+        share_image_text: "WEBCEPH registration confirmation"
       }
-    }
-  }
+    };
 
-  function showError(msg) {
-    $("#loading").classList.add("hidden");
-    $("#success").classList.add("hidden");
-    $("#error").classList.remove("hidden");
-    $("#errMsg").textContent = msg || "오류가 발생했습니다.";
-  }
+    const t = (k) => (DICTS[LANG] && DICTS[LANG][k]) || DICTS.en[k] || DICTS.ko[k] || k;
 
-  async function verify() {
-    // 어떤 결제인지 판별: 명시된 method 우선, 없으면 파라미터 존재 여부로 추론
-    let url = "";
-    let body = null;
-
-    if (method === "paypal" || (!method && orderId)) {
-        if (!orderId) return showError("결제 식별자(order_id)가 없습니다.");
-        // URL 쿼리에서 사용자가 입력한 값 읽기
-        const buyerName  = params.get("name")  || "";
-        const buyerEmail = params.get("email") || "";
-        url  = PAYPAL_COMPLETE;
-        // ✅ buyer 정보 함께 전송 → 서버가 PayPal 정보와 병합하여 메일 발송/응답
-        body = { order_id: orderId, buyer: { name: buyerName, email: buyerEmail } };
-      } else if (method === "portone" || (!method && paymentId)) {
-      if (!paymentId) return showError("결제 식별자(paymentId)가 없습니다.");
-      url  = PORTONE_VERIFY;
-      body = { paymentId };
-    } else {
-      return showError("결제 식별자가 없습니다.");
-    }
-
-    try {
-      const res  = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+    function applyI18n(){
+      document.documentElement.lang = LANG;
+      document.title = t("page_title");
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        el.textContent = t(el.getAttribute("data-i18n"));
       });
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok && data.verified) {
-        showSuccess(data);
-      } else {
-        const reason = data?.reason || ("HTTP " + res.status);
-        showError("결제 검증에 실패했습니다. (" + reason + ")");
-      }
-    } catch (err) {
-      showError("네트워크 또는 서버 오류가 발생했습니다.");
     }
-  }
 
-  $("#retry")?.addEventListener("click", () => location.reload());
-  verify();
-</script>
+    // ====== 검증 호출 ======
+    const VERIFY_ENDPOINTS = [
+      "/payments/paypal/complete",
+      "https://api.webceph.com/payments/paypal/complete"
+    ];
+
+    function tierText(code){
+      return (code === "resident") ? t("tier_resident") : t("tier_general");
+    }
+
+    async function verify(){
+      $("#loading").classList.remove("hidden");
+      $("#success").classList.add("hidden");
+      $("#error").classList.add("hidden");
+
+      const order_id = params.get("order_id") || "";
+      const buyer = {
+        name:  (params.get("name")  || "").trim(),
+        email: (params.get("email") || "").trim()
+      };
+
+      if (!order_id) {
+        return showError("NO_ORDER_ID");
+      }
+
+      // 순차 폴백
+      let lastErr = null, data = null;
+      for (const url of VERIFY_ENDPOINTS) {
+        try {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({ order_id, buyer }),
+            credentials: "omit"
+          });
+          data = await res.json();
+          // 서버가 오류코드라도 JSON은 반환할 수 있으므로 break는 verified 판단 이후
+          if (data && (data.verified === true || data.verified === false)) break;
+        } catch (e) {
+          lastErr = e;
+        }
+      }
+
+      if (!data) {
+        return showError(lastErr?.message || t("error_desc_default"));
+      }
+      if (data.verified !== true) {
+        const reason = data.reason || "VERIFICATION_FAILED";
+        return showError(reason);
+      }
+      showSuccess(data);
+    }
+
+    function showSuccess(data){
+      $("#loading").classList.add("hidden");
+      $("#error").classList.add("hidden");
+      $("#success").classList.remove("hidden");
+
+      $("#regId").textContent = data.registration_id || "";
+      $("#attendeeName").textContent = (data.attendee && data.attendee.name) || (params.get("name") || "");
+      $("#attendeeEmail").textContent = (data.attendee && data.attendee.email) || (params.get("email") || "");
+
+      const amountStr = [data.amount, data.currency].filter(Boolean).join(" ");
+      $("#amount").textContent = amountStr || "";
+
+      // tier가 응답/URL에 없으면 섹션 숨김
+      const incomingTier = params.get("tier") || data.tier || "";
+      if (incomingTier) {
+        $("#tier").textContent = tierText(incomingTier);
+        $("#tierWrap").classList.remove("hidden");
+      } else {
+        $("#tierWrap").classList.add("hidden");
+      }
+    }
+
+    function showError(msg){
+      $("#loading").classList.add("hidden");
+      $("#success").classList.add("hidden");
+      $("#error").classList.remove("hidden");
+      $("#errMsg").textContent = msg || t("error_desc_default");
+    }
+
+    // 재시도
+    $("#retry")?.addEventListener("click", verify);
+
+    // ====== 공유 / 이미지 저장 ======
+    async function sharePage(){
+      if (!navigator.share) {
+        alert(t("share_not_supported"));
+        return;
+      }
+      const regId = $("#regId")?.textContent?.trim() || "";
+      const text = `${t("success_title")}${regId ? " – ID " + regId : ""}`;
+      try {
+        await navigator.share({ title: t("page_title"), text, url: location.href });
+      } catch (_) {}
+    }
+
+    async function saveCardAsImage(){
+      try {
+        const node = $("#card");
+        const canvas = await html2canvas(node, { scale: 2, backgroundColor: null });
+        canvas.toBlob(async (blob) => {
+          if (!blob) return;
+          const file = new File([blob], `WEBCEPH_${Date.now()}.png`, { type: "image/png" });
+          // Web Share Level 2 (파일 공유)
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+              await navigator.share({ files: [file], title: "WEBCEPH", text: t("share_image_text") });
+              return;
+            } catch (_) {}
+          }
+          // 다운로드 폴백
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = file.name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(a.href);
+        });
+      } catch (e) {
+        alert(t("error_desc_default"));
+      }
+    }
+
+    $("#btnShare")?.addEventListener("click", sharePage);
+    $("#btnSaveImage")?.addEventListener("click", saveCardAsImage);
+
+    // ====== 시작 ======
+    applyI18n();
+    verify();
+  </script>
 </body>
 </html>
-
