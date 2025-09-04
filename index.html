@@ -34,6 +34,53 @@
   <!-- HEAD 안쪽 어딘가에 추가 -->
   <script src="https://cdn.portone.io/v2/browser-sdk.js" async defer></script>
 
+  <style type="text/css">
+       #paypalmsg1:after {
+          content: ' .';
+          animation: dots 1s steps(5, end) infinite;}
+
+        @keyframes dots {
+          0%, 20% {
+            color: rgba(0,0,0,0);
+            text-shadow:
+              .25em 0 0 rgba(0,0,0,0),
+              .5em 0 0 rgba(0,0,0,0);}
+          40% {
+            color: white;
+            text-shadow:
+              .25em 0 0 rgba(0,0,0,0),
+              .5em 0 0 rgba(0,0,0,0);}
+          60% {
+            text-shadow:
+              .25em 0 0 white,
+              .5em 0 0 rgba(0,0,0,0);}
+          80%, 100% {
+            text-shadow:
+              .25em 0 0 white,
+              .5em 0 0 white;}}
+
+
+        .modal-loading {
+            display:    none;
+            position:   fixed;
+            z-index:    9999;
+            top:        0;
+            left:       0;
+            height:     100%;
+            width:      100%;
+            background: 
+                        rgba(21, 46, 77,.7) 
+                        url('{% static "img/WC_loader.gif" %}') 
+                        50% 50% 
+                        no-repeat;
+            background-size: 75px 75px;
+        }
+        body.loading .modal-loading {
+            display: block;
+        }
+
+  </style>
+
 </head>
 <body class="bg-[url('images/background_pattern.png')] bg-repeat bg-top bg-fixed">
   <!-- Header / Language Dropdown Only -->
@@ -93,10 +140,20 @@
         </p>
         <!-- 등록비 안내 -->
         <div class="mb-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
-          <p class="font-semibold" data-i18n="fee_label_general">일반: 100,000원</p>
-          <p class="font-semibold mt-1" data-i18n="fee_label_resident">전공의/군의관/공보의: 70,000원</p>
-          <p class="text-xs text-slate-500 mt-2" data-i18n="fee_note">결제 완료 후 등록번호가 포함된 확인 메일이 발송됩니다.</p>
+          <!-- 한국어용 -->
+          <div id="fee-kr">
+            <p class="font-semibold" data-i18n="fee_label_general">일반: 100,000원</p>
+            <p class="font-semibold mt-1" data-i18n="fee_label_resident">전공의/군의관/공보의: 70,000원</p>
+            <p class="text-xs text-slate-500 mt-2" data-i18n="fee_note">결제 완료 후 등록번호가 포함된 확인 메일이 발송됩니다.</p>
+          </div>
+
+          <!-- 해외용 -->
+          <div id="fee-intl" class="hidden">
+            <p class="font-semibold" data-i18n="fee_label_intl">Registration Fee: $75</p>
+            <p class="text-xs text-slate-500 mt-2" data-i18n="fee_note_intl">A confirmation email with your registration ID will be sent after payment.</p>
+          </div>
         </div>
+
         <div class="flex flex-wrap items-center gap-3 text-sm">
           <button id="showRegisterBtn" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold bg-blue-600 text-white" data-i18n="cta_register">
             등록하기
@@ -140,7 +197,7 @@
         <div>
           <div class="text-slate-500" data-i18n="lang_label">강의 언어</div>
           <div class="font-semibold" data-i18n="lang_value">한글 · 일본어</div>
-          <div class="font-semibold" data-i18n="lang_value2">일본어 강좌는 보조스크린을 통해 실시간 한글 통역이 제공될 예정입니다.</div>
+          <div class="font-semibold" data-i18n="lang_value2">보조스크린을 통해 AI 기반 실시간 영어 통역(번역) 이 제공될 예정입니다.</div>
         </div>
       </div>
 
@@ -162,9 +219,28 @@
     <form id="fastForm" class="space-y-3" onsubmit="return false;">
 
 
-      <input name="name" type="text" data-i18n-placeholder="ph_name" placeholder="이름" required class="w-full border rounded-lg p-3" />
-      <input name="email" type="email" data-i18n-placeholder="ph_email" placeholder="이메일" required class="w-full border rounded-lg p-3" />
-      <input name="phone" type="tel" data-i18n-placeholder="ph_phone" placeholder="전화번호" required class="w-full border rounded-lg p-3" />
+      <!-- 🔁 교체: 이름/이메일 인풋 라인 -->
+      <input id="name"  name="name"  type="text"   data-i18n-placeholder="ph_name"  placeholder="이름"   required class="w-full border rounded-lg p-3" />
+      <input id="email" name="email" type="email"  data-i18n-placeholder="ph_email" placeholder="이메일" required class="w-full border rounded-lg p-3" />
+
+      <!-- <input name="phone" type="tel" data-i18n-placeholder="ph_phone" placeholder="전화번호" required class="w-full border rounded-lg p-3" /> -->
+      <!-- 전화번호 (ko 전용) -->
+      <div id="field-phone" class="space-y-1">
+        <!-- <label for="phone" class="block text-sm font-medium text-slate-700">전화번호</label> -->
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          inputmode="numeric"
+          autocomplete="tel"
+          placeholder="전화번호"
+          required
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 placeholder-slate-400
+                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <!-- 필요 없으면 아래 안내문은 삭제 -->
+        <!-- <p class="text-xs text-slate-500">숫자만 입력해도 자동으로 하이픈이 들어갑니다.</p> -->
+      </div>
 
       <!-- 수강 구분 선택 -->
       <select id="feeTier" name="feeTier" class="w-full border rounded-lg p-3" required>
@@ -174,20 +250,25 @@
 
 
       <input name="affiliation" type="text" data-i18n-placeholder="ph_affiliation" placeholder="소속 (선택)" class="w-full border rounded-lg p-3" />
-      <div class="flex items-center gap-2 text-xs text-slate-600">
+      <div class="my-4 items-center gap-2 text-s text-slate-600 text-center">
         <input id="agree" type="checkbox" class="h-4 w-4" required />
         <label for="agree" data-i18n="consent">개인정보 수집·이용에 동의합니다.</label>
       </div>
 
-      <div class="grid grid-cols-1 gap-2 pt-2">
-        <button id="btnIamport" type="button" class="px-4 py-3 rounded-lg font-semibold bg-blue-600 text-white" data-i18n="btn_iamport">
-          신용카드 결제
-        </button>
-        <!-- <button id="btnPaypal" type="button" class="px-4 py-3 rounded-lg font-semibold border border-slate-300" data-i18n="btn_paypal">
-          페이팔 결제
-        </button> -->
-      </div>
+      <div style="max-width: 700px; margin: auto;">
+        <div class="grid grid-cols-1 gap-2 pt-2">
+          <button id="btnIamport" type="button" class="px-4 py-3 rounded-lg font-semibold bg-blue-600 text-white" data-i18n="btn_iamport">
+            신용카드 결제
+          </button>
 
+          <div id="paypal-box" class="hidden">   <!-- ko가 아니면 hidden 제거 -->
+            <div id="paypal-button-container"></div>
+          </div>
+          <!-- <button id="btnPaypal" type="button" class="px-4 py-3 rounded-lg font-semibold border border-slate-300" data-i18n="btn_paypal">
+            페이팔 결제
+          </button> -->
+        </div>
+      </div>
       <div class="mt-4 p-3 border rounded-lg bg-slate-50 text-sm text-slate-700">
         <p class="font-semibold" data-i18n="bank_title">무통장 입금 안내 (선택)</p>
         <p data-i18n="bank_info">예금주: ㈜어셈블써클 | 은행: 기업은행 | 계좌: 518-066566-01-040</p>
@@ -383,12 +464,37 @@
     <div class="max-w-6xl text-center mx-auto text-white px-4 text-sm text-slate-500" data-i18n="footer">© 2025 WEBCEPH. All rights reserved.</div>
   </footer>
 
+
+  <form id="paypal_one_time_form" action="https://api.webceph.com/payments/paypal/complete" method="post">{% csrf_token %}
+    <input type="hidden" name="order_id" value=""> 
+  </form>
+
+  <div class="modal-loading">
+    <h2 id="paypalmsg1" style="position: fixed; top: 55%; left: calc(50% - 90px); color: #fff;"></h2>
+    <h3 id="paypalmsg2" style="position: fixed; top: 58.5%; left: calc(50% - 163px); color: #fff;"></h3>    
+  </div>
+
+
   <style>
     @media (min-width: 768px) {
       .md\:text-4xl { font-size: 2.25rem; line-height: 3.5rem; }
     }
   </style>
 
+    <!-- for live -->
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=Af7k_DhPKelrG28uMtDge2iwMVWNNSoEDUEaUsiJgpHQ4SROexHwIrLnun2ZcjunK81VqTA_1zpA3-gw&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script> -->
+
+  <!-- for sandbox -->
+<!--   <script src="https://www.paypal.com/sdk/js?client-id=AbLEN82W1iR7ZuHfiKTvmTm6LlgHwLMgXREJ9iPQ6ilXdzxVHEr8dx7ZBcYID9R_IWz6X3VLdcei1Lwa&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+ -->
+  <script
+  id="paypal-sdk"
+  src="https://www.paypal.com/sdk/js?client-id=AbLEN82W1iR7ZuHfiKTvmTm6LlgHwLMgXREJ9iPQ6ilXdzxVHEr8dx7ZBcYID9R_IWz6X3VLdcei1Lwa&enable-funding=venmo&currency=USD"
+  onload="window.__paypalReady = true;"
+  defer></script>
+
+
+  
   <script>
     // Swiper init
     new Swiper('.swiper', {
@@ -402,9 +508,19 @@
     document.getElementById('showRegisterBtn')?.addEventListener('click', () => {
       const reg = document.getElementById('register');
       reg.classList.toggle('hidden');
-      if (!reg.classList.contains('hidden')) reg.scrollIntoView({ behavior: 'smooth' });
-    });
 
+      if (!reg.classList.contains('hidden')) {
+        // 패널이 실제로 열린 직후 스크롤
+        reg.scrollIntoView({ behavior: 'smooth' });
+
+        // ✅ 처음부터 en/ja인 경우에도, 패널이 열린 "지금" PayPal 렌더
+        const lang = (document.documentElement.lang || 'en').slice(0, 2);
+        if (lang !== 'ko') {
+          document.getElementById('paypal-box')?.classList.remove('hidden'); // 보이게
+          requestAnimationFrame(renderPayPalButtons); // 보이는 프레임에서 렌더
+        }
+      }
+    });
        // ===== 금액 매핑 =====
       const PRICES = {
         general: 100000,   // 일반
@@ -418,17 +534,17 @@
       };
 
       // ===== 폼 값 수집 =====
-      function getFormValues() {
-        const form = document.getElementById('fastForm');
-        return {
-          tier: (document.getElementById('feeTier').value || 'general'),
-          name: form.name.value.trim(),
-          email: form.email.value.trim(),
-          phone: form.phone.value.trim(),
-          affiliation: form.affiliation.value.trim(),
-          agree: document.getElementById('agree').checked
-        };
-      }
+      // function getFormValues() {
+      //   const form = document.getElementById('fastForm');
+      //   return {
+      //     tier: (document.getElementById('feeTier').value || 'general'),
+      //     name: form.name.value.trim(),
+      //     email: form.email.value.trim(),
+      //     phone: form.phone.value.trim(),
+      //     affiliation: form.affiliation.value.trim(),
+      //     agree: document.getElementById('agree').checked
+      //   };
+      // }
 
       function getAmountKRW(tier) {
         return PRICES[tier] ?? PRICES.general;
@@ -524,40 +640,146 @@
         }
       }
 
-      // ===== PayPal 스텁 =====
-      async function payWithPaypal() {
-        const v = getFormValues();
-        if (!v.agree) {
-          alert(i18nStr('must_agree') || "개인정보 수집·이용에 동의해 주세요.");
-          return;
-        }
-        const amount = getAmountKRW(v.tier);
-        try {
-          // 서버에서 PayPal Order 생성 (예시)
-          // const res = await fetch('/api/paypal/create-order', {
-          //   method: 'POST',
-          //   headers: { 'Content-Type': 'application/json' },
-          //   body: JSON.stringify({
-          //     currency: 'KRW',
-          //     amount,
-          //     description: PAY_META.description,
-          //     buyer: { name: v.name, email: v.email, phone: v.phone, affiliation: v.affiliation },
-          //     tier: v.tier
-          //   })
-          // });
-          // const data = await res.json();
-          // if (data.approvalUrl) window.location.href = data.approvalUrl;
-
-          alert(`PayPal 결제 시도\n구분: ${v.tier}\n금액: ${amount.toLocaleString()} KRW`);
-        } catch (e) {
-          console.error(e);
-          alert("PayPal 결제 생성 중 오류가 발생했습니다.");
-        }
-      }
-
       // ===== 이벤트 바인딩 =====
       document.getElementById('btnIamport')?.addEventListener('click', payWithIamport);
-      document.getElementById('btnPaypal')?.addEventListener('click', payWithPaypal);
+
+
+
+      const PAYPAL_CONTAINER = '#paypal-button-container';
+      let paypalRendered = false;
+      let paypalRenderedLang = null;
+
+      function getFormValues() {
+        const form = document.getElementById('fastForm');
+        return {
+          tier:        document.getElementById('feeTier')?.value || 'general',
+          name:        form?.name?.value?.trim()        || '',
+          email:       form?.email?.value?.trim()       || '',
+          phone:       form?.phone?.value?.trim()       || '',
+          affiliation: form?.affiliation?.value?.trim() || '',
+          agree:       !!document.getElementById('agree')?.checked
+        };
+      }
+
+      function isValidForPayPal(){
+        const v = getFormValues();
+        return !!(v.name && v.email && v.agree);
+      }
+
+      // SDK 로드 대기
+      function waitForPayPalSDK(timeoutMs=8000){
+        return new Promise((resolve, reject) => {
+          if (window.paypal) return resolve();
+          const start = Date.now();
+          const t = setInterval(() => {
+            if (window.paypal || window.__paypalReady) { clearInterval(t); return resolve(); }
+            if (Date.now() - start > timeoutMs) { clearInterval(t); return reject(new Error('PayPal SDK timeout')); }
+          }, 100);
+        });
+      }
+
+      async function renderPayPalButtons() {
+        const box = document.getElementById('paypal-box');
+        const container = document.querySelector(PAYPAL_CONTAINER);
+        const lang = (document.documentElement.lang || 'en').slice(0,2);
+
+        // 1) 컨테이너가 보이는지 확인
+        if (!box || !container) return;
+        const visible = getComputedStyle(box).display !== 'none' && box.offsetParent !== null;
+        if (!visible) return; // 숨겨진 상태에선 렌더 금지
+
+        // 2) SDK 로드 보장
+        try { await waitForPayPalSDK(); } catch(e){ console.error(e); return; }
+
+        // 3) 같은 언어로 이미 렌더되어 있으면 스킵
+        if (paypalRendered && paypalRenderedLang === lang && container.children.length > 0) return;
+
+        // 4) 중복 iframe 제거 후 렌더
+        container.innerHTML = '';
+
+        paypal.Buttons({
+          style: { shape:'pill', color:'blue', layout:'vertical', label:'pay' },
+
+          onInit: (data, actions) => {
+            actions.disable();
+            const reevaluate = () => isValidForPayPal() ? actions.enable() : actions.disable();
+            [['#name','input'], ['#email','input'], ['#agree','change']].forEach(([sel,ev])=>{
+              const el = document.querySelector(sel);
+              if (el) el.addEventListener(ev, reevaluate);
+            });
+            setTimeout(reevaluate, 0);
+          },
+
+          onClick: (data, actions) => {
+            if (!isValidForPayPal()) {
+              alert(({
+                ko:'필수 정보를 입력하고 개인정보 동의에 체크해 주세요.',
+                ja:'必須項目を入力し、個人情報の取扱いに同意してください。',
+                en:'Please complete the required fields and agree to the privacy policy.'
+              })[ (document.documentElement.lang||'en').slice(0,2) ] );
+              return actions.reject(); // 팝업 생성 차단
+            }
+            return actions.resolve();
+          },
+
+          createOrder: (data, actions) => actions.order.create({
+            purchase_units: [{
+              description: "WEBCEPH Mini Certification & Aligner Masterclass",
+              amount: { currency_code: "USD", value: "75.00" }
+            }],
+            application_context: { shipping_preference: 'NO_SHIPPING' }
+          }),
+
+          onApprove: (data, actions) => actions.order.capture().then(orderData => {
+            const v = getFormValues();
+            const qs = new URLSearchParams({
+              method:'paypal',
+              order_id: orderData.id,
+              lang: (document.documentElement.lang||'en').slice(0,2),
+              name: v.name || '',
+              email: v.email || ''
+            });
+            // ✅ 로컬(file://)에서는 상대경로, 배포(http/https)에서는 절대경로
+            const isFileProto = location.protocol === 'file:';
+            const completeHref = isFileProto
+              ? new URL('payment/complete.html', location.href).href           // 예: ./payment/complete.html
+              : `${location.origin}/payment/complete.html`;                    // 예: https://seminar.assemblecircle.com/payment/complete.html
+
+            location.assign(`${completeHref}?${qs.toString()}`);
+          }),
+
+          onError: (err) => {
+            console.error('PayPal error:', err);
+            alert('PayPal 결제 중 오류가 발생했습니다. 다시 시도해 주세요.');
+          }
+        }).render(PAYPAL_CONTAINER).then(()=>{
+          paypalRendered = true;
+          paypalRenderedLang = lang;
+        });
+      }
+
+
+      // ===== PayPal 스텁 =====
+      // async function payWithPaypal() {
+      //   const v = getFormValues();
+      //   if (!v.agree) {
+      //     alert(i18nStr('must_agree') || "개인정보 수집·이용에 동의해 주세요.");
+      //     return;
+      //   }
+      //   const amount = getAmountKRW(v.tier);
+      //   try {
+
+
+      //     alert(`PayPal 결제 시도\n구분: ${v.tier}\n금액: ${amount.toLocaleString()} KRW`);
+      //   } catch (e) {
+      //     console.error(e);
+      //     alert("PayPal 결제 생성 중 오류가 발생했습니다.");
+      //   }
+      // }
+
+      // ===== 이벤트 바인딩 =====
+      // document.getElementById('btnIamport')?.addEventListener('click', payWithIamport);
+      // document.getElementById('btnPaypal')?.addEventListener('click', payWithPaypal);
 
     // ===== i18n =====
 const DICTS = {
@@ -579,7 +801,7 @@ const DICTS = {
     host_value: 'WEBCEPH',
     lang_label: '강의 언어',
     lang_value: '한글 · 일본어',
-    lang_value2: '일본어 강좌는 보조스크린을 통해 실시간 한글 통역이 제공될 예정입니다.',
+    lang_value2: '보조스크린을 통해 AI 기반 실시간 영어 통역(번역) 이 제공될 예정입니다.',
     open_map: '지도 열기',
     save_ics: '캘린더 저장 (.ics)',
     register_title: '등록 정보',
@@ -661,7 +883,7 @@ const DICTS = {
     host_value: 'WEBCEPH',
     lang_label: '言語',
     lang_value: '韓国語・日本語',
-    lang_value2: '日本語講座は韓国語への逐次通訳が提供される予定です。',
+    lang_value2: '補助スクリーンを通して AI技術を活用したリアルタイム英語通訳 が提供される予定です。',
     open_map: '地図を開く',
     save_ics: 'カレンダー保存 (.ics)',
     register_title: '申込情報',
@@ -728,7 +950,8 @@ const DICTS = {
     err_email: 'メールアドレスをご入力ください。',
     err_phone: '電話番号をご入力ください。',
 
-    lang_value2: "日本語講座では、サブスクリーンを通じてリアルタイムで韓国語翻訳が提供される予定です。",
+    fee_label_intl: "参加費: 75ドル",
+    fee_note_intl: "支払い完了後、登録番号を含む確認メールが送信されます。"
 
 
   },
@@ -750,7 +973,7 @@ const DICTS = {
     host_value: 'WEBCEPH',
     lang_label: 'Languages',
     lang_value: 'Korean · Japanese',
-    lang_value2: 'The Japanese lecture will be provided with consecutive interpretation into Korean.',
+    lang_value2: 'Real-time English interpretation, supported by AI technology, will be provided on a supporting screen.',
     open_map: 'Open Map',
     save_ics: 'Save to Calendar (.ics)',
     register_title: 'Registration',
@@ -816,7 +1039,8 @@ const DICTS = {
     err_email: 'Please enter your email address.',
     err_phone: 'Please enter your phone number.',
 
-    lang_value2: "The Japanese lecture will provide real-time Korean translation through a supplementary screen.",
+    fee_label_intl: "Registration Fee: $75",
+    fee_note_intl: "A confirmation email with your registration ID will be sent after payment."
   }
 };
 
@@ -861,6 +1085,67 @@ function updatePosters(lang) {
       const sel = document.getElementById('langSelect');
       if (sel) sel.value = lang;
 
+      const btnIamport = document.getElementById('btnIamport');
+      const paypalBox  = document.getElementById('paypal-box');
+
+      if (lang === 'ko') {
+        btnIamport?.classList.remove('hidden');
+        paypalBox?.classList.add('hidden');
+      } else {
+        btnIamport?.classList.add('hidden');
+        paypalBox?.classList.remove('hidden');
+        // ✅ 패널이 이미 열려 있다면, 지금 바로 렌더
+        const reg = document.getElementById('register');
+        if (reg && !reg.classList.contains('hidden')) {
+          requestAnimationFrame(renderPayPalButtons);
+        }
+      }
+
+      // 등록비 안내 토글
+      const feeKr   = document.getElementById("fee-kr");
+      const feeIntl = document.getElementById("fee-intl");
+      if (feeKr && feeIntl) {
+        if (lang === "ko") {
+          feeKr.classList.remove("hidden");
+          feeIntl.classList.add("hidden");
+        } else {
+          feeKr.classList.add("hidden");
+          feeIntl.classList.remove("hidden");
+        }
+      }
+
+      // 수강 구분(일반/전공의) 토글: ko에서만 사용
+      const feeTier = document.getElementById('feeTier');
+      if (feeTier) {
+        if (lang === 'ko') {
+          feeTier.classList.remove('hidden');
+          feeTier.disabled = false;
+          feeTier.required = true;
+        } else {
+          feeTier.classList.add('hidden');   // 화면에서 숨김
+          feeTier.disabled = true;           // 폼 검증/전송 제외
+          feeTier.required = false;          // required 해제
+        }
+      }
+
+      // 전화번호: ko 에서만 노출/필수, en/ja 는 숨김
+      const phoneWrap  = document.getElementById('field-phone');
+      const phoneInput = document.getElementById('phone');
+      if (phoneWrap && phoneInput) {
+        if (lang === 'ko') {
+          phoneWrap.classList.remove('hidden');
+          phoneInput.required = true;
+          phoneInput.disabled = false;
+          phoneInput.placeholder = '전화번호';
+          phoneInput.inputMode = 'numeric';
+        } else {
+          phoneWrap.classList.add('hidden');
+          phoneInput.required = false;
+          phoneInput.disabled = true;
+          phoneInput.value = '';
+        }
+      }
+
       updatePosters(lang);
     }
 
@@ -873,6 +1158,32 @@ function updatePosters(lang) {
       sel?.addEventListener('change', (e) => applyI18n(e.target.value));
     })();
 
+    (function setupPhoneAutoHyphen(){
+      const el = document.getElementById('phone');
+      if (!el) return;
+      el.addEventListener('input', () => {
+        // 숫자만 뽑아 하이픈 형태로 변환
+        let v = el.value.replace(/\D/g, '');
+        if (v.startsWith('02')) {
+          // 서울번호: 02-XXXX-XXXX or 02-XXX-XXXX
+          if (v.length > 2) {
+            if (v.length <= 5) v = v.replace(/^(02)(\d{0,3})$/, '$1-$2');
+            else if (v.length <= 9) v = v.replace(/^(02)(\d{3,4})(\d{0,4}).*/, '$1-$2-$3');
+            else v = v.slice(0,10).replace(/^(02)(\d{4})(\d{4})$/, '$1-$2-$3');
+          }
+        } else {
+          // 휴대폰/타지역: 010-XXXX-XXXX 패턴
+          if (v.length <= 3) {
+            // 그대로
+          } else if (v.length <= 7) {
+            v = v.replace(/^(\d{3})(\d{0,4})$/, '$1-$2');
+          } else {
+            v = v.replace(/^(\d{3})(\d{3,4})(\d{0,4}).*/, '$1-$2-$3').slice(0,13);
+          }
+        }
+        el.value = v;
+      });
+    })();
 
   </script>
 </body>
