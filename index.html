@@ -439,9 +439,11 @@
   <!-- for sandbox -->
 <!--   <script src="https://www.paypal.com/sdk/js?client-id=AbLEN82W1iR7ZuHfiKTvmTm6LlgHwLMgXREJ9iPQ6ilXdzxVHEr8dx7ZBcYID9R_IWz6X3VLdcei1Lwa&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
  -->
+
+
   <script
   id="paypal-sdk"
-  src="https://www.paypal.com/sdk/js?client-id=AbLEN82W1iR7ZuHfiKTvmTm6LlgHwLMgXREJ9iPQ6ilXdzxVHEr8dx7ZBcYID9R_IWz6X3VLdcei1Lwa&enable-funding=venmo&currency=USD"
+  src="https://www.paypal.com/sdk/js?client-id=Af7k_DhPKelrG28uMtDge2iwMVWNNSoEDUEaUsiJgpHQ4SROexHwIrLnun2ZcjunK81VqTA_1zpA3-gw&enable-funding=venmo&currency=USD"
   onload="window.__paypalReady = true;"
   defer></script>
 
@@ -558,7 +560,7 @@
 
           const payment = await PortOne.requestPayment({
             storeId: "store-8301c517-b238-4765-9b21-10f0cee1d025",            // TODO: 실제 storeId로 교체
-            channelKey: "channel-key-b2a1da27-11c7-4836-ba00-cb6967531eed",   // TODO: 실제 channelKey로 교체
+            channelKey: "channel-key-e2511f26-5e40-46e7-84a0-066b1ae1df47",   // TODO: 실제 channelKey로 교체
             paymentId,
             orderName,
             totalAmount: amount,
@@ -570,6 +572,9 @@
               buyer: { name: v.name, email: v.email, phone: v.phone, affiliation: v.affiliation }
             }
           });
+
+          IMPceph01m
+          channel-key-e2511f26-5e40-46e7-84a0-066b1ae1df47
 
           if (payment.code !== undefined) {
             // 결제 실패
@@ -1159,6 +1164,7 @@ function updatePosters(lang) {
   </script>
 </body>
 </html>
+
 
 
 
