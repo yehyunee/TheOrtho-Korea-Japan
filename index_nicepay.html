@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- Open Graph (교체) -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://seminar.assemblecircle.com/">
+<meta property="og:url" content="https://edu.webceph.com/">
 <meta property="og:title" content="WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스">
 <meta property="og:description" content="10월 28일(화) 18:30–21:00 | 스페이스쉐어 삼성역센터 갤럭시홀">
-<meta property="og:image" content="https://seminar.assemblecircle.com/images/theortho_seminar.jpg?v=20250903d">
-<meta property="og:image:secure_url" content="https://seminar.assemblecircle.com/images/theortho_seminar.jpg?v=20250903d">
+<meta property="og:image" content="https://edu.webceph.com/images/theortho_seminar.jpg?v=20250903d">
+<meta property="og:image:secure_url" content="https://edu.webceph.com/images/theortho_seminar.jpg?v=20250903d">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -19,12 +19,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스">
 <meta name="twitter:description" content="10월 28일(화) 18:30–21:00 | 스페이스쉐어 삼성역센터 갤럭시홀">
-<meta name="twitter:image" content="https://seminar.assemblecircle.com/images/theortho_seminar.jpg?v=20250903d">
+<meta name="twitter:image" content="https://edu.webceph.com/images/theortho_seminar.jpg?v=20250903d">
 
 <!-- (선택) canonical 명시: OG 정규화 보조 -->
-<link rel="canonical" href="https://seminar.assemblecircle.com/">
+<link rel="canonical" href="https://edu.webceph.com/">
 
-  <meta property="og:site_name" content="seminar.assemblecircle.com">
+  <meta property="og:site_name" content="edu.webceph.com">
 
   
   <title>WEBCEPH 미니 인증 코스 | 한·일 얼라이너 마스터 클래스</title>
@@ -155,7 +155,11 @@
         <div>
           <div class="text-slate-500" data-i18n="lang_label">강의 언어</div>
           <div class="font-semibold" data-i18n="lang_value">한글 · 일본어</div>
-          <div class="font-semibold" data-i18n="lang_value2">보조스크린을 통해 AI 기반 실시간 영어 통역(번역) 이 제공될 예정입니다.</div>
+          <div class="font-semibold" data-i18n="lang_value2">보조스크린을 통해 AI 기반 실시간 한글 및 일본어 통역(번역)이 제공될 예정입니다.</div>
+        </div>
+        <div>
+          <div class="text-slate-500" data-i18n="extra_label">안내</div>
+          <div class="font-semibold" data-i18n="extra_value">시작 때 샌드위치와 음료가 제공될 예정입니다.</div>
         </div>
       </div>
 
@@ -566,7 +570,7 @@
             totalAmount: amount,
             currency: "KRW",
             payMethod: "CARD",
-            redirectUrl: "https://seminar.assemblecircle.com/payment/complete",
+            redirectUrl: "https://edu.webceph.com/payment/complete",
             customData: {
               tier: v.tier,
               buyer: { name: v.name, email: v.email, phone: v.phone, affiliation: v.affiliation }
@@ -697,7 +701,7 @@
             const isFileProto = location.protocol === 'file:';
             const completeHref = isFileProto
               ? new URL('payment/complete.html', location.href).href           // 예: ./payment/complete.html
-              : `${location.origin}/payment/complete.html`;                    // 예: https://seminar.assemblecircle.com/payment/complete.html
+              : `${location.origin}/payment/complete.html`;                    // 예: https://edu.webceph.com/payment/complete.html
 
             location.assign(`${completeHref}?${qs.toString()}`);
           }),
@@ -756,7 +760,9 @@ const DICTS = {
     host_value: 'WEBCEPH',
     lang_label: '강의 언어',
     lang_value: '한글 · 일본어',
-    lang_value2: '보조스크린을 통해 AI 기반 실시간 영어 통역(번역) 이 제공될 예정입니다.',
+    lang_value2: '보조스크린을 통해 AI 기반 실시간 한글 및 일본어 통역(번역)이 제공될 예정입니다.',
+    extra_label: '안내',
+    extra_value: '시작 때 샌드위치와 음료가 제공될 예정입니다.',
     open_map: '지도 열기',
     save_ics: '캘린더 저장 (.ics)',
     register_title: '등록 정보',
@@ -839,7 +845,9 @@ const DICTS = {
     host_value: 'WEBCEPH',
     lang_label: '言語',
     lang_value: '韓国語・日本語',
-    lang_value2: '補助スクリーンを通して AI技術を活用したリアルタイム英語通訳 が提供される予定です。',
+    lang_value2: 'サブスクリーンでAIベースのリアルタイム韓国語・日本語通訳（翻訳）をご提供します。',
+    extra_label: '案内',
+    extra_value: '開始時にサンドイッチと飲み物をご用意します。',
     open_map: '地図を開く',
     save_ics: 'カレンダー保存 (.ics)',
     register_title: '申込情報',
@@ -930,7 +938,9 @@ const DICTS = {
     host_value: 'WEBCEPH',
     lang_label: 'Languages',
     lang_value: 'Korean · Japanese',
-    lang_value2: 'Real-time English interpretation, supported by AI technology, will be provided on a supporting screen.',
+    lang_value2: 'AI-powered real-time Korean & Japanese interpretation (translation) will be provided on a secondary screen.',
+    extra_label: 'Note',
+    extra_value: 'Light sandwiches and drinks will be provided at the start.',
     open_map: 'Open Map',
     save_ics: 'Save to Calendar (.ics)',
     register_title: 'Registration',
