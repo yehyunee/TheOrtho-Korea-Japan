@@ -129,7 +129,7 @@
   <section id="info" class="bg-white md:max-w-5xl md:mx-auto mx-0 mt-6 md:mt-8 rounded-none md:rounded-2xl md:shadow border border-slate-200">
     <div class="px-6 py-6">
       <!-- <p class="text-xs tracking-widest font-semibold text-slate-500 mb-2" data-i18n="event_info">행사 정보</p> -->
-      <div class="grid md:grid-cols-3 gap-4 text-sm">
+      <div class="grid md:grid-cols-4 gap-4 text-sm">
         <div>
           <div class="text-slate-500" data-i18n="date_label">일시</div>
           <div class="font-semibold" data-i18n="date_value">2025-10-28 (화) 18:30–21:00</div>
@@ -211,7 +211,7 @@
       </select>
 
 
-      <input name="affiliation" type="text" data-i18n-placeholder="ph_affiliation" placeholder="소속 (선택)" class="w-full border rounded-lg p-3" />
+      <input name="affiliation" type="text" data-i18n-placeholder="ph_affiliation" placeholder="사업자등록번호 (선택)" class="w-full border rounded-lg p-3" />
       <div class="my-4 items-center gap-2 text-s text-slate-600 text-center">
         <input id="agree" type="checkbox" class="h-4 w-4" required />
         <label for="agree" data-i18n="consent">개인정보 수집·이용에 동의합니다.</label>
@@ -766,7 +766,7 @@ const DICTS = {
     open_map: '지도 열기',
     save_ics: '캘린더 저장 (.ics)',
     register_title: '등록 정보',
-    ph_name: '이름', ph_email: '이메일', ph_phone: '전화번호', ph_affiliation: '소속 (선택)',
+    ph_name: '이름', ph_email: '이메일', ph_phone: '전화번호', ph_affiliation: '사업자등록번호 (선택)',
     consent: '개인정보 수집·이용에 동의합니다.',
 
 
@@ -944,7 +944,7 @@ const DICTS = {
     open_map: 'Open Map',
     save_ics: 'Save to Calendar (.ics)',
     register_title: 'Registration',
-    ph_name: 'Name', ph_email: 'Email', ph_phone: 'Phone number', ph_affiliation: 'Affiliation (optional)',
+    ph_name: 'Name', ph_email: 'Email', ph_phone: 'Phone number', ph_affiliation: 'Businesss Registration No. (optional)',
     consent: 'I agree to the collection and use of my personal information.',
     // btn_iamport: 'Pay with Iamport', btn_paypal: 'Pay with PayPal Express',
     bank_title: 'Bank Transfer (optional)',
@@ -1171,6 +1171,7 @@ function updatePosters(lang) {
   </script>
 </body>
 </html>
+
 
 
 
