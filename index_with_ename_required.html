@@ -561,15 +561,19 @@
         }
         // 필수 입력값 확인 (미입력 시 alert 후 중단)
         if (!v.name) {
-          alert(i18nStr?.('err_name') || "이름을 입력해 주세요.");
+          alert(i18nStr('err_name') || "이름을 입력해 주세요.");
+          return;
+        }
+        if (!v.ename) {
+          alert(i18nStr('err_ename') || "영문 이름(수료증용)을 입력해 주세요.");
           return;
         }
         if (!v.email) {
-          alert(i18nStr?.('err_email') || "이메일을 입력해 주세요.");
+          alert(i18nStr('err_email') || "이메일을 입력해 주세요.");
           return;
         }
         if (!v.phone) {
-          alert(i18nStr?.('err_phone') || "전화번호를 입력해 주세요.");
+          alert(i18nStr('err_phone') || "전화번호를 입력해 주세요.");
           return;
         }
         const amount = getAmountKRW(v.tier);
