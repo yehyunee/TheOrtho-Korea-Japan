@@ -181,11 +181,11 @@
     <form id="fastForm" class="space-y-3" onsubmit="return false;">
 
 
-      <!-- 교체: 이름/이메일 인풋 라인 -->    
-      <!-- English name (for certificate) required -->
-      <input id="name"  name="name"  type="text"   data-i18n-placeholder="ph_name"  placeholder="이름"   required class="w-full border rounded-lg p-3" />
-      <input id="ename" name="ename" type="text" data-i18n-placeholder="ph_ename" placeholder="영문 이름 (수료증 표기용)" required class="w-full border rounded-lg p-3" />
-      <input id="email" name="email" type="email"  data-i18n-placeholder="ph_email" placeholder="이메일" required class="w-full border rounded-lg p-3" />
+      <!-- 이름 / 영문 이름 / 이메일 -->
+      <input id="name"  name="name"  type="text"  placeholder="이름" required class="w-full border rounded-lg p-3" />
+      <input id="ename" name="ename" type="text"  placeholder="영문 이름 (수료증 표기용)" required class="w-full border rounded-lg p-3" />
+      <input id="email" name="email" type="email" placeholder="이메일" required class="w-full border rounded-lg p-3" />
+
 
       <!-- <input name="phone" type="tel" data-i18n-placeholder="ph_phone" placeholder="전화번호" required class="w-full border rounded-lg p-3" /> -->
       <!-- 전화번호 (ko 전용) -->
@@ -687,7 +687,7 @@
           onInit: (data, actions) => {
             actions.disable();
             const reevaluate = () => isValidForPayPal() ? actions.enable() : actions.disable();
-            [['#name','input'], ['#email','input'], ['#agree','change']].forEach(([sel,ev])=>{
+            [['#name','input'], ['#ename','input'], ['#email','input'], ['#agree','change']].forEach(([sel,ev])=>{
               const el = document.querySelector(sel);
               if (el) el.addEventListener(ev, reevaluate);
             });
